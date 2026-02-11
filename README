@@ -1,9 +1,11 @@
 # Detection and Extraction of ML Training Workflows
+
 (work in progress)
 
 A Python-based tool that detects and analyzes Machine Learning training workflows in Python code using both AST-based and LLM-based approaches.
 
 ## Currently working on the dataset
+
 The dataset contains 3 levels of Python scripts of ML training workflows:
 1. Syntactic Baseline - this contains standard library calls and variable names.
 2. Semantic Alias - this contains standard libraries but non-standard naming.
