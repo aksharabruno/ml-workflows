@@ -17,9 +17,8 @@ def main():
     parser = MLParser()
     has_ml_workflow = parser.parse_file(file_path)
 
-    if has_ml_workflow: #Only run LLM if AST detects ML workflow
-        print("\n--- Running LLM-based ML Detection ---")
-        run_llm_detection(file_path)
+    print("\n--- Running LLM-based ML Detection ---")
+    run_llm_detection(file_path)
 
 
 if __name__ == "__main__":

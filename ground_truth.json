@@ -1,0 +1,41 @@
+{
+    "script_1_1.py": {
+        "metadata": {
+            "level": 1,
+            "description": "Standard Scikit-learn with textbook naming",
+            "source_url": "manual"
+        },
+    "ground_truth": {
+            "imports": [1, 5],
+            "data_loading": [10, 11],
+            "training": [23, 23],
+            "evaluation": [26, 27]
+        }
+   },
+    "script_1_2.py": {
+        "metadata": {
+            "level": 1,
+            "description": "Naive Bayes example",
+            "source_url": "https://github.com/lazyprogrammer/machine_learning_examples/blob/master/bayesian_ml/1/nb.py"
+        },
+        "ground_truth": {
+            "imports": [4, 8],
+            "data_loading": [116, 119],
+            "training": [121, 121],
+            "evaluation": [122, 123]
+        }
+    },
+    "script_1_3.py": {
+        "metadata": {
+            "level": 1,
+            "description": "Artificial Neural Network example",
+            "source_url": "https://github.com/lazyprogrammer/machine_learning_examples/blob/master/keras_examples/ann.py"
+        },
+        "ground_truth": {
+            "imports": [1, 11],
+            "data_loading": [15, 15],
+            "training": [47, 47],
+            "evaluation": [55, 64]   
+        }   
+    }  
+}
