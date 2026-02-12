@@ -9,7 +9,7 @@ from typing import Dict
 class MLParser:
     # Frameworks to detect
     ML_FRAMEWORKS = {
-        'sklearn', 'scikit-learn', 'pytorch',
+        'sklearn', 'scikit-learn', 'pytorch', 'torch', 'tensorflow', 'keras'
     }
     
     # Common ML model classes
