@@ -2,30 +2,82 @@
     "script_1_1.py": {
         "metadata": {
             "level": 1,
-            "description": "Standard Scikit-learn with textbook naming",
+            "description": "Sklearn example",
             "source_url": "manual"
         },
-    "ground_truth": {
+        "ground_truth": {
             "imports": [1, 5],
             "data_loading": [10, 11],
             "training": [23, 23],
             "evaluation": [26, 27]
         }
-   },
+    },
     "script_1_2.py": {
         "metadata": {
             "level": 1,
-            "description": "Naive Bayes example",
-            "source_url": "https://github.com/lazyprogrammer/machine_learning_examples/blob/master/bayesian_ml/1/nb.py"
+            "description": "Sklearn example",
+            "source_url": "https://github.com/iYung/sklearn-flask-example/blob/master/train.py"
         },
         "ground_truth": {
-            "imports": [4, 8],
-            "data_loading": [116, 119],
-            "training": [121, 121],
-            "evaluation": [122, 123]
+            "imports": [1, 6],
+            "data_loading": [9, 10],
+            "training": [13, 14],
+            "evaluation": [20, 20]
         }
     },
     "script_1_3.py": {
+        "metadata": {
+            "level": 2,
+            "description": "Sklearn example",
+            "source_url": "manual"
+        },
+        "ground_truth": {
+            "imports": [1, 3],
+            "data_loading": [6, 7],
+            "training": [10, 11],
+            "evaluation": [14, 14]
+        }
+    },
+    "script_2_1.py": {
+        "metadata": {
+            "level": 2,
+            "description": "Scikit-learn example with aliases",
+            "source_url": "manual"
+        },
+        "ground_truth": {
+            "imports": [1, 5],
+            "data_loading": [10, 11],
+            "training": [23, 24],
+            "evaluation": [27, 28]
+        }
+    },
+    "script_2_2.py": {
+        "metadata": {
+            "level": 2,
+            "description": "Code taken from notebook- Exercise: Machine Learning Competitions",
+            "source_url": "https://www.kaggle.com/code/dansbecker/exercise-machine-learning-competitions"
+        }, 
+        "ground_truth": { 
+            "imports": [2, 5], 
+            "data_loading": [9, 10], 
+            "training": [23, 24], 
+            "evaluation": [25, 26] 
+        } 
+    },
+    "script_2_3.py": {
+        "metadata": {
+            "level": 2,
+            "description": "Keras Sequential model for fraud detection",
+            "source_url": "https://github.com/georgymh/ml-fraud-detection/blob/master/neural-network.ipynb"
+        }, 
+        "ground_truth": { 
+            "imports": [1, 11], 
+            "data_loading": [14, 21], 
+            "training": [28, 34], 
+            "evaluation": [36, 38] 
+        } 
+    },
+    "script_2_4.py": {
         "metadata": {
             "level": 1,
             "description": "Artificial Neural Network example",
@@ -34,8 +86,47 @@
         "ground_truth": {
             "imports": [1, 11],
             "data_loading": [15, 15],
-            "training": [47, 47],
-            "evaluation": [55, 64]   
+            "training": [28, 45],
+            "evaluation": [53, 66]   
         }   
-    }  
+    },
+    "script_3_1.py": {
+        "metadata": {
+            "level": 2,
+            "description": "Keras Sequential model for fraud detection with more complex data loading",
+            "source_url": "https://github.com/curiousily/Credit-Card-Fraud-Detection-using-Autoencoders-in-Keras/blob/master/fraud_detection.ipynb"
+        },
+        "ground_truth": {
+            "imports": [1, 11],
+            "data_loading": [21, 21],
+            "training": [63, 97],
+            "evaluation": [102, 112]
+        }
+    },
+    "script_3_2.py": {
+        "metadata": {
+            "level": 3,
+            "description": "Manual PyTorch training loop using SGD",
+            "source_url": "https://www.kaggle.com/code/kanncaa1/pytorch-tutorial-for-deep-learning-lovers"
+        },
+        "ground_truth": {
+            "imports": [1, 6],
+            "data_loading": [38, 46],
+            "training": [[28, 32], [48, 70]],
+            "evaluation": [72, 75] 
+        }
+    },
+    "script_3_3.py": {
+        "metadata": {
+            "level": 3,
+            "description": "Deep Learning For NLP",
+            "source_url": "https://www.kaggle.com/code/tanulsingh077/deep-learning-for-nlp-zero-to-transformers-bert#Code-Implementation"
+        },
+        "ground_truth": {
+            "imports": [1, 4],
+            "data_loading": [7, 8],
+            "training": [20, 31],
+            "evaluation": [34, 34]
+        }
+    }   
 }
