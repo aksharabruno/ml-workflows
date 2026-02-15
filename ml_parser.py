@@ -3,8 +3,9 @@ AST-based ML workflow detector
 Provides precision through syntax analysis
 """
 import ast
+import os
+import json
 from typing import Dict
-
 
 class MLParser:
     # Frameworks to detect
@@ -49,9 +50,11 @@ class MLParser:
         self._detect_training(tree)
         self._detect_evaluation(tree)
         
-        result = self._build_result()
-        self._print_results(result)
-        return result['is_ml_workflow']
+        result = self._build_result(file_path)
+        print(f"\ML Parser Output:\n{json.dumps(result, indent=2)}")
+       
+        #self._print_results(result)
+        return result
         
 
     def _detect_imports(self, tree: ast.AST):
@@ -145,19 +148,15 @@ class MLParser:
             return node.id
         return ''
     
-    def _build_result(self) -> Dict:
+    def _build_result(self, file_path: str) -> Dict:
         is_ml = bool(self.framework and (self.model_names or self.training_lines))
         
         return {
+            'filename': os.path.basename(file_path),  
             'is_ml_workflow': is_ml,
-            'framework': self.framework,
-            'model_names': self.model_names,
-            'hyperparameters': self.hyperparameters,
-            'stages': {
-                'data_loading': self.data_loading_lines,
-                'training': self.training_lines,
-                'evaluation': self.evaluation_lines
-            }
+            'data_loading': self.data_loading_lines,
+            'training': self.training_lines,
+            'evaluation': self.evaluation_lines
         }
     
     def _print_results(self, result: Dict):
