@@ -7,6 +7,10 @@ A Python-based tool that detects and analyzes Machine Learning training workflow
 ## Currently working on the dataset
 
 The dataset contains 3 levels of Python scripts of ML training workflows:
+
 1. Syntactic Baseline - this contains standard library calls and variable names.
 2. Semantic Alias - this contains standard libraries but non-standard naming.
 3. Architectural Shift - this has no standard "fit" keyword.
+
+To start, install the requirements,
+pip install -r requirements.txt

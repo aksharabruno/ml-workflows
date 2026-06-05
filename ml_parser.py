@@ -1,7 +1,3 @@
-"""
-AST-based ML workflow detector
-Provides precision through syntax analysis
-"""
 import ast
 import os
 import json
