@@ -1,0 +1,13 @@
+filename,is_ml_workflow,data_loading,training,evaluation
+sample_not_ml.py,False,[8],[],[]
+sample_sklearn2.py,True,[],[12],"[13, 16]"
+script_1_1.py,True,[14],[23],"[26, 27]"
+script_1_2.py,True,"[9, 10]",[14],"[20, 21]"
+script_1_3.py,True,[7],[11],[14]
+script_2_1.py,True,[14],[24],"[27, 28]"
+script_2_2.py,True,"[9, 20]",[24],[25]
+script_2_3.py,True,"[13, 23]",[33],"[35, 37]"
+script_2_4.py,True,[],[45],[66]
+script_3_1.py,True,"[21, 52]",[91],[109]
+script_3_2.py,True,[],[],[]
+script_3_3.py,True,"[13, 8]",[31],[34]
