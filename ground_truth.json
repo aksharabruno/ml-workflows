@@ -1,6 +1,6 @@
 [
     {
-        "file_name": "script_1_01.py",
+        "file_name": "script_t1_01.py",
         "file_type": "script",
         "level": 1,
         "description": "sklearn example",
@@ -17,7 +17,7 @@
         }
     },
     {
-        "file_name": "script_1_02.py",
+        "file_name": "script_t1_02.py",
         "file_type": "script",
         "level": 1,
         "description": "XGBoost example",
@@ -33,7 +33,7 @@
         }
     },
     {
-        "file_name": "script_1_03.py",
+        "file_name": "script_t1_03.py",
         "file_type": "script",
         "level": 1,
         "description": "LightGBM example",
@@ -50,7 +50,7 @@
         }
     },
     {
-        "file_name": "script_1_04.py",
+        "file_name": "script_t1_04.py",
         "file_type": "script",
         "level": 1,
         "description": "Keras CNN example",
@@ -68,16 +68,49 @@
         }
     },
     {
+        "file_name": "script_t1_05.py",
+        "file_type": "script",
+        "level": 1,
+        "description": "Random Forest regression with feature selection",
+        "source_url": "https://www.kaggle.com/code/dansbecker/exercise-machine-learning-competitions",
+        "is_ml_training_workflow": true,
+        "models": ["RandomForestRegressor"],
+        "stage_labels": {
+            "2-5":   ["library_loading"],
+            "9":  ["data_loading"],
+            "16": ["feature_selection"],
+            "20": ["train_test_splitting"],
+            "23": ["model_building"],
+            "24": ["model_training"],
+            "25-26": ["model_validation"]
+        }
+    },
+    {
+        "file_name": "script_t2_01.py",
+        "file_type": "script",
+        "level": 1,
+        "description": "Artificial Neural Network example",
+        "source_url": "https://github.com/lazyprogrammer/machine_learning_examples/blob/master/keras_examples/ann.py",
+        "is_ml_training_workflow": true,
+        "models": ["Model"],
+        "stage_labels": {
+            "6-11": ["library_loading"],
+            "15": ["data_loading"],
+            "18-19": ["data_preparation"],
+            "22-37": ["model_building"],
+            "45": ["model_training"],
+            "66-68": ["model_validation"]
+        }
+    },
+    {
         "file_name": "notebook_ml_01.py",
         "file_type": "notebook",
         "level": 0,
-        "description": "",
-        "source_url": "",
+        "description": "Machine Learning example notebook",
+        "source_url": "https://www.kaggle.com/code/ybifoundation/sklearn-inbuild-data-sets-for-machine-learning",
         "is_ml_training_workflow": false,
         "models": [],
-        "stage_labels": {
-            "1-3":   [""]
-        }
+        "stage_labels": {}
     }
 
 ]
