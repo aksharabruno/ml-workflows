@@ -24,6 +24,8 @@ STAGE_MAP = {
     "matplotlib.pyplot.show": "exploratory_data_analysis",
     "matplotlib.pyplot.subplots": "exploratory_data_analysis",
     "matplotlib.pyplot.figure": "exploratory_data_analysis",
+    "matplotlib.pyplot.plot": "exploratory_data_analysis",
+    "matplotlib.pyplot.legend": "exploratory_data_analysis",
 
     # ── 5. Data Cleaning ────────────────────────────────────────────────────
 
@@ -41,6 +43,7 @@ STAGE_MAP = {
 
     # ── 9. Model Building ───────────────────────────────────────────────────
     "sklearn.ensemble._forest.RandomForestClassifier": "model_building",
+    "sklearn.ensemble._forest.RandomForestRegressor": "model_building",
     "xgboost.sklearn.XGBClassifier": "model_building",
     "lightgbm.train": "model_building",
     "keras.src.models.sequential.Sequential": "model_building",
@@ -51,6 +54,9 @@ STAGE_MAP = {
     "keras.src.layers.regularization.dropout.Dropout": "model_building",
     "keras.src.layers.core.dense.Dense": "model_building",
     "keras.src.trainers.trainer.Trainer.compile": "model_building",
+    "keras.src.layers.core.dense.Dense": "model_building",
+    "keras.src.models.model.Model": "model_building",
+
     
 
     # ── 10. Train-Test Splitting ────────────────────────────────────────────
@@ -71,8 +77,13 @@ STAGE_MAP = {
     "sklearn.metrics._classification.classification_report": "model_validation",
     "sklearn.metrics._classification.confusion_matrix": "model_validation",
     "sklearn.metrics._regression.mean_squared_error": "model_validation",
+    "sklearn.ensemble._forest.ForestRegressor.predict": "model_validation",
+    "sklearn.metrics._regression.mean_absolute_error": "model_validation",
     "xgboost.sklearn.XGBClassifier.predict": "model_validation",
     "keras.src.backend.tensorflow.trainer.TensorFlowTrainer.evaluate": "model_validation",
+    "keras.src.backend.tensorflow.trainer.TensorFlowTrainer.predict": "model_validation",
+    "numpy._core.fromnumeric.argmax": "model_validation",
+    "numpy._core.fromnumeric.mean": "model_validation",
     
 
 }
