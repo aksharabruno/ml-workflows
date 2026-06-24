@@ -54,7 +54,6 @@ STAGE_MAP = {
     "keras.src.layers.regularization.dropout.Dropout": "model_building",
     "keras.src.layers.core.dense.Dense": "model_building",
     "keras.src.trainers.trainer.Trainer.compile": "model_building",
-    "keras.src.layers.core.dense.Dense": "model_building",
     "keras.src.models.model.Model": "model_building",
 
     
