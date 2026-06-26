@@ -1,84 +1,51 @@
-import csv
-import os
-from llm_detector import run_llm_detection, _parse_json_response
-from ml_parser import MLParser
+# main.py
+import json
+import sys
+from pathlib import Path
+from headergen_parser import generate_headergen_annotations, parse_headergen_output
+from llm_detector import run_llm_analysis
 
-parser_out_path = 'results/ml_parser_results.csv'
-llm_out_path = 'results/llm_detector_results.csv'
+def run(input_path: Path):
+    output_dir = Path(__file__).resolve().parent / "output"
+    output_dir.mkdir(exist_ok=True)
 
-def append_to_csv(file_path, row, fieldnames):
-    file_exists = os.path.isfile(file_path)
-
-    with open(file_path, 'a', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-
-        # Write header only once
-        if not file_exists:
-            writer.writeheader()
-
-        writer.writerow(row)
-
-
-def analyze_file(file_path):
-    print(f"\n=== Analyzing: {file_path} ===")
-
-    if not os.path.exists(file_path):
-        print(f"Error: File not found: {file_path}")
+    # Layer 1: HeaderGen
+    generate_headergen_annotations(input_path, output_dir)
+    
+    json_path = output_dir / f"{input_path.stem}.json"
+    if not json_path.exists():
+        print(f"No HeaderGen output found for {input_path.name}")
         return
-
-    print("\n--- Running AST-based ML Detection ---")
-    parser = MLParser()
-    ml_parser_output = parser.parse_file(file_path)
-
-    print("\n--- Running LLM-based ML Detection ---")
-    llm_detector_output = run_llm_detection(file_path)
-
-
-    # ===== Write to CSV =====
-    fieldnames = ['filename', 'is_ml_workflow', 'data_loading', 'training', 'evaluation']
-
-    append_to_csv(parser_out_path, ml_parser_output, fieldnames)
-
-    append_to_csv(llm_out_path, llm_detector_output, fieldnames)
-
-
-
-def analyze_all(data_dir):
-    if not os.path.isdir(data_dir):
-        print(f"Error: Data directory not found: {data_dir}")
-        return
-
-    files = sorted(os.listdir(data_dir))
-    for fname in files:
-        if not fname.endswith('.py'):
-            continue
-        analyze_file(os.path.join(data_dir, fname))
-
-
-def main():
-    # Interactive mode
-    print("Select analysis mode:")
-    print("1. One file at a time")
-    print("2. All files in dataset (data/)")
-    choice = input("Enter 1 or 2: ").strip()
-
-    if choice == '1':
-        fname = input("Enter filename (path or name inside data/): ").strip()
-        if os.path.exists(fname):
-            analyze_file(fname)
-        else:
-            data_path = os.path.join('data', fname)
-            if os.path.exists(data_path):
-                analyze_file(data_path)
-            else:
-                print(f"Error: File not found: {fname}")
-
-    elif choice.startswith('2'):
-        analyze_all('data')
-
-    else:
-        print("Invalid choice. Exiting.")
-
+    
+    # Layer 2: Static parser + STAGE_MAP
+    parser_result = parse_headergen_output(json_path)
+    
+    # Layer 3: LLM semantic analysis
+    llm_result = run_llm_analysis(parser_result)
+    
+    # Combine outputs
+    final_result = {
+        "file": input_path.name,
+        "static_analysis": parser_result,
+        "llm_analysis": llm_result,
+    }
+    
+    # Save final output
+    result_path = output_dir / f"{input_path.stem}_result.json"
+    with open(result_path, "w") as f:
+        json.dump(final_result, f, indent=2)
+    
+    print(json.dumps(final_result, indent=2))
+    print(f"\nSaved to {result_path}")
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) < 2:
+        print("Usage: python main.py <path_to_file>")
+        sys.exit(1)
+    
+    input_path = Path(sys.argv[1])
+    if not input_path.exists():
+        print(f"File not found: {input_path}")
+        sys.exit(1)
+    
+    run(input_path)

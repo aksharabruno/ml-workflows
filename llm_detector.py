@@ -1,56 +1,44 @@
 import re
 import os
-import ollama
+import anthropic
 import json
 import ast
 from typing import Dict, Optional
+from dotenv import load_dotenv
 
-def run_llm_detection(file_path):
-    result = {
-        'filename': os.path.basename(file_path),
-        'is_ml_workflow': False,
-        'data_loading': '[]',
-        'training': '[]',
-        'evaluation': '[]'
-    }
-    
-    with open(file_path, 'r') as f:
-        code_content = f.read()
+load_dotenv()
+
+def run_llm_analysis(parser_output):
 
     # may need to fine tune the prompt later
     prompt = f"""
-    You are an expert MLOps analyzer. Analyze the following Python code.
-    1. Determine if it is a Machine Learning training workflow.
-    2. Identify the line numbers for: 'Data Loading', 'Model Training', and 'Evaluation'.
-    
-    Return the result ONLY as a JSON object with this structure:
-    {{
-        "is_ml_workflow": boolean,
-        "stages": {{
-            "data_loading": [start_line, end_line],
-            "training": [start_line, end_line],
-            "evaluation": [start_line, end_line]
-        }},
-        "reasoning": "short explanation"
-    }}
+        You are an ML optimization expert. Given this structured extraction from an ML script:
 
-    CODE:
-    {code_content}
+        {json.dumps(parser_output, indent=2)}
+
+        Answer two questions:
+        1. Do the detected stages correctly represent an ML training workflow?
+        2. Which hyperparameters are optimisation targets (would meaningfully affect model performance if varied)?
+
+        Return ONLY a JSON object:
+        {{
+            "stages_valid": boolean,
+            "optimisation_targets": [
+                {{"name": "param_name", "value": value, "tunable": boolean, "reason": "short reason"}}
+            ],
+            "reasoning": "short explanation"
+        }}
     """
+    client = anthropic.Anthropic()
+    response = client.messages.create(
+        model="claude-opus-4-8",
+        max_tokens=1024,
+        thinking={"type": "adaptive"},
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return _parse_json_response(response.content[-1].text, verbose=True)
 
-    response = ollama.generate(model='llama3', prompt=prompt)   # definitely need a better model; llama is giving different values for same script in different iterations
-    parsed_response = _parse_json_response(response['response'], verbose=True)  # parse the raw response
 
-    if parsed_response:
-        result['is_ml_workflow'] = parsed_response.get('is_ml_workflow', False)
-        stages = parsed_response.get('stages', {})
-        result['data_loading'] = json.dumps(stages.get('data_loading', []))
-        result['training'] = json.dumps(stages.get('training', []))
-        result['evaluation'] = json.dumps(stages.get('evaluation', []))
-
-    print(f"\nLLM Detection Output:\n{json.dumps(result, indent=2)}")
-
-    return result
 
 
 def _parse_json_response(raw_response: str, verbose: bool = False) -> Optional[Dict]:

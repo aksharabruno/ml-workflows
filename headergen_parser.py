@@ -5,21 +5,11 @@ from stage_map import STAGE_MAP
 
 def generate_headergen_annotations(input_file, output_dir):
     try:
-        subprocess.run(     # causes some inconsistent version warning; not sure how to resolve
-            [
-                "headergen",
-                "generate",
-                "-i",
-                str(input_file),
-                "-o",
-                str(output_dir),
-                "-j",
-            ],
+        subprocess.run(
+            ["headergen", "generate", "-i", str(input_file), "-o", str(output_dir), "-j"],
             check=True,
-        )  
+        )
         print(f"Success: {input_file.name}")
-        parser_output = parse_headergen_output(output_dir / f"{input_file.stem}.json")
-
     except subprocess.CalledProcessError:
         print(f"Failed: {input_file.name}")
 

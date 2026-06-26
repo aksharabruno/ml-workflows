@@ -1,1 +1,3 @@
 headergen
+python-dotenv
+anthropic
