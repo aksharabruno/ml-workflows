@@ -76,6 +76,6 @@ def parse_headergen_output(json_path):
         "is_ml_training_workflow": is_ml_training_workflow,
         "dataset": dataset_sources,
         "models": models,
-        #"hyperparameters": hyperparameters,
+        "hyperparameters": hyperparameters,
         "stages_detected": detected_stages,
     }

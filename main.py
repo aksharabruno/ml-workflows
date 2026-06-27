@@ -6,8 +6,11 @@ from headergen_parser import generate_headergen_annotations, parse_headergen_out
 from llm_detector import run_llm_analysis
 
 def run(input_path: Path):
-    output_dir = Path(__file__).resolve().parent / "output"
+    output_dir = Path(__file__).resolve().parent / "headergen_output"
     output_dir.mkdir(exist_ok=True)
+
+    result_dir = Path(__file__).resolve().parent / "results"
+    result_dir.mkdir(exist_ok=True)
 
     # Layer 1: HeaderGen
     generate_headergen_annotations(input_path, output_dir)
@@ -22,8 +25,9 @@ def run(input_path: Path):
     #print(parser_result)  # Debug: print the parser result
     
     
-    # Layer 3: LLM semantic analysis
-    llm_result = run_llm_analysis(parser_result)
+    # Layer 3: LLM semantic analysis (pass source code so LLM can fill gaps)
+    source_code = input_path.read_text()
+    llm_result = run_llm_analysis(parser_result, source_code=source_code)
     
     # Combine outputs
     final_result = {
@@ -33,7 +37,7 @@ def run(input_path: Path):
     }
     
     # Save final output
-    result_path = output_dir / f"{input_path.stem}_result.json"
+    result_path = result_dir / f"{input_path.stem}_result.json"
     with open(result_path, "w") as f:
         json.dump(final_result, f, indent=2)
     
