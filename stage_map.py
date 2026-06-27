@@ -12,7 +12,11 @@ STAGE_MAP = {
     "pandas.core.frame.DataFrame.dropna": "data_preparation",
     "pandas.core.frame.DataFrame.drop": "data_preparation",
     "lightgbm.Dataset": "data_preparation",
-    "numpy.lib._shape_base_impl.expand_dims": "data_preparation",  
+    "numpy.lib._shape_base_impl.expand_dims": "data_preparation",
+    "torch.utils.data.TensorDataset": "data_preparation",
+    "torch.utils.data.DataLoader": "data_preparation",
+    "numpy.lib._arraypad_impl.pad": "data_preparation",
+    "numpy.zeros": "data_preparation",
     
     # ── 4. Exploratory Data Analysis ────────────────────────────────────────
     "seaborn.categorical.boxplot": "exploratory_data_analysis",
@@ -37,7 +41,9 @@ STAGE_MAP = {
     "sklearn.preprocessing._data.StandardScaler.transform": "feature_transformation",
     "sklearn.preprocessing._data.RobustScaler": "feature_transformation",
     "sklearn.preprocessing._data.RobustScaler.transform": "feature_transformation",
-    "keras.src.utils.numerical_utils.to_categorical": "feature_transformation",  
+    "keras.src.utils.numerical_utils.to_categorical": "feature_transformation",
+    "gensim.utils.simple_preprocess": "feature_transformation",
+    "gensim.corpora.Dictionary": "feature_transformation",
 
     # ── 8. Feature Selection ────────────────────────────────────────────────
 
@@ -55,6 +61,16 @@ STAGE_MAP = {
     "keras.src.layers.core.dense.Dense": "model_building",
     "keras.src.trainers.trainer.Trainer.compile": "model_building",
     "keras.src.models.model.Model": "model_building",
+    "torch.nn.Sequential": "model_building",
+    "torch.nn.Conv1d": "model_building",
+    "torch.nn.ReLU": "model_building",
+    "torch.nn.MaxPool1d": "model_building",
+    "torch.nn.AdaptiveMaxPool1d": "model_building",
+    "torch.nn.Flatten": "model_building",
+    "torch.nn.Linear": "model_building",
+    "torch.nn.Embedding.from_pretrained": "model_building",
+    "torch.nn.CrossEntropyLoss": "model_building",
+    "torch.optim.Adam": "model_building",
 
     
 
