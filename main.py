@@ -19,6 +19,8 @@ def run(input_path: Path):
     
     # Layer 2: Static parser + STAGE_MAP
     parser_result = parse_headergen_output(json_path)
+    #print(parser_result)  # Debug: print the parser result
+    
     
     # Layer 3: LLM semantic analysis
     llm_result = run_llm_analysis(parser_result)
@@ -37,6 +39,7 @@ def run(input_path: Path):
     
     print(json.dumps(final_result, indent=2))
     print(f"\nSaved to {result_path}")
+    
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
