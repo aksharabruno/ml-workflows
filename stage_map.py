@@ -6,6 +6,7 @@ STAGE_MAP = {
     "pandas.io.api.read_csv": "data_loading",
     "pandas.io.api.read_excel": "data_loading",
     "keras.src.datasets.mnist.load_data": "data_loading",
+    "sklearn.datasets._base.load_iris": "data_loading",
 
     # ── 3. Data Preparation ─────────────────────────────────────────────────
     "pandas.core.frame.DataFrame.fillna": "data_preparation",
@@ -17,6 +18,9 @@ STAGE_MAP = {
     "torch.utils.data.DataLoader": "data_preparation",
     "numpy.lib._arraypad_impl.pad": "data_preparation",
     "numpy.zeros": "data_preparation",
+    "numpy.lib._type_check_impl.nan_to_num": "data_preparation",
+    "numpy._core._multiarray_umath.concatenate": "data_preparation",
+    "pandas.core.api.DataFrame": "data_preparation",
     
     # ── 4. Exploratory Data Analysis ────────────────────────────────────────
     "seaborn.categorical.boxplot": "exploratory_data_analysis",
@@ -30,6 +34,13 @@ STAGE_MAP = {
     "matplotlib.pyplot.figure": "exploratory_data_analysis",
     "matplotlib.pyplot.plot": "exploratory_data_analysis",
     "matplotlib.pyplot.legend": "exploratory_data_analysis",
+    "matplotlib.pyplot.imshow": "exploratory_data_analysis",
+    "matplotlib.pyplot.subplot": "exploratory_data_analysis",
+    "matplotlib.pyplot.title": "exploratory_data_analysis",
+    "matplotlib.pyplot.xlabel": "exploratory_data_analysis",
+    "matplotlib.pyplot.ylabel": "exploratory_data_analysis",
+    "numpy.lib._arraysetops_impl.unique": "exploratory_data_analysis",
+    "keras.src.models.model.Model.summary": "exploratory_data_analysis",
 
     # ── 5. Data Cleaning ────────────────────────────────────────────────────
 
@@ -99,6 +110,7 @@ STAGE_MAP = {
     "keras.src.backend.tensorflow.trainer.TensorFlowTrainer.predict": "model_validation",
     "numpy._core.fromnumeric.argmax": "model_validation",
     "numpy._core.fromnumeric.mean": "model_validation",
+    "pandas.core.reshape.api.crosstab": "model_validation",
     
 
 }

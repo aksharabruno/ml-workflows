@@ -5,67 +5,14 @@ import json
 import ast
 from typing import Dict, Optional
 from dotenv import load_dotenv
+from prompts import build_stage_labeling_prompt
 
 load_dotenv()
-
-STAGE_DEFINITIONS = """
-    1.  library_loading        – Any import or from-import statement. No computation occurs.
-    2.  data_loading           – Reading data into memory from a file, database, or URL (e.g. pd.read_csv, fetch_20newsgroups).
-    3.  data_preparation       – Cleaning, reshaping, or converting data into a usable form (e.g. tensor conversion, DataLoader setup, padding).
-    4.  exploratory_data_analysis – Visualising or summarising data without modifying it (e.g. plt.show, df.describe, seaborn plots).
-    5.  data_cleaning          – Removing or correcting invalid/missing data (e.g. dropna, fillna, replace).
-    6.  feature_engineering    – Creating new features from existing ones (e.g. arithmetic combinations, date extraction).
-    7.  feature_transformation – Scaling, encoding, or normalising existing features (e.g. StandardScaler, tokenizer.encode, fit_transform).
-    8.  feature_selection      – Selecting a subset of columns or features (e.g. df[['f1','f2']], SelectKBest).
-    9.  model_building         – Instantiating a model, defining architecture, or setting hyperparameters — not yet fitting (e.g. RandomForestClassifier(), nn.Linear).
-    10. train_test_splitting   – Partitioning data into train/test/val sets (e.g. train_test_split).
-    11. model_training         – Fitting the model to training data (e.g. model.fit, optimizer.step in a training loop).
-    12. model_parameter_tuning – Searching over hyperparameter configurations (e.g. GridSearchCV, optuna).
-    13. model_validation       – Generating predictions and computing metrics (e.g. model.predict, accuracy_score, model.evaluate).
-"""
 
 
 def run_llm_analysis(parser_output, source_code: str = ""):
     already_detected = parser_output.get("stages_detected", {})
-    covered_lines = list(already_detected.keys())
-
-    prompt = f"""
-        You are an ML pipeline stage classifier. Your job is to assign stage labels to lines of a Python script that a static analysis tool could not label.
-
-        ## The 13 valid stage labels (use ONLY these exact strings):
-        {STAGE_DEFINITIONS}
-
-        ## What static analysis already detected:
-        The following stages were already identified by a STAGE_MAP (keyword-to-stage lookup):
-        {json.dumps(already_detected, indent=2)}
-
-        ## Source code:
-        ```python
-        {source_code}
-        ```
-
-        ## Your task:
-        Identify line ranges that the static analysis MISSED — specifically:
-        - User-defined functions or classes that wrap ML operations (e.g. a `train()` function containing a training loop)
-        - Hand-rolled loops performing model training or validation
-        - Any other ML-relevant lines not covered by the static analysis
-
-        For each missed line range, assign one or more stage labels from the 13 above.
-        Do NOT re-label lines already covered by static analysis.
-        Do NOT invent new stage names.
-        Skip lines with no ML relevance (utility code, logging, config parsing).
-
-        Return ONLY a JSON object in this exact format:
-        {{
-            "stage_labels": {{
-                "<start_line>-<end_line>": ["<stage_label>"],
-                "<single_line>": ["<stage_label>", "<stage_label>"]
-            }},
-            "reasoning": "brief explanation of what the static layer missed and why"
-        }}
-
-        If nothing was missed, return: {{"stage_labels": {{}}, "reasoning": "Static analysis covered all relevant stages."}}
-    """
+    prompt = build_stage_labeling_prompt(already_detected, source_code)
 
     client = anthropic.Anthropic()
     response = client.messages.create(
