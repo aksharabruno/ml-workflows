@@ -1,0 +1,300 @@
+{
+  "file": "script_t1_04.py",
+  "static_analysis": {
+    "is_ml_training_workflow": true,
+    "dataset": [
+      "keras.datasets.mnist.load_data"
+    ],
+    "models": [
+      "keras.Sequential",
+      "model.compile",
+      "keras.Input",
+      "keras.layers.Conv2D",
+      "keras.layers.MaxPooling2D",
+      "keras.layers.Flatten",
+      "keras.layers.Dropout",
+      "keras.layers.Dense"
+    ],
+    "hyperparameters": [
+      {
+        "call": "model.compile",
+        "stage": "model_building",
+        "kwargs": {
+          "loss": "categorical_crossentropy",
+          "optimizer": "adam"
+        }
+      },
+      {
+        "call": "keras.layers.Conv2D",
+        "stage": "model_building",
+        "kwargs": {
+          "activation": "relu"
+        }
+      },
+      {
+        "call": "keras.layers.Conv2D",
+        "stage": "model_building",
+        "kwargs": {
+          "activation": "relu"
+        }
+      },
+      {
+        "call": "keras.layers.Dense",
+        "stage": "model_building",
+        "kwargs": {
+          "activation": "softmax"
+        }
+      }
+    ],
+    "stages_detected": {
+      "library_loading": [],
+      "data_loading": [
+        "load_data"
+      ],
+      "data_preparation": [
+        "expand_dims",
+        "expand_dims"
+      ],
+      "feature_transformation": [
+        "to_categorical",
+        "to_categorical"
+      ],
+      "model_building": [
+        "Sequential",
+        "compile",
+        "Input",
+        "Conv2D",
+        "MaxPooling2D",
+        "Conv2D",
+        "MaxPooling2D",
+        "Flatten",
+        "Dropout",
+        "Dense"
+      ],
+      "exploratory_data_analysis": [
+        "summary"
+      ],
+      "model_training": [
+        "fit"
+      ],
+      "model_validation": [
+        "evaluate"
+      ]
+    },
+    "stage_labels": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "3": [
+        "library_loading"
+      ],
+      "10": [
+        "data_loading"
+      ],
+      "16": [
+        "data_preparation"
+      ],
+      "17": [
+        "data_preparation"
+      ],
+      "24": [
+        "feature_transformation"
+      ],
+      "25": [
+        "feature_transformation"
+      ],
+      "27": [
+        "model_building"
+      ],
+      "29": [
+        "model_building"
+      ],
+      "30": [
+        "model_building"
+      ],
+      "31": [
+        "model_building"
+      ],
+      "32": [
+        "model_building"
+      ],
+      "33": [
+        "model_building"
+      ],
+      "34": [
+        "model_building"
+      ],
+      "35": [
+        "model_building"
+      ],
+      "36": [
+        "model_building"
+      ],
+      "40": [
+        "exploratory_data_analysis"
+      ],
+      "45": [
+        "model_building"
+      ],
+      "47": [
+        "model_training"
+      ],
+      "49": [
+        "model_validation"
+      ]
+    }
+  },
+  "llm_analysis": {
+    "stage_labels": {
+      "1-3": [
+        "library_loading"
+      ],
+      "10": [
+        "data_loading"
+      ],
+      "13-14": [
+        "feature_transformation"
+      ],
+      "16-17": [
+        "data_preparation"
+      ],
+      "23-24": [
+        "feature_engineering"
+      ],
+      "26-39": [
+        "model_building"
+      ],
+      "41": [
+        "exploratory_data_analysis"
+      ],
+      "46": [
+        "model_building"
+      ],
+      "48": [
+        "model_training"
+      ],
+      "50": [
+        "model_validation"
+      ]
+    },
+    "is_ml_training_workflow": true,
+    "reasoning": "This is a standard Keras CNN workflow on MNIST: load external data, scale and reshape images, one-hot encode labels, build and compile a Conv2D model, train with fit, and evaluate on the test set. I labeled the image scaling/reshaping as feature_transformation/data_preparation, the to_categorical label encoding as feature_engineering, and model.summary() as EDA, correcting some of the static analysis groupings."
+  },
+  "comparison": {
+    "agree": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "3": [
+        "library_loading"
+      ],
+      "10": [
+        "data_loading"
+      ],
+      "16": [
+        "data_preparation"
+      ],
+      "17": [
+        "data_preparation"
+      ],
+      "27": [
+        "model_building"
+      ],
+      "29": [
+        "model_building"
+      ],
+      "30": [
+        "model_building"
+      ],
+      "31": [
+        "model_building"
+      ],
+      "32": [
+        "model_building"
+      ],
+      "33": [
+        "model_building"
+      ],
+      "34": [
+        "model_building"
+      ],
+      "35": [
+        "model_building"
+      ],
+      "36": [
+        "model_building"
+      ]
+    },
+    "conflict": {
+      "24": {
+        "ast": [
+          "feature_transformation"
+        ],
+        "llm": [
+          "feature_engineering"
+        ]
+      }
+    },
+    "ast_only": {
+      "25": [
+        "feature_transformation"
+      ],
+      "40": [
+        "exploratory_data_analysis"
+      ],
+      "45": [
+        "model_building"
+      ],
+      "47": [
+        "model_training"
+      ],
+      "49": [
+        "model_validation"
+      ]
+    },
+    "llm_only": {
+      "13": [
+        "feature_transformation"
+      ],
+      "14": [
+        "feature_transformation"
+      ],
+      "23": [
+        "feature_engineering"
+      ],
+      "26": [
+        "model_building"
+      ],
+      "28": [
+        "model_building"
+      ],
+      "37": [
+        "model_building"
+      ],
+      "38": [
+        "model_building"
+      ],
+      "39": [
+        "model_building"
+      ],
+      "41": [
+        "exploratory_data_analysis"
+      ],
+      "46": [
+        "model_building"
+      ],
+      "48": [
+        "model_training"
+      ],
+      "50": [
+        "model_validation"
+      ]
+    }
+  }
+}

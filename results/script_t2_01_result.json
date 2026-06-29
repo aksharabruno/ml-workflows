@@ -1,0 +1,319 @@
+{
+  "file": "script_t2_01.py",
+  "static_analysis": {
+    "is_ml_training_workflow": true,
+    "dataset": [],
+    "models": [
+      "keras.layers.Input",
+      "keras.models.Model",
+      "model.compile",
+      "keras.layers.Dense"
+    ],
+    "hyperparameters": [
+      {
+        "call": "model.compile",
+        "stage": "model_building",
+        "kwargs": {
+          "loss": "sparse_categorical_crossentropy",
+          "optimizer": "adam"
+        }
+      },
+      {
+        "call": "keras.layers.Dense",
+        "stage": "model_building",
+        "kwargs": {
+          "activation": "relu"
+        }
+      },
+      {
+        "call": "keras.layers.Dense",
+        "stage": "model_building",
+        "kwargs": {
+          "activation": "relu"
+        }
+      },
+      {
+        "call": "keras.layers.Dense",
+        "stage": "model_building",
+        "kwargs": {
+          "activation": "softmax"
+        }
+      }
+    ],
+    "stages_detected": {
+      "library_loading": [],
+      "model_building": [
+        "Input",
+        "Model",
+        "compile",
+        "Dense",
+        "Dense",
+        "Dense"
+      ],
+      "model_training": [
+        "fit"
+      ],
+      "exploratory_data_analysis": [
+        "plot",
+        "plot",
+        "legend",
+        "show",
+        "plot",
+        "plot",
+        "legend",
+        "show",
+        "set"
+      ],
+      "model_validation": [
+        "predict",
+        "argmax",
+        "mean"
+      ]
+    },
+    "stage_labels": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "6": [
+        "library_loading"
+      ],
+      "7": [
+        "library_loading"
+      ],
+      "9": [
+        "library_loading"
+      ],
+      "10": [
+        "library_loading"
+      ],
+      "11": [
+        "library_loading"
+      ],
+      "19": [
+        "exploratory_data_analysis"
+      ],
+      "22": [
+        "model_building"
+      ],
+      "23": [
+        "model_building"
+      ],
+      "24": [
+        "model_building"
+      ],
+      "25": [
+        "model_building"
+      ],
+      "28": [
+        "model_building"
+      ],
+      "33": [
+        "model_building"
+      ],
+      "45": [
+        "model_training"
+      ],
+      "53": [
+        "exploratory_data_analysis"
+      ],
+      "54": [
+        "exploratory_data_analysis"
+      ],
+      "55": [
+        "exploratory_data_analysis"
+      ],
+      "56": [
+        "exploratory_data_analysis"
+      ],
+      "59": [
+        "exploratory_data_analysis"
+      ],
+      "60": [
+        "exploratory_data_analysis"
+      ],
+      "61": [
+        "exploratory_data_analysis"
+      ],
+      "62": [
+        "exploratory_data_analysis"
+      ],
+      "66": [
+        "model_validation"
+      ],
+      "67": [
+        "model_validation"
+      ],
+      "68": [
+        "model_validation"
+      ]
+    }
+  },
+  "llm_analysis": {
+    "stage_labels": {
+      "6-11": [
+        "library_loading"
+      ],
+      "15": [
+        "data_loading"
+      ],
+      "18-19": [
+        "data_preparation"
+      ],
+      "22-25": [
+        "model_building"
+      ],
+      "28": [
+        "model_building"
+      ],
+      "33-37": [
+        "model_building"
+      ],
+      "46": [
+        "model_training"
+      ],
+      "54-57": [
+        "exploratory_data_analysis"
+      ],
+      "60-63": [
+        "exploratory_data_analysis"
+      ],
+      "67": [
+        "model_validation"
+      ],
+      "68-69": [
+        "model_validation"
+      ]
+    },
+    "is_ml_training_workflow": true,
+    "reasoning": "This script loads Kaggle MNIST via a utility function (data_loading), builds and compiles a Keras ANN (model_building), trains it with fit (model_training), plots loss/accuracy curves (exploratory_data_analysis), and evaluates predictions on the test set (model_validation). The static analysis hints were largely correct; I added data_loading for getKaggleMNIST and data_preparation for shape extraction."
+  },
+  "comparison": {
+    "agree": {
+      "6": [
+        "library_loading"
+      ],
+      "7": [
+        "library_loading"
+      ],
+      "9": [
+        "library_loading"
+      ],
+      "10": [
+        "library_loading"
+      ],
+      "11": [
+        "library_loading"
+      ],
+      "22": [
+        "model_building"
+      ],
+      "23": [
+        "model_building"
+      ],
+      "24": [
+        "model_building"
+      ],
+      "25": [
+        "model_building"
+      ],
+      "28": [
+        "model_building"
+      ],
+      "33": [
+        "model_building"
+      ],
+      "54": [
+        "exploratory_data_analysis"
+      ],
+      "55": [
+        "exploratory_data_analysis"
+      ],
+      "56": [
+        "exploratory_data_analysis"
+      ],
+      "60": [
+        "exploratory_data_analysis"
+      ],
+      "61": [
+        "exploratory_data_analysis"
+      ],
+      "62": [
+        "exploratory_data_analysis"
+      ],
+      "67": [
+        "model_validation"
+      ],
+      "68": [
+        "model_validation"
+      ]
+    },
+    "conflict": {
+      "19": {
+        "ast": [
+          "exploratory_data_analysis"
+        ],
+        "llm": [
+          "data_preparation"
+        ]
+      }
+    },
+    "ast_only": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "45": [
+        "model_training"
+      ],
+      "53": [
+        "exploratory_data_analysis"
+      ],
+      "59": [
+        "exploratory_data_analysis"
+      ],
+      "66": [
+        "model_validation"
+      ]
+    },
+    "llm_only": {
+      "8": [
+        "library_loading"
+      ],
+      "15": [
+        "data_loading"
+      ],
+      "18": [
+        "data_preparation"
+      ],
+      "34": [
+        "model_building"
+      ],
+      "35": [
+        "model_building"
+      ],
+      "36": [
+        "model_building"
+      ],
+      "37": [
+        "model_building"
+      ],
+      "46": [
+        "model_training"
+      ],
+      "57": [
+        "exploratory_data_analysis"
+      ],
+      "63": [
+        "exploratory_data_analysis"
+      ],
+      "69": [
+        "model_validation"
+      ]
+    }
+  }
+}

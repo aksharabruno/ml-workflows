@@ -14,11 +14,14 @@ def run_llm_analysis(parser_output, source_code: str = ""):
     already_detected = parser_output.get("stages_detected", {})
     prompt = build_stage_labeling_prompt(already_detected, source_code)
 
+    # Scale max_tokens with source size — larger files need more output tokens
+    source_lines = source_code.count("\n")
+    max_tokens = max(4096, source_lines * 30)
+
     client = anthropic.Anthropic()
     response = client.messages.create(
         model="claude-opus-4-8",
-        max_tokens=1024,
-        thinking={"type": "adaptive"},
+        max_tokens=max_tokens,
         messages=[{"role": "user", "content": prompt}],
     )
     text_block = next((b for b in response.content if b.type == "text"), None)

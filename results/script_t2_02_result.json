@@ -1,0 +1,1128 @@
+{
+  "file": "script_t2_02.py",
+  "static_analysis": {
+    "is_ml_training_workflow": true,
+    "dataset": [],
+    "models": [
+      "torch.optim.Adam",
+      "torch.nn.CrossEntropyLoss",
+      "torch.nn.Embedding.from_pretrained",
+      "torch.nn.Sequential",
+      "torch.nn.Conv1d",
+      "torch.nn.ReLU",
+      "torch.nn.MaxPool1d",
+      "torch.nn.AdaptiveMaxPool1d",
+      "torch.nn.Flatten",
+      "torch.nn.Linear"
+    ],
+    "hyperparameters": [
+      {
+        "call": "sklearn.model_selection.train_test_split",
+        "stage": "train_test_splitting",
+        "kwargs": {
+          "shuffle": true,
+          "random_state": 42
+        }
+      },
+      {
+        "call": "sklearn.model_selection.train_test_split",
+        "stage": "train_test_splitting",
+        "kwargs": {
+          "shuffle": false
+        }
+      },
+      {
+        "call": "torch.optim.Adam",
+        "stage": "model_building",
+        "kwargs": {
+          "lr": 0.0005
+        }
+      },
+      {
+        "call": "torch.nn.Embedding.from_pretrained",
+        "stage": "model_building",
+        "kwargs": {
+          "freeze": true
+        }
+      }
+    ],
+    "stages_detected": {
+      "library_loading": [],
+      "model_validation": [
+        "argmax",
+        "no_grad"
+      ],
+      "model_training": [
+        "train",
+        "train"
+      ],
+      "feature_transformation": [
+        "Dictionary",
+        "simple_preprocess"
+      ],
+      "data_preparation": [
+        "array",
+        "TensorDataset",
+        "DataLoader",
+        "TensorDataset",
+        "DataLoader",
+        "TensorDataset",
+        "DataLoader",
+        "zeros",
+        "FloatTensor",
+        "LongTensor",
+        "LongTensor",
+        "LongTensor",
+        "LongTensor",
+        "LongTensor",
+        "LongTensor",
+        "asarray",
+        "pad"
+      ],
+      "train_test_splitting": [
+        "train_test_split",
+        "train_test_split"
+      ],
+      "model_building": [
+        "Adam",
+        "CrossEntropyLoss",
+        "from_pretrained",
+        "Sequential",
+        "Sequential",
+        "Conv1d",
+        "ReLU",
+        "MaxPool1d",
+        "Conv1d",
+        "ReLU",
+        "MaxPool1d",
+        "Conv1d",
+        "ReLU",
+        "AdaptiveMaxPool1d",
+        "Flatten",
+        "Linear",
+        "ReLU",
+        "Linear"
+      ]
+    },
+    "stage_labels": {
+      "10": [
+        "library_loading"
+      ],
+      "11": [
+        "library_loading"
+      ],
+      "12": [
+        "library_loading"
+      ],
+      "13": [
+        "library_loading"
+      ],
+      "14": [
+        "library_loading"
+      ],
+      "15": [
+        "library_loading"
+      ],
+      "17": [
+        "library_loading"
+      ],
+      "19": [
+        "library_loading"
+      ],
+      "20": [
+        "library_loading"
+      ],
+      "22": [
+        "library_loading"
+      ],
+      "23": [
+        "library_loading"
+      ],
+      "25": [
+        "library_loading"
+      ],
+      "27": [
+        "library_loading"
+      ],
+      "28": [
+        "library_loading"
+      ],
+      "30": [
+        "library_loading"
+      ],
+      "46": [
+        "model_building"
+      ],
+      "47": [
+        "model_building"
+      ],
+      "48": [
+        "model_building"
+      ],
+      "49": [
+        "model_building"
+      ],
+      "50": [
+        "model_building"
+      ],
+      "51": [
+        "model_building"
+      ],
+      "52": [
+        "model_building"
+      ],
+      "53": [
+        "model_building"
+      ],
+      "54": [
+        "model_building"
+      ],
+      "55": [
+        "model_building"
+      ],
+      "56": [
+        "model_building"
+      ],
+      "58": [
+        "model_building"
+      ],
+      "59": [
+        "model_building"
+      ],
+      "60": [
+        "model_building"
+      ],
+      "61": [
+        "model_building"
+      ],
+      "62": [
+        "model_building"
+      ],
+      "74": [
+        "model_validation"
+      ],
+      "80": [
+        "model_training"
+      ],
+      "124": [
+        "model_validation"
+      ],
+      "154": [
+        "library_loading"
+      ],
+      "183": [
+        "data_preparation"
+      ],
+      "235": [
+        "feature_transformation"
+      ],
+      "242": [
+        "feature_transformation"
+      ],
+      "254": [
+        "data_preparation"
+      ],
+      "266": [
+        "train_test_splitting"
+      ],
+      "271": [
+        "train_test_splitting"
+      ],
+      "287": [
+        "data_preparation"
+      ],
+      "288": [
+        "data_preparation"
+      ],
+      "289": [
+        "data_preparation"
+      ],
+      "294": [
+        "data_preparation"
+      ],
+      "295": [
+        "data_preparation"
+      ],
+      "296": [
+        "data_preparation"
+      ],
+      "301": [
+        "data_preparation"
+      ],
+      "302": [
+        "data_preparation"
+      ],
+      "303": [
+        "data_preparation"
+      ],
+      "313": [
+        "data_preparation"
+      ],
+      "325": [
+        "data_preparation"
+      ],
+      "333": [
+        "model_building"
+      ],
+      "335": [
+        "model_building"
+      ],
+      "344": [
+        "model_training"
+      ]
+    }
+  },
+  "llm_analysis": {
+    "stage_labels": {
+      "9-29": [
+        "library_loading"
+      ],
+      "31": [
+        "model_building"
+      ],
+      "42-71": [
+        "model_building"
+      ],
+      "74-77": [
+        "model_validation"
+      ],
+      "80-117": [
+        "model_training"
+      ],
+      "120-152": [
+        "model_validation"
+      ],
+      "174-184": [
+        "data_loading"
+      ],
+      "208-228": [
+        "data_loading"
+      ],
+      "232-234": [
+        "feature_engineering"
+      ],
+      "238-247": [
+        "feature_engineering"
+      ],
+      "251-256": [
+        "data_preparation"
+      ],
+      "266-275": [
+        "train_test_splitting"
+      ],
+      "287-307": [
+        "data_preparation"
+      ],
+      "315-330": [
+        "feature_transformation"
+      ],
+      "332": [
+        "data_preparation"
+      ],
+      "336-337": [
+        "model_building"
+      ],
+      "340": [
+        "model_building"
+      ],
+      "342": [
+        "model_building"
+      ],
+      "351-361": [
+        "model_training",
+        "model_validation"
+      ],
+      "367-368": [
+        "model_validation"
+      ]
+    },
+    "is_ml_training_workflow": true,
+    "reasoning": "This is a PyTorch text classification workflow using pre-trained GloVe embeddings on the 20 Newsgroups dataset. It loads external GloVe vectors and newsgroup text files (data_loading), tokenizes and vectorizes text via gensim (feature_engineering), builds the embedding matrix (feature_transformation), constructs a CNN model, splits data, and runs a hand-rolled training loop with backward passes (model_training) and evaluation (model_validation). I corrected the static analysis by labeling the GloVe/newsgroup file reads as data_loading, and the gensim tokenization (simple_preprocess/Dictionary) as feature_engineering rather than feature_transformation."
+  },
+  "comparison": {
+    "agree": {
+      "10": [
+        "library_loading"
+      ],
+      "11": [
+        "library_loading"
+      ],
+      "12": [
+        "library_loading"
+      ],
+      "13": [
+        "library_loading"
+      ],
+      "14": [
+        "library_loading"
+      ],
+      "15": [
+        "library_loading"
+      ],
+      "17": [
+        "library_loading"
+      ],
+      "19": [
+        "library_loading"
+      ],
+      "20": [
+        "library_loading"
+      ],
+      "22": [
+        "library_loading"
+      ],
+      "23": [
+        "library_loading"
+      ],
+      "25": [
+        "library_loading"
+      ],
+      "27": [
+        "library_loading"
+      ],
+      "28": [
+        "library_loading"
+      ],
+      "46": [
+        "model_building"
+      ],
+      "47": [
+        "model_building"
+      ],
+      "48": [
+        "model_building"
+      ],
+      "49": [
+        "model_building"
+      ],
+      "50": [
+        "model_building"
+      ],
+      "51": [
+        "model_building"
+      ],
+      "52": [
+        "model_building"
+      ],
+      "53": [
+        "model_building"
+      ],
+      "54": [
+        "model_building"
+      ],
+      "55": [
+        "model_building"
+      ],
+      "56": [
+        "model_building"
+      ],
+      "58": [
+        "model_building"
+      ],
+      "59": [
+        "model_building"
+      ],
+      "60": [
+        "model_building"
+      ],
+      "61": [
+        "model_building"
+      ],
+      "62": [
+        "model_building"
+      ],
+      "74": [
+        "model_validation"
+      ],
+      "80": [
+        "model_training"
+      ],
+      "124": [
+        "model_validation"
+      ],
+      "254": [
+        "data_preparation"
+      ],
+      "266": [
+        "train_test_splitting"
+      ],
+      "271": [
+        "train_test_splitting"
+      ],
+      "287": [
+        "data_preparation"
+      ],
+      "288": [
+        "data_preparation"
+      ],
+      "289": [
+        "data_preparation"
+      ],
+      "294": [
+        "data_preparation"
+      ],
+      "295": [
+        "data_preparation"
+      ],
+      "296": [
+        "data_preparation"
+      ],
+      "301": [
+        "data_preparation"
+      ],
+      "302": [
+        "data_preparation"
+      ],
+      "303": [
+        "data_preparation"
+      ]
+    },
+    "conflict": {
+      "183": {
+        "ast": [
+          "data_preparation"
+        ],
+        "llm": [
+          "data_loading"
+        ]
+      },
+      "242": {
+        "ast": [
+          "feature_transformation"
+        ],
+        "llm": [
+          "feature_engineering"
+        ]
+      },
+      "325": {
+        "ast": [
+          "data_preparation"
+        ],
+        "llm": [
+          "feature_transformation"
+        ]
+      }
+    },
+    "ast_only": {
+      "30": [
+        "library_loading"
+      ],
+      "154": [
+        "library_loading"
+      ],
+      "235": [
+        "feature_transformation"
+      ],
+      "313": [
+        "data_preparation"
+      ],
+      "333": [
+        "model_building"
+      ],
+      "335": [
+        "model_building"
+      ],
+      "344": [
+        "model_training"
+      ]
+    },
+    "llm_only": {
+      "9": [
+        "library_loading"
+      ],
+      "16": [
+        "library_loading"
+      ],
+      "18": [
+        "library_loading"
+      ],
+      "21": [
+        "library_loading"
+      ],
+      "24": [
+        "library_loading"
+      ],
+      "26": [
+        "library_loading"
+      ],
+      "29": [
+        "library_loading"
+      ],
+      "31": [
+        "model_building"
+      ],
+      "42": [
+        "model_building"
+      ],
+      "43": [
+        "model_building"
+      ],
+      "44": [
+        "model_building"
+      ],
+      "45": [
+        "model_building"
+      ],
+      "57": [
+        "model_building"
+      ],
+      "63": [
+        "model_building"
+      ],
+      "64": [
+        "model_building"
+      ],
+      "65": [
+        "model_building"
+      ],
+      "66": [
+        "model_building"
+      ],
+      "67": [
+        "model_building"
+      ],
+      "68": [
+        "model_building"
+      ],
+      "69": [
+        "model_building"
+      ],
+      "70": [
+        "model_building"
+      ],
+      "71": [
+        "model_building"
+      ],
+      "75": [
+        "model_validation"
+      ],
+      "76": [
+        "model_validation"
+      ],
+      "77": [
+        "model_validation"
+      ],
+      "81": [
+        "model_training"
+      ],
+      "82": [
+        "model_training"
+      ],
+      "83": [
+        "model_training"
+      ],
+      "84": [
+        "model_training"
+      ],
+      "85": [
+        "model_training"
+      ],
+      "86": [
+        "model_training"
+      ],
+      "87": [
+        "model_training"
+      ],
+      "88": [
+        "model_training"
+      ],
+      "89": [
+        "model_training"
+      ],
+      "90": [
+        "model_training"
+      ],
+      "91": [
+        "model_training"
+      ],
+      "92": [
+        "model_training"
+      ],
+      "93": [
+        "model_training"
+      ],
+      "94": [
+        "model_training"
+      ],
+      "95": [
+        "model_training"
+      ],
+      "96": [
+        "model_training"
+      ],
+      "97": [
+        "model_training"
+      ],
+      "98": [
+        "model_training"
+      ],
+      "99": [
+        "model_training"
+      ],
+      "100": [
+        "model_training"
+      ],
+      "101": [
+        "model_training"
+      ],
+      "102": [
+        "model_training"
+      ],
+      "103": [
+        "model_training"
+      ],
+      "104": [
+        "model_training"
+      ],
+      "105": [
+        "model_training"
+      ],
+      "106": [
+        "model_training"
+      ],
+      "107": [
+        "model_training"
+      ],
+      "108": [
+        "model_training"
+      ],
+      "109": [
+        "model_training"
+      ],
+      "110": [
+        "model_training"
+      ],
+      "111": [
+        "model_training"
+      ],
+      "112": [
+        "model_training"
+      ],
+      "113": [
+        "model_training"
+      ],
+      "114": [
+        "model_training"
+      ],
+      "115": [
+        "model_training"
+      ],
+      "116": [
+        "model_training"
+      ],
+      "117": [
+        "model_training"
+      ],
+      "120": [
+        "model_validation"
+      ],
+      "121": [
+        "model_validation"
+      ],
+      "122": [
+        "model_validation"
+      ],
+      "123": [
+        "model_validation"
+      ],
+      "125": [
+        "model_validation"
+      ],
+      "126": [
+        "model_validation"
+      ],
+      "127": [
+        "model_validation"
+      ],
+      "128": [
+        "model_validation"
+      ],
+      "129": [
+        "model_validation"
+      ],
+      "130": [
+        "model_validation"
+      ],
+      "131": [
+        "model_validation"
+      ],
+      "132": [
+        "model_validation"
+      ],
+      "133": [
+        "model_validation"
+      ],
+      "134": [
+        "model_validation"
+      ],
+      "135": [
+        "model_validation"
+      ],
+      "136": [
+        "model_validation"
+      ],
+      "137": [
+        "model_validation"
+      ],
+      "138": [
+        "model_validation"
+      ],
+      "139": [
+        "model_validation"
+      ],
+      "140": [
+        "model_validation"
+      ],
+      "141": [
+        "model_validation"
+      ],
+      "142": [
+        "model_validation"
+      ],
+      "143": [
+        "model_validation"
+      ],
+      "144": [
+        "model_validation"
+      ],
+      "145": [
+        "model_validation"
+      ],
+      "146": [
+        "model_validation"
+      ],
+      "147": [
+        "model_validation"
+      ],
+      "148": [
+        "model_validation"
+      ],
+      "149": [
+        "model_validation"
+      ],
+      "150": [
+        "model_validation"
+      ],
+      "151": [
+        "model_validation"
+      ],
+      "152": [
+        "model_validation"
+      ],
+      "174": [
+        "data_loading"
+      ],
+      "175": [
+        "data_loading"
+      ],
+      "176": [
+        "data_loading"
+      ],
+      "177": [
+        "data_loading"
+      ],
+      "178": [
+        "data_loading"
+      ],
+      "179": [
+        "data_loading"
+      ],
+      "180": [
+        "data_loading"
+      ],
+      "181": [
+        "data_loading"
+      ],
+      "182": [
+        "data_loading"
+      ],
+      "184": [
+        "data_loading"
+      ],
+      "208": [
+        "data_loading"
+      ],
+      "209": [
+        "data_loading"
+      ],
+      "210": [
+        "data_loading"
+      ],
+      "211": [
+        "data_loading"
+      ],
+      "212": [
+        "data_loading"
+      ],
+      "213": [
+        "data_loading"
+      ],
+      "214": [
+        "data_loading"
+      ],
+      "215": [
+        "data_loading"
+      ],
+      "216": [
+        "data_loading"
+      ],
+      "217": [
+        "data_loading"
+      ],
+      "218": [
+        "data_loading"
+      ],
+      "219": [
+        "data_loading"
+      ],
+      "220": [
+        "data_loading"
+      ],
+      "221": [
+        "data_loading"
+      ],
+      "222": [
+        "data_loading"
+      ],
+      "223": [
+        "data_loading"
+      ],
+      "224": [
+        "data_loading"
+      ],
+      "225": [
+        "data_loading"
+      ],
+      "226": [
+        "data_loading"
+      ],
+      "227": [
+        "data_loading"
+      ],
+      "228": [
+        "data_loading"
+      ],
+      "232": [
+        "feature_engineering"
+      ],
+      "233": [
+        "feature_engineering"
+      ],
+      "234": [
+        "feature_engineering"
+      ],
+      "238": [
+        "feature_engineering"
+      ],
+      "239": [
+        "feature_engineering"
+      ],
+      "240": [
+        "feature_engineering"
+      ],
+      "241": [
+        "feature_engineering"
+      ],
+      "243": [
+        "feature_engineering"
+      ],
+      "244": [
+        "feature_engineering"
+      ],
+      "245": [
+        "feature_engineering"
+      ],
+      "246": [
+        "feature_engineering"
+      ],
+      "247": [
+        "feature_engineering"
+      ],
+      "251": [
+        "data_preparation"
+      ],
+      "252": [
+        "data_preparation"
+      ],
+      "253": [
+        "data_preparation"
+      ],
+      "255": [
+        "data_preparation"
+      ],
+      "256": [
+        "data_preparation"
+      ],
+      "267": [
+        "train_test_splitting"
+      ],
+      "268": [
+        "train_test_splitting"
+      ],
+      "269": [
+        "train_test_splitting"
+      ],
+      "270": [
+        "train_test_splitting"
+      ],
+      "272": [
+        "train_test_splitting"
+      ],
+      "273": [
+        "train_test_splitting"
+      ],
+      "274": [
+        "train_test_splitting"
+      ],
+      "275": [
+        "train_test_splitting"
+      ],
+      "290": [
+        "data_preparation"
+      ],
+      "291": [
+        "data_preparation"
+      ],
+      "292": [
+        "data_preparation"
+      ],
+      "293": [
+        "data_preparation"
+      ],
+      "297": [
+        "data_preparation"
+      ],
+      "298": [
+        "data_preparation"
+      ],
+      "299": [
+        "data_preparation"
+      ],
+      "300": [
+        "data_preparation"
+      ],
+      "304": [
+        "data_preparation"
+      ],
+      "305": [
+        "data_preparation"
+      ],
+      "306": [
+        "data_preparation"
+      ],
+      "307": [
+        "data_preparation"
+      ],
+      "315": [
+        "feature_transformation"
+      ],
+      "316": [
+        "feature_transformation"
+      ],
+      "317": [
+        "feature_transformation"
+      ],
+      "318": [
+        "feature_transformation"
+      ],
+      "319": [
+        "feature_transformation"
+      ],
+      "320": [
+        "feature_transformation"
+      ],
+      "321": [
+        "feature_transformation"
+      ],
+      "322": [
+        "feature_transformation"
+      ],
+      "323": [
+        "feature_transformation"
+      ],
+      "324": [
+        "feature_transformation"
+      ],
+      "326": [
+        "feature_transformation"
+      ],
+      "327": [
+        "feature_transformation"
+      ],
+      "328": [
+        "feature_transformation"
+      ],
+      "329": [
+        "feature_transformation"
+      ],
+      "330": [
+        "feature_transformation"
+      ],
+      "332": [
+        "data_preparation"
+      ],
+      "336": [
+        "model_building"
+      ],
+      "337": [
+        "model_building"
+      ],
+      "340": [
+        "model_building"
+      ],
+      "342": [
+        "model_building"
+      ],
+      "351": [
+        "model_training",
+        "model_validation"
+      ],
+      "352": [
+        "model_training",
+        "model_validation"
+      ],
+      "353": [
+        "model_training",
+        "model_validation"
+      ],
+      "354": [
+        "model_training",
+        "model_validation"
+      ],
+      "355": [
+        "model_training",
+        "model_validation"
+      ],
+      "356": [
+        "model_training",
+        "model_validation"
+      ],
+      "357": [
+        "model_training",
+        "model_validation"
+      ],
+      "358": [
+        "model_training",
+        "model_validation"
+      ],
+      "359": [
+        "model_training",
+        "model_validation"
+      ],
+      "360": [
+        "model_training",
+        "model_validation"
+      ],
+      "361": [
+        "model_training",
+        "model_validation"
+      ],
+      "367": [
+        "model_validation"
+      ],
+      "368": [
+        "model_validation"
+      ]
+    }
+  }
+}

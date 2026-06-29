@@ -1,0 +1,319 @@
+{
+  "file": "script_t2_04.py",
+  "static_analysis": {
+    "is_ml_training_workflow": false,
+    "dataset": [],
+    "models": [
+      "torch.nn.MSELoss",
+      "torch.optim.SGD",
+      "torch.nn.Linear"
+    ],
+    "hyperparameters": [],
+    "stages_detected": {
+      "library_loading": [],
+      "model_building": [
+        "MSELoss",
+        "SGD",
+        "Linear"
+      ],
+      "data_preparation": [
+        "array",
+        "reshape",
+        "array",
+        "reshape",
+        "from_numpy",
+        "from_numpy"
+      ],
+      "exploratory_data_analysis": [
+        "plot",
+        "xlabel",
+        "ylabel",
+        "show"
+      ]
+    },
+    "stage_labels": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "3": [
+        "library_loading"
+      ],
+      "4": [
+        "library_loading"
+      ],
+      "5": [
+        "library_loading"
+      ],
+      "6": [
+        "library_loading"
+      ],
+      "18": [
+        "model_building"
+      ],
+      "28": [
+        "model_building"
+      ],
+      "32": [
+        "model_building"
+      ],
+      "39": [
+        "data_preparation"
+      ],
+      "40": [
+        "data_preparation"
+      ],
+      "41": [
+        "data_preparation"
+      ],
+      "44": [
+        "data_preparation"
+      ],
+      "45": [
+        "data_preparation"
+      ],
+      "46": [
+        "data_preparation"
+      ],
+      "72": [
+        "exploratory_data_analysis"
+      ],
+      "73": [
+        "exploratory_data_analysis"
+      ],
+      "74": [
+        "exploratory_data_analysis"
+      ],
+      "75": [
+        "exploratory_data_analysis"
+      ]
+    }
+  },
+  "llm_analysis": {
+    "stage_labels": {
+      "1-5": [
+        "library_loading"
+      ],
+      "12-20": [
+        "model_building"
+      ],
+      "24": [
+        "model_building"
+      ],
+      "27": [
+        "model_building"
+      ],
+      "30-31": [
+        "model_building"
+      ],
+      "37-39": [
+        "data_preparation"
+      ],
+      "40": [
+        "data_preparation"
+      ],
+      "42-44": [
+        "data_preparation"
+      ],
+      "45": [
+        "data_preparation"
+      ],
+      "47-69": [
+        "model_training"
+      ],
+      "71-74": [
+        "exploratory_data_analysis"
+      ]
+    },
+    "is_ml_training_workflow": true,
+    "reasoning": "This script defines and trains a simple linear regression model in PyTorch using hardcoded synthetic car price data (not external data_loading). The model class and optimizer/loss instantiation are model_building, the hardcoded arrays converted to tensors are data_preparation, the manual training loop with backward/step is model_training, and the loss curve plot is exploratory_data_analysis."
+  },
+  "comparison": {
+    "agree": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "3": [
+        "library_loading"
+      ],
+      "4": [
+        "library_loading"
+      ],
+      "5": [
+        "library_loading"
+      ],
+      "18": [
+        "model_building"
+      ],
+      "39": [
+        "data_preparation"
+      ],
+      "40": [
+        "data_preparation"
+      ],
+      "44": [
+        "data_preparation"
+      ],
+      "45": [
+        "data_preparation"
+      ],
+      "72": [
+        "exploratory_data_analysis"
+      ],
+      "73": [
+        "exploratory_data_analysis"
+      ],
+      "74": [
+        "exploratory_data_analysis"
+      ]
+    },
+    "conflict": {},
+    "ast_only": {
+      "6": [
+        "library_loading"
+      ],
+      "28": [
+        "model_building"
+      ],
+      "32": [
+        "model_building"
+      ],
+      "41": [
+        "data_preparation"
+      ],
+      "46": [
+        "data_preparation"
+      ],
+      "75": [
+        "exploratory_data_analysis"
+      ]
+    },
+    "llm_only": {
+      "12": [
+        "model_building"
+      ],
+      "13": [
+        "model_building"
+      ],
+      "14": [
+        "model_building"
+      ],
+      "15": [
+        "model_building"
+      ],
+      "16": [
+        "model_building"
+      ],
+      "17": [
+        "model_building"
+      ],
+      "19": [
+        "model_building"
+      ],
+      "20": [
+        "model_building"
+      ],
+      "24": [
+        "model_building"
+      ],
+      "27": [
+        "model_building"
+      ],
+      "30": [
+        "model_building"
+      ],
+      "31": [
+        "model_building"
+      ],
+      "37": [
+        "data_preparation"
+      ],
+      "38": [
+        "data_preparation"
+      ],
+      "42": [
+        "data_preparation"
+      ],
+      "43": [
+        "data_preparation"
+      ],
+      "47": [
+        "model_training"
+      ],
+      "48": [
+        "model_training"
+      ],
+      "49": [
+        "model_training"
+      ],
+      "50": [
+        "model_training"
+      ],
+      "51": [
+        "model_training"
+      ],
+      "52": [
+        "model_training"
+      ],
+      "53": [
+        "model_training"
+      ],
+      "54": [
+        "model_training"
+      ],
+      "55": [
+        "model_training"
+      ],
+      "56": [
+        "model_training"
+      ],
+      "57": [
+        "model_training"
+      ],
+      "58": [
+        "model_training"
+      ],
+      "59": [
+        "model_training"
+      ],
+      "60": [
+        "model_training"
+      ],
+      "61": [
+        "model_training"
+      ],
+      "62": [
+        "model_training"
+      ],
+      "63": [
+        "model_training"
+      ],
+      "64": [
+        "model_training"
+      ],
+      "65": [
+        "model_training"
+      ],
+      "66": [
+        "model_training"
+      ],
+      "67": [
+        "model_training"
+      ],
+      "68": [
+        "model_training"
+      ],
+      "69": [
+        "model_training"
+      ],
+      "71": [
+        "exploratory_data_analysis"
+      ]
+    }
+  }
+}

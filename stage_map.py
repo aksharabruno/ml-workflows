@@ -18,6 +18,13 @@ STAGE_MAP = {
     "torch.utils.data.DataLoader": "data_preparation",
     "numpy.lib._arraypad_impl.pad": "data_preparation",
     "numpy.zeros": "data_preparation",
+    "numpy.array": "data_preparation",
+    "numpy.asarray": "data_preparation",
+    "numpy.ndarray.reshape": "data_preparation",
+    "numpy._core._multiarray_umath.concatenate": "data_preparation",
+    "torch.FloatTensor": "data_preparation",
+    "torch.LongTensor": "data_preparation",
+    "torch.from_numpy": "data_preparation",
     "numpy.lib._type_check_impl.nan_to_num": "data_preparation",
     "numpy._core._multiarray_umath.concatenate": "data_preparation",
     "pandas.core.api.DataFrame": "data_preparation",
@@ -29,11 +36,24 @@ STAGE_MAP = {
     "seaborn.distributions.distplot": "exploratory_data_analysis",
     "seaborn.distributions.kdeplot": "exploratory_data_analysis",
     "seaborn.matrix.heatmap": "exploratory_data_analysis",
+    "seaborn.rcmod.set": "exploratory_data_analysis",
     "matplotlib.pyplot.show": "exploratory_data_analysis",
     "matplotlib.pyplot.subplots": "exploratory_data_analysis",
+    "matplotlib.pyplot.subplot": "exploratory_data_analysis",
     "matplotlib.pyplot.figure": "exploratory_data_analysis",
     "matplotlib.pyplot.plot": "exploratory_data_analysis",
     "matplotlib.pyplot.legend": "exploratory_data_analysis",
+    "matplotlib.pyplot.xlim": "exploratory_data_analysis",
+    "matplotlib.pyplot.xticks": "exploratory_data_analysis",
+    "matplotlib.pyplot.yscale": "exploratory_data_analysis",
+    "matplotlib.pyplot.title": "exploratory_data_analysis",
+    "matplotlib.pyplot.xlabel": "exploratory_data_analysis",
+    "matplotlib.pyplot.ylabel": "exploratory_data_analysis",
+    "matplotlib.pyplot.imshow": "exploratory_data_analysis",
+    "pandas.core.generic.NDFrame.describe": "exploratory_data_analysis",
+    "pandas.core.reshape.api.crosstab": "exploratory_data_analysis",
+    "pandas.value_counts": "exploratory_data_analysis",
+    "numpy.lib._arraysetops_impl.unique": "exploratory_data_analysis",
     "matplotlib.pyplot.imshow": "exploratory_data_analysis",
     "matplotlib.pyplot.subplot": "exploratory_data_analysis",
     "matplotlib.pyplot.title": "exploratory_data_analysis",
@@ -43,6 +63,7 @@ STAGE_MAP = {
     "keras.src.models.model.Model.summary": "exploratory_data_analysis",
 
     # ── 5. Data Cleaning ────────────────────────────────────────────────────
+    "numpy.lib._type_check_impl.nan_to_num": "data_cleaning",
 
     # ── 6. Feature Engineering ──────────────────────────────────────────────
 
@@ -81,7 +102,9 @@ STAGE_MAP = {
     "torch.nn.Linear": "model_building",
     "torch.nn.Embedding.from_pretrained": "model_building",
     "torch.nn.CrossEntropyLoss": "model_building",
+    "torch.nn.MSELoss": "model_building",
     "torch.optim.Adam": "model_building",
+    "torch.optim.SGD": "model_building",
 
     
 
@@ -98,6 +121,8 @@ STAGE_MAP = {
     # ── 12. Model Parameter Tuning ──────────────────────────────────────────
 
     # ── 13. Model Validation / Evaluation ─────────────────────────────────
+    "torch.no_grad": "model_validation",
+    "keras.src.saving.saving_api.load_model": "model_validation",
     "sklearn.ensemble._forest.ForestClassifier.predict": "model_validation",
     "sklearn.metrics._classification.accuracy_score": "model_validation",
     "sklearn.metrics._classification.classification_report": "model_validation",

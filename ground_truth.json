@@ -9,11 +9,12 @@
         "models": ["RandomForestClassifier"],
         "stage_labels": {
             "1-5":  ["library_loading"],
+            "10-11": ["data_preparation"],
             "14":   ["train_test_splitting"],
             "17-18": ["feature_transformation"],
             "22":   ["model_building"],
             "23":   ["model_training"],
-            "26-27": ["model_validation"]
+            "25-26": ["model_validation"]
         }
     },
     {
@@ -26,6 +27,7 @@
         "models": ["XGBClassifier"],
         "stage_labels": {
             "1-3":  ["library_loading"],
+            "5": ["data_loading"],
             "6": ["train_test_splitting"],
             "8": ["model_building"],
             "10": ["model_training"],
@@ -46,7 +48,8 @@
             "15-18": ["data_preparation"],
             "21-22": ["data_preparation"],
             "39-41": ["model_building", "model_training"],
-            "49":    ["model_validation"]
+            "49":    ["model_validation"],
+            "51":   ["model_validation"]
         }
     },
     {
@@ -63,7 +66,7 @@
             "13-20": ["data_preparation"],
             "24-25": ["feature_transformation"],
             "27-44": ["model_building"],
-            "47":    ["train_test_splitting", "model_training"],
+            "47":    ["model_training"],
             "49": ["model_validation"]
         }
     },

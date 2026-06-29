@@ -1,0 +1,697 @@
+{
+  "file": "script_t3_02.py",
+  "static_analysis": {
+    "is_ml_training_workflow": true,
+    "dataset": [
+      "pandas.read_csv"
+    ],
+    "models": [
+      "transformers.DistilBertTokenizer.from_pretrained",
+      "transformers.DistilBertForSequenceClassification.from_pretrained"
+    ],
+    "hyperparameters": [
+      {
+        "call": "transformers.DistilBertTokenizer.from_pretrained",
+        "stage": "model_building",
+        "kwargs": {
+          "do_lower_case": true
+        }
+      },
+      {
+        "call": "sklearn.model_selection.train_test_split",
+        "stage": "train_test_splitting",
+        "kwargs": {
+          "random_state": 111,
+          "test_size": 0.2
+        }
+      },
+      {
+        "call": "sklearn.model_selection.train_test_split",
+        "stage": "train_test_splitting",
+        "kwargs": {
+          "random_state": 111,
+          "test_size": 0.2
+        }
+      },
+      {
+        "call": "sklearn.model_selection.train_test_split",
+        "stage": "train_test_splitting",
+        "kwargs": {
+          "random_state": 111,
+          "test_size": 0.5
+        }
+      },
+      {
+        "call": "sklearn.model_selection.train_test_split",
+        "stage": "train_test_splitting",
+        "kwargs": {
+          "random_state": 111,
+          "test_size": 0.5
+        }
+      },
+      {
+        "call": "transformers.DistilBertForSequenceClassification.from_pretrained",
+        "stage": "model_building",
+        "kwargs": {
+          "output_attentions": false,
+          "output_hidden_states": false
+        }
+      }
+    ],
+    "stages_detected": {
+      "library_loading": [],
+      "data_loading": [
+        "read_csv"
+      ],
+      "data_preparation": [
+        "DataFrame",
+        "TensorDataset",
+        "DataLoader",
+        "TensorDataset",
+        "DataLoader",
+        "DataFrame"
+      ],
+      "model_building": [
+        "from_pretrained",
+        "from_pretrained"
+      ],
+      "train_test_splitting": [
+        "train_test_split",
+        "train_test_split",
+        "train_test_split",
+        "train_test_split"
+      ],
+      "exploratory_data_analysis": [
+        "value_counts",
+        "set",
+        "value_counts"
+      ],
+      "model_training": [
+        "train"
+      ],
+      "model_validation": [
+        "no_grad"
+      ]
+    },
+    "stage_labels": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "3": [
+        "library_loading"
+      ],
+      "4": [
+        "library_loading"
+      ],
+      "5": [
+        "library_loading"
+      ],
+      "6": [
+        "library_loading"
+      ],
+      "7": [
+        "library_loading"
+      ],
+      "8": [
+        "library_loading"
+      ],
+      "9": [
+        "library_loading"
+      ],
+      "10": [
+        "library_loading"
+      ],
+      "11": [
+        "library_loading"
+      ],
+      "12": [
+        "library_loading"
+      ],
+      "13": [
+        "library_loading"
+      ],
+      "15": [
+        "library_loading"
+      ],
+      "37": [
+        "data_loading"
+      ],
+      "39": [
+        "data_preparation",
+        "exploratory_data_analysis"
+      ],
+      "41": [
+        "data_preparation",
+        "exploratory_data_analysis"
+      ],
+      "47": [
+        "model_building"
+      ],
+      "56": [
+        "train_test_splitting"
+      ],
+      "57": [
+        "train_test_splitting"
+      ],
+      "58": [
+        "train_test_splitting"
+      ],
+      "59": [
+        "train_test_splitting"
+      ],
+      "75": [
+        "data_preparation"
+      ],
+      "77": [
+        "data_preparation"
+      ],
+      "79": [
+        "data_preparation"
+      ],
+      "81": [
+        "data_preparation"
+      ],
+      "88": [
+        "exploratory_data_analysis"
+      ],
+      "90": [
+        "model_building"
+      ],
+      "152": [
+        "model_training"
+      ],
+      "173": [
+        "model_validation"
+      ]
+    }
+  },
+  "llm_analysis": {
+    "stage_labels": {
+      "1-15": [
+        "library_loading"
+      ],
+      "38": [
+        "data_loading"
+      ],
+      "39": [
+        "data_loading"
+      ],
+      "40": [
+        "data_loading"
+      ],
+      "42-45": [
+        "exploratory_data_analysis"
+      ],
+      "47-48": [
+        "data_preparation"
+      ],
+      "50": [
+        "model_building"
+      ],
+      "52": [
+        "feature_engineering"
+      ],
+      "54-57": [
+        "feature_engineering"
+      ],
+      "59-62": [
+        "train_test_splitting"
+      ],
+      "64-72": [
+        "data_preparation"
+      ],
+      "76": [
+        "data_preparation"
+      ],
+      "78-84": [
+        "data_preparation"
+      ],
+      "92": [
+        "feature_engineering"
+      ],
+      "94-95": [
+        "model_building"
+      ],
+      "99-100": [
+        "model_building"
+      ],
+      "102-114": [
+        "model_building"
+      ],
+      "116-117": [
+        "model_building"
+      ],
+      "119-120": [
+        "model_building"
+      ],
+      "142-147": [
+        "model_training"
+      ],
+      "149-169": [
+        "model_training"
+      ],
+      "176-191": [
+        "model_validation"
+      ],
+      "201-204": [
+        "model_validation"
+      ],
+      "206-209": [
+        "model_validation"
+      ]
+    },
+    "is_ml_training_workflow": true,
+    "reasoning": "This is a distributed (Horovod) DistilBERT fine-tuning workflow that loads a dataset from Azure ML, tokenizes text complaints, splits into train/test/val sets, builds the model and optimizer, and runs a hand-rolled training loop with backward passes and a separate validation loop. Static analysis correctly identified most stages; I labeled tokenizer.encode as feature_engineering, the torch.tensor conversions and TensorDataset/DataLoader creation as data_preparation, and the validation loop computing losses as model_validation."
+  },
+  "comparison": {
+    "agree": {
+      "1": [
+        "library_loading"
+      ],
+      "2": [
+        "library_loading"
+      ],
+      "3": [
+        "library_loading"
+      ],
+      "4": [
+        "library_loading"
+      ],
+      "5": [
+        "library_loading"
+      ],
+      "6": [
+        "library_loading"
+      ],
+      "7": [
+        "library_loading"
+      ],
+      "8": [
+        "library_loading"
+      ],
+      "9": [
+        "library_loading"
+      ],
+      "10": [
+        "library_loading"
+      ],
+      "11": [
+        "library_loading"
+      ],
+      "12": [
+        "library_loading"
+      ],
+      "13": [
+        "library_loading"
+      ],
+      "15": [
+        "library_loading"
+      ],
+      "59": [
+        "train_test_splitting"
+      ],
+      "79": [
+        "data_preparation"
+      ],
+      "81": [
+        "data_preparation"
+      ],
+      "152": [
+        "model_training"
+      ]
+    },
+    "conflict": {
+      "39": {
+        "ast": [
+          "data_preparation",
+          "exploratory_data_analysis"
+        ],
+        "llm": [
+          "data_loading"
+        ]
+      },
+      "47": {
+        "ast": [
+          "model_building"
+        ],
+        "llm": [
+          "data_preparation"
+        ]
+      },
+      "56": {
+        "ast": [
+          "train_test_splitting"
+        ],
+        "llm": [
+          "feature_engineering"
+        ]
+      },
+      "57": {
+        "ast": [
+          "train_test_splitting"
+        ],
+        "llm": [
+          "feature_engineering"
+        ]
+      }
+    },
+    "ast_only": {
+      "37": [
+        "data_loading"
+      ],
+      "41": [
+        "data_preparation",
+        "exploratory_data_analysis"
+      ],
+      "58": [
+        "train_test_splitting"
+      ],
+      "75": [
+        "data_preparation"
+      ],
+      "77": [
+        "data_preparation"
+      ],
+      "88": [
+        "exploratory_data_analysis"
+      ],
+      "90": [
+        "model_building"
+      ],
+      "173": [
+        "model_validation"
+      ]
+    },
+    "llm_only": {
+      "14": [
+        "library_loading"
+      ],
+      "38": [
+        "data_loading"
+      ],
+      "40": [
+        "data_loading"
+      ],
+      "42": [
+        "exploratory_data_analysis"
+      ],
+      "43": [
+        "exploratory_data_analysis"
+      ],
+      "44": [
+        "exploratory_data_analysis"
+      ],
+      "45": [
+        "exploratory_data_analysis"
+      ],
+      "48": [
+        "data_preparation"
+      ],
+      "50": [
+        "model_building"
+      ],
+      "52": [
+        "feature_engineering"
+      ],
+      "54": [
+        "feature_engineering"
+      ],
+      "55": [
+        "feature_engineering"
+      ],
+      "60": [
+        "train_test_splitting"
+      ],
+      "61": [
+        "train_test_splitting"
+      ],
+      "62": [
+        "train_test_splitting"
+      ],
+      "64": [
+        "data_preparation"
+      ],
+      "65": [
+        "data_preparation"
+      ],
+      "66": [
+        "data_preparation"
+      ],
+      "67": [
+        "data_preparation"
+      ],
+      "68": [
+        "data_preparation"
+      ],
+      "69": [
+        "data_preparation"
+      ],
+      "70": [
+        "data_preparation"
+      ],
+      "71": [
+        "data_preparation"
+      ],
+      "72": [
+        "data_preparation"
+      ],
+      "76": [
+        "data_preparation"
+      ],
+      "78": [
+        "data_preparation"
+      ],
+      "80": [
+        "data_preparation"
+      ],
+      "82": [
+        "data_preparation"
+      ],
+      "83": [
+        "data_preparation"
+      ],
+      "84": [
+        "data_preparation"
+      ],
+      "92": [
+        "feature_engineering"
+      ],
+      "94": [
+        "model_building"
+      ],
+      "95": [
+        "model_building"
+      ],
+      "99": [
+        "model_building"
+      ],
+      "100": [
+        "model_building"
+      ],
+      "102": [
+        "model_building"
+      ],
+      "103": [
+        "model_building"
+      ],
+      "104": [
+        "model_building"
+      ],
+      "105": [
+        "model_building"
+      ],
+      "106": [
+        "model_building"
+      ],
+      "107": [
+        "model_building"
+      ],
+      "108": [
+        "model_building"
+      ],
+      "109": [
+        "model_building"
+      ],
+      "110": [
+        "model_building"
+      ],
+      "111": [
+        "model_building"
+      ],
+      "112": [
+        "model_building"
+      ],
+      "113": [
+        "model_building"
+      ],
+      "114": [
+        "model_building"
+      ],
+      "116": [
+        "model_building"
+      ],
+      "117": [
+        "model_building"
+      ],
+      "119": [
+        "model_building"
+      ],
+      "120": [
+        "model_building"
+      ],
+      "142": [
+        "model_training"
+      ],
+      "143": [
+        "model_training"
+      ],
+      "144": [
+        "model_training"
+      ],
+      "145": [
+        "model_training"
+      ],
+      "146": [
+        "model_training"
+      ],
+      "147": [
+        "model_training"
+      ],
+      "149": [
+        "model_training"
+      ],
+      "150": [
+        "model_training"
+      ],
+      "151": [
+        "model_training"
+      ],
+      "153": [
+        "model_training"
+      ],
+      "154": [
+        "model_training"
+      ],
+      "155": [
+        "model_training"
+      ],
+      "156": [
+        "model_training"
+      ],
+      "157": [
+        "model_training"
+      ],
+      "158": [
+        "model_training"
+      ],
+      "159": [
+        "model_training"
+      ],
+      "160": [
+        "model_training"
+      ],
+      "161": [
+        "model_training"
+      ],
+      "162": [
+        "model_training"
+      ],
+      "163": [
+        "model_training"
+      ],
+      "164": [
+        "model_training"
+      ],
+      "165": [
+        "model_training"
+      ],
+      "166": [
+        "model_training"
+      ],
+      "167": [
+        "model_training"
+      ],
+      "168": [
+        "model_training"
+      ],
+      "169": [
+        "model_training"
+      ],
+      "176": [
+        "model_validation"
+      ],
+      "177": [
+        "model_validation"
+      ],
+      "178": [
+        "model_validation"
+      ],
+      "179": [
+        "model_validation"
+      ],
+      "180": [
+        "model_validation"
+      ],
+      "181": [
+        "model_validation"
+      ],
+      "182": [
+        "model_validation"
+      ],
+      "183": [
+        "model_validation"
+      ],
+      "184": [
+        "model_validation"
+      ],
+      "185": [
+        "model_validation"
+      ],
+      "186": [
+        "model_validation"
+      ],
+      "187": [
+        "model_validation"
+      ],
+      "188": [
+        "model_validation"
+      ],
+      "189": [
+        "model_validation"
+      ],
+      "190": [
+        "model_validation"
+      ],
+      "191": [
+        "model_validation"
+      ],
+      "201": [
+        "model_validation"
+      ],
+      "202": [
+        "model_validation"
+      ],
+      "203": [
+        "model_validation"
+      ],
+      "204": [
+        "model_validation"
+      ],
+      "206": [
+        "model_validation"
+      ],
+      "207": [
+        "model_validation"
+      ],
+      "208": [
+        "model_validation"
+      ],
+      "209": [
+        "model_validation"
+      ]
+    }
+  }
+}
