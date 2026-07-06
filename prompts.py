@@ -1,4 +1,45 @@
+# Stage taxonomy aligned with Rajenthiram et al. 2025 ("AutoML: A Tertiary Study of
+# Phases, Methods, Tools, and Frameworks"), extended with environment_configuration
+# for code-level labeling. Scaling/normalization/encoding belong to data_preparation
+# (their Table 2); feature_engineering covers selection/construction/extraction only.
 STAGE_DEFINITIONS = """
+## 1. Environment Configuration
+   Importing and configuring all required libraries and packages.
+   Examples: `import pandas as pd`, `from sklearn.ensemble import RandomForestClassifier`, `import torch`
+
+## 2. Data Preparation
+   Loading, cleaning, exploring, and transforming raw data into a form suitable for modelling.
+   Includes: reading files/databases, handling missing values, EDA plots and profiling,
+   scaling/normalization, encoding (including target labels, e.g. one-hot), data type
+   conversions, train/test splitting, and DataLoader setup.
+   Examples: `pd.read_csv(...)`, `df.fillna(0)`, `StandardScaler().fit_transform(X)`,
+             `keras.utils.to_categorical(y)`, `train_test_split(...)`, `DataLoader(...)`
+
+## 3. Feature Engineering
+   Selecting, constructing, or extracting features to improve the model's input representation.
+   Includes: feature selection (choosing a subset), feature construction (creating new
+   variables), and feature extraction (dimensionality reduction, domain-specific encodings).
+   Feature selection includes manually picking a column subset, not just algorithmic selection.
+   NOT included: scaling/normalization or label encoding — those are data preparation.
+   Examples: `SelectKBest(k=10)`, `PCA(n_components=10)`, `pd.get_dummies(df)`,
+             `TfidfVectorizer().fit_transform(corpus)`, `X = df[['col1', 'col2']]`
+
+## 4. Model Generation
+   Defining the model and fitting it to training data, including hyperparameter tuning.
+   Includes: model/architecture instantiation, compile/fit calls, hand-rolled training
+   loops, hyperparameter search, and saving the trained model.
+   Examples: `RandomForestClassifier(n_estimators=100)`, `keras.Sequential([...])`,
+             `model.fit(X_train, y_train)`, `loss.backward(); optimizer.step()`,
+             `GridSearchCV(...)`
+
+## 5. Model Evaluation
+   Assessing the trained model's performance on held-out data.
+   Includes: predictions made for scoring, computing metrics, validation, and reporting results.
+   Examples: `model.predict(X_test)`, `accuracy_score(y_test, y_pred)`,
+             `mean_squared_error(y_test, y_pred)`, `model.evaluate(...)`
+"""
+
+TASK_DEFINITIONS = """
 ## 1. Environment Configuration
   - library_loading
       The process of importing and configuring required software libraries and packages needed
@@ -68,42 +109,53 @@ STAGE_DEFINITIONS = """
 """
 
 
-def build_stage_labeling_prompt(already_detected: dict, source_code: str) -> str:
-    import json
+def build_stage_labeling_prompt(source_code: str) -> str:
+    numbered_source = "\n".join(
+        f"{i}: {line}" for i, line in enumerate(source_code.splitlines(), start=1)
+    )
     return f"""
-        You are an ML pipeline stage classifier. Given a Python script, label every ML-relevant line range with one or more stage labels from the list below.
+You are an ML pipeline stage classifier. Given a Python script, divide it into contiguous stage blocks and label each block with one of the 5 stages below.
 
-        ## The 13 valid stage labels (use ONLY these exact strings):
-        {STAGE_DEFINITIONS}
+## The 5 valid stage labels (use ONLY these exact strings):
+- "environment_configuration"
+- "data_preparation"
+- "feature_engineering"
+- "model_generation"
+- "model_evaluation"
 
-        ## Hints from static analysis:
-        A keyword-based STAGE_MAP already detected the following stages. Use these as a starting reference, but you are NOT limited to them — label the full file independently and correct any mistakes you see.
-        {json.dumps(already_detected, indent=2)}
+## Stage definitions:
+{STAGE_DEFINITIONS}
 
-        ## Source code:
-        ```python
-        {source_code}
-        ```
+## Source code (each line is prefixed with its line number as "N:"):
+```python
+{numbered_source}
+```
 
-        ## Your task:
-        Produce a complete stage labeling of the entire file. For every ML-relevant line range, assign one or more labels from the 13 stages above.
+## Your task:
+1. Divide the script into contiguous blocks — every line must belong to exactly one block, no gaps.
+2. Label each block with one of the 5 stages above.
+3. Identify the ML problem type: "classification", "regression", "clustering", or "other".
 
-        Rules:
-        - Always label import/from-import lines as "library_loading".
-        - Group consecutive lines that belong to the same stage into a single range (e.g. "1-5").
-        - A line range may have multiple labels if it genuinely spans two stages (e.g. a single call that both builds and trains).
-        - Skip lines with no ML relevance: comments, blank lines, print statements, logging, argparse config.
-        - "data_loading" only applies to reading from an EXTERNAL source (file, database, URL, API). Synthetic data from np.random or hardcoded arrays is NOT data_loading.
-        - "model_training" applies to hand-rolled loops with backward passes, not just model.fit calls.
-        - Do NOT invent stage names outside the 13 defined above.
+Use the "N:" line-number prefixes for all start/end values — do not count lines yourself. The blocks must cover line 1 through the last numbered line exactly.
 
-        Return ONLY a JSON object in this exact format:
-        {{
-            "stage_labels": {{
-                "<start_line>-<end_line>": ["<stage_label>"],
-                "<single_line>": ["<stage_label>", "<stage_label>"]
-            }},
-            "is_ml_training_workflow": true,
-            "reasoning": "2-3 sentence summary of the workflow and any corrections to static analysis"
-        }}
-    """
+Rules:
+- Every line must be covered including comments, blank lines, print statements, and variable assignments. These are glue lines — assign them to whichever stage they contextually support: a line belongs to the stage that consumes its output (e.g. a params dict used by a fit call is model_generation), and comments/prints attach to the block they introduce.
+- Import lines always belong to "environment_configuration".
+- Blocks must be contiguous and non-overlapping.
+- The boundary between model_generation and model_evaluation is where training/saving ends and scoring begins. Every `.predict(...)`, `.evaluate(...)`, or metric call (accuracy_score, mean_squared_error, ...) on held-out/test data belongs to model_evaluation, never model_generation. The `.fit(...)` call itself is always model_generation, even when scoring follows immediately.
+- Do NOT split a logical unit (e.g. a for-loop or function definition) across two blocks unless it genuinely spans two stages.
+- Use your understanding of the full script to make labeling decisions, not just individual lines in isolation.
+
+Return ONLY a JSON object in this exact format — no markdown, no explanation:
+{{
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "stages": [
+        {{"stage": "environment_configuration", "start": 1, "end": 5}},
+        {{"stage": "data_preparation", "start": 6, "end": 15}},
+        {{"stage": "model_generation", "start": 16, "end": 25}},
+        {{"stage": "model_evaluation", "start": 26, "end": 30}}
+    ],
+    "reasoning": "2-3 sentence summary of the workflow"
+}}
+"""

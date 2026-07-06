@@ -2,8 +2,7 @@ import ast
 from pathlib import Path
 from stage_map import STAGE_MAP
 
-# Build suffix lookup: "read_csv" -> stage, "pandas.read_csv" -> stage, etc.
-# Allows matching without full qualification
+# Build suffix lookup for resolving library calls
 _SUFFIX_MAP: dict[str, str] = {}
 for _key, _stage in STAGE_MAP.items():
     parts = _key.split(".")
@@ -12,12 +11,13 @@ for _key, _stage in STAGE_MAP.items():
         if suffix not in _SUFFIX_MAP:
             _SUFFIX_MAP[suffix] = _stage
 
+# Fine-grained stages that map to model_building_and_selection
+_MODEL_STAGES = {"model_building", "model_training", "model_parameter_tuning", "model_validation", "train_test_splitting"}
+# Fine-grained stages that map to data loading
+_DATA_STAGES = {"data_loading"}
+
 
 def _build_alias_map(tree: ast.AST) -> dict[str, str]:
-    """Map local alias -> canonical module prefix.
-    e.g. 'import pandas as pd'  ->  {'pd': 'pandas'}
-         'from sklearn.preprocessing import StandardScaler'  -> {'StandardScaler': 'sklearn.preprocessing.StandardScaler'}
-    """
     aliases: dict[str, str] = {}
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
@@ -32,7 +32,6 @@ def _build_alias_map(tree: ast.AST) -> dict[str, str]:
 
 
 def _resolve_call(node: ast.expr, aliases: dict[str, str]) -> str | None:
-    """Turn a Call's func node into a dotted string using import aliases."""
     if isinstance(node, ast.Name):
         return aliases.get(node.id, node.id)
     if isinstance(node, ast.Attribute):
@@ -44,7 +43,6 @@ def _resolve_call(node: ast.expr, aliases: dict[str, str]) -> str | None:
 
 
 def _lookup_stage(resolved: str) -> str | None:
-    """Try progressively shorter suffixes against _SUFFIX_MAP."""
     parts = resolved.split(".")
     for i in range(len(parts)):
         suffix = ".".join(parts[i:])
@@ -53,89 +51,114 @@ def _lookup_stage(resolved: str) -> str | None:
     return None
 
 
-def parse_file(file_path: Path) -> dict:
-    source = file_path.read_text(encoding="utf-8")
+def _nodes_in_range(tree: ast.AST, start: int, end: int) -> list[ast.AST]:
+    return [
+        node for node in ast.walk(tree)
+        if hasattr(node, "lineno") and start <= node.lineno <= end
+    ]
+
+
+def _extract_hyperparameters(tree: ast.AST, aliases: dict, start: int, end: int) -> list[dict]:
+    hyperparameters = []
+    for node in _nodes_in_range(tree, start, end):
+        if not isinstance(node, ast.Call):
+            continue
+        resolved = _resolve_call(node.func, aliases)
+        if not resolved:
+            continue
+        stage = _lookup_stage(resolved)
+        if stage not in _MODEL_STAGES:
+            continue
+        kwargs = {}
+        for kw in node.keywords:
+            if kw.arg and isinstance(kw.value, ast.Constant):
+                kwargs[kw.arg] = kw.value.value
+        if kwargs:
+            hyperparameters.append({
+                "name": resolved.split(".")[-1],
+                "call": resolved,
+                "params": kwargs,
+            })
+    return hyperparameters
+
+
+def _extract_dataset(tree: ast.AST, aliases: dict, start: int, end: int) -> dict | None:
+    for node in _nodes_in_range(tree, start, end):
+        if not isinstance(node, ast.Call):
+            continue
+        resolved = _resolve_call(node.func, aliases)
+        if not resolved:
+            continue
+        stage = _lookup_stage(resolved)
+        if stage not in _DATA_STAGES:
+            continue
+        # Try to get the first string argument (file path / dataset name)
+        source = None
+        if node.args and isinstance(node.args[0], ast.Constant):
+            source = node.args[0].value
+        return {"source": source, "load_call": resolved.split(".")[-1]}
+    return None
+
+
+def _extract_model(tree: ast.AST, aliases: dict, start: int, end: int) -> dict | None:
+    for node in _nodes_in_range(tree, start, end):
+        if not isinstance(node, ast.Call):
+            continue
+        resolved = _resolve_call(node.func, aliases)
+        if not resolved:
+            continue
+        stage = _lookup_stage(resolved)
+        if stage != "model_building":
+            continue
+        parts = resolved.split(".")
+        return {
+            "name": parts[-1],
+            "library": parts[0] if len(parts) > 1 else "unknown",
+            "full_call": resolved,
+        }
+    return None
+
+
+def extract_from_stages(source: str, stages: list[dict]) -> dict:
+    """
+    Given source code and LLM-detected stage blocks, extract
+    hyperparameters, dataset, and model using AST targeted at the right regions.
+    """
     try:
         tree = ast.parse(source)
     except SyntaxError as e:
         print(f"AST parse error: {e}")
-        return _empty_result()
+        return _empty_extraction()
 
     aliases = _build_alias_map(tree)
-    lines = source.splitlines()
 
-    stage_labels: dict[str, list[str]] = {}  # "lineno": [stage, ...]
-    detected_stages: dict[str, list[str]] = {}  # stage: [call, ...] for summary
-    dataset_sources: list[str] = []
-    models: list[str] = []
-    hyperparameters: list[dict] = []
+    dataset = None
+    model = None
+    hyperparameters = []
 
-    # library_loading: any import line
-    for node in ast.walk(tree):
-        if isinstance(node, (ast.Import, ast.ImportFrom)):
-            key = str(node.lineno)
-            stage_labels.setdefault(key, [])
-            if "library_loading" not in stage_labels[key]:
-                stage_labels[key].append("library_loading")
-            detected_stages.setdefault("library_loading", [])
+    for block in stages:
+        stage = block.get("stage")
+        start = block.get("start", 1)
+        end = block.get("end", 1)
 
-    # Walk all Call nodes
-    for node in ast.walk(tree):
-        if not isinstance(node, ast.Call):
-            continue
+        if stage == "data_preparation" and dataset is None:
+            dataset = _extract_dataset(tree, aliases, start, end)
 
-        resolved = _resolve_call(node.func, aliases)
-        if not resolved:
-            continue
-
-        stage = _lookup_stage(resolved)
-        if not stage:
-            continue
-
-        label = resolved.split(".")[-1]
-        lineno = str(getattr(node, "lineno", "?"))
-        stage_labels.setdefault(lineno, [])
-        if stage not in stage_labels[lineno]:
-            stage_labels[lineno].append(stage)
-        detected_stages.setdefault(stage, []).append(label)
-
-        if stage == "data_loading":
-            dataset_sources.append(resolved)
-
-        elif stage == "model_building":
-            if resolved not in models:
-                models.append(resolved)
-            kwargs = {kw.arg: ast.literal_eval(kw.value)
-                      for kw in node.keywords
-                      if kw.arg and isinstance(kw.value, ast.Constant)}
-            if kwargs:
-                hyperparameters.append({"call": resolved, "stage": "model_building", "kwargs": kwargs})
-
-        elif stage == "train_test_splitting":
-            kwargs = {kw.arg: ast.literal_eval(kw.value)
-                      for kw in node.keywords
-                      if kw.arg and isinstance(kw.value, ast.Constant)}
-            if kwargs:
-                hyperparameters.append({"call": resolved, "stage": "train_test_splitting", "kwargs": kwargs})
-
-    is_ml = all(s in detected_stages for s in ["model_building", "model_training"])
+        elif stage == "model_generation":
+            if model is None:
+                model = _extract_model(tree, aliases, start, end)
+            hyperparameters.extend(_extract_hyperparameters(tree, aliases, start, end))
 
     return {
-        "is_ml_training_workflow": is_ml,
-        "dataset": dataset_sources,
-        "models": models,
+        "dataset": dataset,
+        "model": model,
         "hyperparameters": hyperparameters,
-        "stages_detected": detected_stages,
-        "stage_labels": dict(sorted(stage_labels.items(), key=lambda x: int(x[0]))),
     }
 
 
-def _empty_result() -> dict:
+def _empty_extraction() -> dict:
     return {
-        "is_ml_training_workflow": False,
-        "dataset": [],
-        "models": [],
+        "dataset": None,
+        "model": None,
         "hyperparameters": [],
-        "stages_detected": {},
-        "stage_labels": {},
     }

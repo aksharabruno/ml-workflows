@@ -1,173 +1,44 @@
 {
   "file": "script_t1_01.py",
-  "static_analysis": {
-    "is_ml_training_workflow": true,
-    "dataset": [],
-    "models": [
-      "sklearn.ensemble.RandomForestClassifier"
-    ],
-    "hyperparameters": [
-      {
-        "call": "sklearn.model_selection.train_test_split",
-        "stage": "train_test_splitting",
-        "kwargs": {
-          "test_size": 0.2,
-          "random_state": 42
-        }
-      },
-      {
-        "call": "sklearn.ensemble.RandomForestClassifier",
-        "stage": "model_building",
-        "kwargs": {
-          "n_estimators": 100,
-          "random_state": 42
-        }
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "RandomForestClassifier",
+    "library": "sklearn",
+    "full_call": "sklearn.ensemble.RandomForestClassifier"
+  },
+  "hyperparameters": [
+    {
+      "name": "RandomForestClassifier",
+      "call": "sklearn.ensemble.RandomForestClassifier",
+      "params": {
+        "n_estimators": 100,
+        "random_state": 42
       }
-    ],
-    "stages_detected": {
-      "library_loading": [],
-      "train_test_splitting": [
-        "train_test_split"
-      ],
-      "feature_transformation": [
-        "StandardScaler",
-        "fit_transform",
-        "transform"
-      ],
-      "model_building": [
-        "RandomForestClassifier"
-      ],
-      "model_training": [
-        "fit"
-      ],
-      "model_validation": [
-        "predict",
-        "accuracy_score"
-      ]
-    },
-    "stage_labels": {
-      "1": [
-        "library_loading"
-      ],
-      "2": [
-        "library_loading"
-      ],
-      "3": [
-        "library_loading"
-      ],
-      "4": [
-        "library_loading"
-      ],
-      "5": [
-        "library_loading"
-      ],
-      "14": [
-        "train_test_splitting"
-      ],
-      "16": [
-        "feature_transformation"
-      ],
-      "17": [
-        "feature_transformation"
-      ],
-      "18": [
-        "feature_transformation"
-      ],
-      "22": [
-        "model_building"
-      ],
-      "23": [
-        "model_training"
-      ],
-      "25": [
-        "model_validation"
-      ],
-      "26": [
-        "model_validation"
-      ]
     }
-  },
-  "llm_analysis": {
-    "stage_labels": {
-      "1-5": [
-        "library_loading"
-      ],
-      "10-11": [
-        "data_preparation"
-      ],
-      "14": [
-        "train_test_splitting"
-      ],
-      "16-18": [
-        "feature_transformation"
-      ],
-      "22": [
-        "model_building"
-      ],
-      "23": [
-        "model_training"
-      ],
-      "25": [
-        "model_validation"
-      ],
-      "26": [
-        "model_validation"
-      ]
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 6
     },
-    "is_ml_training_workflow": true,
-    "reasoning": "This script demonstrates a complete supervised classification workflow using synthetic data: generating random arrays (data_preparation, not data_loading), splitting into train/test sets, scaling features with StandardScaler, training a RandomForestClassifier, and evaluating with accuracy. Static analysis was largely correct, but the synthetic np.random data is labeled data_preparation rather than data_loading since it is not from an external source."
-  },
-  "comparison": {
-    "agree": {
-      "1": [
-        "library_loading"
-      ],
-      "2": [
-        "library_loading"
-      ],
-      "3": [
-        "library_loading"
-      ],
-      "4": [
-        "library_loading"
-      ],
-      "5": [
-        "library_loading"
-      ],
-      "14": [
-        "train_test_splitting"
-      ],
-      "16": [
-        "feature_transformation"
-      ],
-      "17": [
-        "feature_transformation"
-      ],
-      "18": [
-        "feature_transformation"
-      ],
-      "22": [
-        "model_building"
-      ],
-      "23": [
-        "model_training"
-      ],
-      "25": [
-        "model_validation"
-      ],
-      "26": [
-        "model_validation"
-      ]
+    {
+      "stage": "data_preparation",
+      "start": 7,
+      "end": 18
     },
-    "conflict": {},
-    "ast_only": {},
-    "llm_only": {
-      "10": [
-        "data_preparation"
-      ],
-      "11": [
-        "data_preparation"
-      ]
+    {
+      "stage": "model_generation",
+      "start": 19,
+      "end": 23
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 24,
+      "end": 31
     }
-  }
+  ],
+  "reasoning": "The script generates synthetic data, splits and scales it, trains a RandomForestClassifier, and evaluates it with accuracy_score. Data generation and scaling are data preparation, model instantiation and fit are model generation, and prediction plus metric computation are model evaluation."
 }

@@ -1,171 +1,56 @@
 {
   "file": "script_t1_05.py",
-  "static_analysis": {
-    "is_ml_training_workflow": true,
-    "dataset": [
-      "pandas.read_csv"
-    ],
-    "models": [
-      "sklearn.ensemble.RandomForestRegressor"
-    ],
-    "hyperparameters": [
-      {
-        "call": "sklearn.model_selection.train_test_split",
-        "stage": "train_test_splitting",
-        "kwargs": {
-          "random_state": 1
-        }
-      },
-      {
-        "call": "sklearn.ensemble.RandomForestRegressor",
-        "stage": "model_building",
-        "kwargs": {
-          "random_state": 1
-        }
+  "is_ml_training_workflow": true,
+  "ml_problem": "regression",
+  "dataset": {
+    "source": null,
+    "load_call": "read_csv"
+  },
+  "model": {
+    "name": "RandomForestRegressor",
+    "library": "sklearn",
+    "full_call": "sklearn.ensemble.RandomForestRegressor"
+  },
+  "hyperparameters": [
+    {
+      "name": "RandomForestRegressor",
+      "call": "sklearn.ensemble.RandomForestRegressor",
+      "params": {
+        "random_state": 1
       }
-    ],
-    "stages_detected": {
-      "library_loading": [],
-      "data_loading": [
-        "read_csv"
-      ],
-      "train_test_splitting": [
-        "train_test_split"
-      ],
-      "model_building": [
-        "RandomForestRegressor"
-      ],
-      "model_training": [
-        "fit"
-      ],
-      "model_validation": [
-        "predict",
-        "mean_absolute_error"
-      ]
-    },
-    "stage_labels": {
-      "2": [
-        "library_loading"
-      ],
-      "3": [
-        "library_loading"
-      ],
-      "4": [
-        "library_loading"
-      ],
-      "5": [
-        "library_loading"
-      ],
-      "9": [
-        "data_loading"
-      ],
-      "20": [
-        "train_test_splitting"
-      ],
-      "23": [
-        "model_building"
-      ],
-      "24": [
-        "model_training"
-      ],
-      "25": [
-        "model_validation"
-      ],
-      "26": [
-        "model_validation"
-      ]
     }
-  },
-  "llm_analysis": {
-    "stage_labels": {
-      "2-5": [
-        "library_loading"
-      ],
-      "8-9": [
-        "data_loading"
-      ],
-      "10": [
-        "data_preparation"
-      ],
-      "13": [
-        "feature_selection"
-      ],
-      "16": [
-        "feature_selection"
-      ],
-      "17": [
-        "exploratory_data_analysis"
-      ],
-      "20": [
-        "train_test_splitting"
-      ],
-      "23": [
-        "model_building"
-      ],
-      "24": [
-        "model_training"
-      ],
-      "25": [
-        "model_validation"
-      ],
-      "26": [
-        "model_validation"
-      ]
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 6
     },
-    "is_ml_training_workflow": true,
-    "reasoning": "This is a standard supervised regression workflow: loading housing data, selecting features, splitting, training a RandomForestRegressor, and evaluating with MAE. I added feature_selection for the explicit feature list and column subsetting, data_preparation for target separation, and exploratory_data_analysis for X.head()."
-  },
-  "comparison": {
-    "agree": {
-      "2": [
-        "library_loading"
-      ],
-      "3": [
-        "library_loading"
-      ],
-      "4": [
-        "library_loading"
-      ],
-      "5": [
-        "library_loading"
-      ],
-      "9": [
-        "data_loading"
-      ],
-      "20": [
-        "train_test_splitting"
-      ],
-      "23": [
-        "model_building"
-      ],
-      "24": [
-        "model_training"
-      ],
-      "25": [
-        "model_validation"
-      ],
-      "26": [
-        "model_validation"
-      ]
+    {
+      "stage": "data_preparation",
+      "start": 7,
+      "end": 11
     },
-    "conflict": {},
-    "ast_only": {},
-    "llm_only": {
-      "8": [
-        "data_loading"
-      ],
-      "10": [
-        "data_preparation"
-      ],
-      "13": [
-        "feature_selection"
-      ],
-      "16": [
-        "feature_selection"
-      ],
-      "17": [
-        "exploratory_data_analysis"
-      ]
+    {
+      "stage": "feature_engineering",
+      "start": 12,
+      "end": 17
+    },
+    {
+      "stage": "data_preparation",
+      "start": 18,
+      "end": 20
+    },
+    {
+      "stage": "model_generation",
+      "start": 21,
+      "end": 24
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 25,
+      "end": 28
     }
-  }
+  ],
+  "reasoning": "This workflow loads Iowa housing data and separates the SalePrice target, selects a subset of features, and splits into training and validation sets. A RandomForestRegressor is trained on the training data, then used to predict validation values and compute the mean absolute error, making this a regression task."
 }

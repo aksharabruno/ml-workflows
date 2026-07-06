@@ -10,11 +10,9 @@ from prompts import build_stage_labeling_prompt
 load_dotenv()
 
 
-def run_llm_analysis(parser_output, source_code: str = ""):
-    already_detected = parser_output.get("stages_detected", {})
-    prompt = build_stage_labeling_prompt(already_detected, source_code)
+def run_llm_analysis(source_code: str) -> Optional[Dict]:
+    prompt = build_stage_labeling_prompt(source_code)
 
-    # Scale max_tokens with source size — larger files need more output tokens
     source_lines = source_code.count("\n")
     max_tokens = max(4096, source_lines * 30)
 
@@ -102,12 +100,3 @@ def _parse_json_response(raw_response: str, verbose: bool = False) -> Optional[D
     log("All parsing strategies failed")
     return None
     
-def _print_results(result: Dict):   # may not be required?
-    print(f"\nML Workflow: {result.get('is_ml_workflow', False)}")
-    print(f"Reasoning: {result.get('reasoning', 'N/A')}")
-    
-    stages = result.get('stages', {})
-    print(f"\nDetected Stages:")
-    print(f"  Data Loading (lines): {stages.get('data_loading', [])}")
-    print(f"  Training (lines): {stages.get('training', [])}")
-    print(f"  Evaluation (lines): {stages.get('evaluation', [])}")
