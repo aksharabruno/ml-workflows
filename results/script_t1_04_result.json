@@ -71,5 +71,5 @@
       "end": 51
     }
   ],
-  "reasoning": "This workflow loads the MNIST dataset, scales and reshapes images, and one-hot encodes labels for classification. A CNN is built with Keras Sequential, compiled, and trained via model.fit. Finally the model is evaluated on the test set with model.evaluate and test loss/accuracy are reported."
+  "reasoning": "This is an MNIST digit classification CNN workflow. Data is loaded, scaled, reshaped, and labels one-hot encoded (data preparation), then a Keras Sequential CNN is built, compiled, and fit (model generation), and finally evaluated on the held-out test set for loss and accuracy (model evaluation)."
 }
