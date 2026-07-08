@@ -27,11 +27,11 @@
     {
       "stage": "data_preparation",
       "start": 50,
-      "end": 215
+      "end": 214
     },
     {
       "stage": "model_generation",
-      "start": 216,
+      "start": 215,
       "end": 229
     },
     {
@@ -50,5 +50,5 @@
       "end": 506
     }
   ],
-  "reasoning": "This script trains a Random Forest classifier on remote sensing imagery using training polygons rasterized from shapefiles. After loading and preparing the image/training data, the model is fit, diagnostics and confusion matrices are computed on training data, then the full image is predicted, masked, and saved. Finally, independent validation data is loaded and accuracy metrics (confusion matrix, classification report, overall accuracy) are computed against held-out validation samples."
+  "reasoning": "This script performs Random Forest classification on remote sensing imagery. It loads and rasterizes training shapefiles into feature/label arrays (data preparation), fits a RandomForestClassifier (model generation), computes OOB scores and confusion matrices on training data (evaluation), then predicts across the full image and masks/saves the result before validating against an independent validation shapefile with accuracy metrics and reports."
 }

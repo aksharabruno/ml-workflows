@@ -69,5 +69,5 @@
       "end": 68
     }
   ],
-  "reasoning": "This workflow loads the Kaggle MNIST dataset, builds a feedforward neural network with Keras, and trains it for digit classification. The model is compiled and fit with training history plotted, then predictions on the test set are used to compute validation accuracy."
+  "reasoning": "This script loads the Kaggle MNIST dataset and builds a Keras feedforward neural network for digit classification. After importing libraries and preparing the data, it defines and compiles the ANN, trains it with fit, and plots training curves. Finally it makes predictions on the test set and computes validation accuracy."
 }

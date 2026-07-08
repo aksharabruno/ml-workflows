@@ -79,5 +79,5 @@
       "end": 118
     }
   ],
-  "reasoning": "The script builds an autoencoder for credit card fraud detection. After importing libraries, it loads and explores the data, scales the Amount feature, and splits into train/test sets (training only on normal transactions). It then defines and trains an autoencoder model, and finally evaluates by computing reconstruction errors on the test set to detect anomalies."
+  "reasoning": "This workflow trains an autoencoder for credit card fraud detection. Data is loaded, explored via plots, scaled with StandardScaler, and split into train/test sets in the data preparation stage. A Keras autoencoder is defined, compiled, and fit on normal transactions in model generation, then predictions and reconstruction error metrics are computed on the test set for evaluation."
 }

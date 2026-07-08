@@ -119,6 +119,22 @@ def _extract_model(tree: ast.AST, aliases: dict, start: int, end: int) -> dict |
     return None
 
 
+def resolve_calls_by_line(source: str) -> dict[int, list[str]]:
+    """Map line number -> fully-qualified resolved call names (for LLM prompt hints)."""
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return {}
+    aliases = _build_alias_map(tree)
+    calls: dict[int, list[str]] = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call):
+            resolved = _resolve_call(node.func, aliases)
+            if resolved:
+                calls.setdefault(node.lineno, []).append(resolved)
+    return calls
+
+
 def extract_from_stages(source: str, stages: list[dict]) -> dict:
     """
     Given source code and LLM-detected stage blocks, extract

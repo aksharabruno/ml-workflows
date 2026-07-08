@@ -38,26 +38,11 @@
     {
       "stage": "model_evaluation",
       "start": 71,
-      "end": 76
-    },
-    {
-      "stage": "model_generation",
-      "start": 77,
-      "end": 112
-    },
-    {
-      "stage": "model_evaluation",
-      "start": 113,
-      "end": 143
-    },
-    {
-      "stage": "model_generation",
-      "start": 144,
-      "end": 162
+      "end": 150
     },
     {
       "stage": "data_preparation",
-      "start": 163,
+      "start": 151,
       "end": 305
     },
     {
@@ -76,5 +61,5 @@
       "end": 363
     }
   ],
-  "reasoning": "This script performs 20 Newsgroups text classification using PyTorch with pre-trained GloVe embeddings. It imports libraries and configures device, defines a CNN model architecture and training/testing helper functions, loads and tokenizes text data into padded integer sequences with train/val/test splits, builds an embedding matrix from GloVe vectors, trains the model over epochs, and finally evaluates accuracy on the held-out test set."
+  "reasoning": "This script performs 20 Newsgroups text classification using a CNN over pre-trained GloVe embeddings in PyTorch. It imports libraries and configures device, defines the network architecture and train/test helper functions, loads and tokenizes text data with train/val/test splits and DataLoaders, constructs the GloVe embedding matrix as features, instantiates and trains the model over epochs, and finally evaluates accuracy on the held-out test set."
 }
