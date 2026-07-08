@@ -93,22 +93,13 @@
     "source_url": "https://github.com/lazyprogrammer/machine_learning_examples/blob/master/keras_examples/ann.py",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "keras.Model"
-    ],
+    "models": ["keras.Model"],
     "stage_labels": {
-      "1-11": [
-        "environment_configuration"
-      ],
-      "12-19": [
-        "data_preparation"
-      ],
-      "20-46": [
-        "model_generation"
-      ],
-      "47-68": [
-        "model_evaluation"
-      ]
+      "1-13": ["environment_configuration"],
+      "14-16": ["data_preparation"],
+      "17-47": ["model_generation"],
+      "21-47": ["model_generation"],
+      "48-68": ["model_evaluation"]
     }
   },
   {
@@ -119,46 +110,22 @@
     "source_url": "https://github.com/CSC-DevDiv/machine-learning-scripts/blob/master/pytorch/pytorch_20ng_cnn.py",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "Net (custom nn.Module CNN)"
-    ],
+    "models": ["Net (custom nn.Module CNN)"],
     "stage_labels": {
-      "1-40": [
-        "environment_configuration"
-      ],
-      "41-72": [
-        "model_generation"
-      ],
-      "73-77": [
-        "model_evaluation"
-      ],
-      "78-114": [
-        "model_generation"
-      ],
-      "115-151": [
-        "model_evaluation"
-      ],
-      "152-162": [
-        "environment_configuration"
-      ],
-      "163-230": [
-        "data_preparation"
-      ],
-      "231-261": [
-        "feature_engineering"
-      ],
-      "262-306": [
-        "data_preparation"
-      ],
-      "307-328": [
-        "feature_engineering"
-      ],
-      "329-356": [
-        "model_generation"
-      ],
-      "357-363": [
-        "model_evaluation"
-      ]
+      "1-42": ["environment_configuration"],
+      "43-72": ["model_generation"],
+      "73-78": ["model_evaluation"],
+      "79-114": ["model_generation"],
+      "115-151": ["model_evaluation"],
+      "152": ["program_structure"],
+      "153-162": ["environment_configuration"],
+      "163-230": ["data_preparation"],
+      "231-261": ["feature_engineering"],
+      "262-306": ["data_preparation"],
+      "307-328": ["feature_engineering"],
+      "329-356": ["model_generation"],
+      "357-361": ["model_evaluation"],
+      "362-363": ["program_structure"]
     }
   },
   {
@@ -169,22 +136,14 @@
     "source_url": "https://github.com/curiousily/Getting-Things-Done-with-Pytorch/blob/master/06.credit-card-fraud-detection-with-autoencoders-in-keras.ipynb",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "keras.Model (autoencoder)"
-    ],
+    "models": ["keras.Model (autoencoder)"],
     "stage_labels": {
-      "1-11": [
-        "environment_configuration"
-      ],
-      "13-61": [
-        "data_preparation"
-      ],
-      "62-100": [
-        "model_generation"
-      ],
-      "101-118": [
-        "model_evaluation"
-      ]
+      "1-12": ["environment_configuration"],
+      "13": ["program_structure"],
+      "14-61": ["data_preparation"],
+      "62-100": ["model_generation"],
+      "101-116": ["model_evaluation"],
+      "117-118": ["program_structure"]
     }
   },
   {
@@ -195,25 +154,15 @@
     "source_url": "https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/01-basics/linear_regression/main.py",
     "is_ml_training_workflow": true,
     "ml_problem": "regression",
-    "models": [
-      "LinearRegression (custom nn.Module)"
-    ],
+    "models": ["LinearRegression (custom nn.Module)"],
     "stage_labels": {
-      "1-7": [
-        "environment_configuration"
-      ],
-      "8-37": [
-        "model_generation"
-      ],
-      "38-47": [
-        "data_preparation"
-      ],
-      "48-71": [
-        "model_generation"
-      ],
-      "72-75": [
-        "model_evaluation"
-      ]
+      "1-8": ["environment_configuration"],
+      "9-22": ["model_generation"],
+      "23": ["program_structure"],
+      "24-37": ["model_generation"],
+      "38-47": ["data_preparation"],
+      "48-71": ["model_generation"],
+      "72-75": ["model_evaluation"]
     }
   },
   {
@@ -224,9 +173,7 @@
     "source_url": "https://github.com/rameeshas2/Flower-Classification-CNN-ResNet18/blob/main/flower29January.py",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "ResNet18"
-    ],
+    "models": ["ResNet18"],
     "stage_labels": {
       "1-28": ["environment_configuration"],
       "29-45": ["feature_engineering"],
