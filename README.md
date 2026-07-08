@@ -98,7 +98,8 @@ Convert an analyzed script to a stage-segmented Jupyter notebook (one code cell 
 Labeling conventions:
 - Blocks are contiguous and gap-free; every line belongs to exactly one block.
 - A line belongs to the stage that consumes its output (a params dict used by `fit` is `model_generation`).
-- Leading whitespace/comments attach forward to the stage they introduce; trailing glue and result-reporting prints attach backward.
+- Comments and status prints attach forward to the stage they introduce; result-reporting prints attach backward.
+- Blank lines belong to the same block as the nearest preceding non-blank line (they close the block above; a block never starts blank).
 
 `evaluate.py` scores per **line × stage** against the ground truth, restricted to lines the ground truth labels. Glue lines (blank, comment-only, bare `print`) are **masked** — excluded from scoring — so boundary placement inside glue never affects the metrics. Ranges are clamped to the actual file length. The script also reports file-level accuracy for `ml_problem` and `is_ml_training_workflow`.
 

@@ -7,22 +7,14 @@
     "source_url": "manual",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "RandomForestClassifier"
-    ],
+    "models": ["RandomForestClassifier"],
     "stage_labels": {
-      "1-5": [
-        "environment_configuration"
-      ],
-      "6-18": [
-        "data_preparation"
-      ],
-      "19-23": [
-        "model_generation"
-      ],
-      "24-31": [
-        "model_evaluation"
-      ]
+      "1-6": ["environment_configuration"],
+      "7": ["program_structure"],
+      "8-19": ["data_preparation"],
+      "20-24": ["model_generation"],
+      "25-29": ["model_evaluation"],
+      "30-31": ["program_structure"]
     }
   },
   {
@@ -33,22 +25,12 @@
     "source_url": "https://xgboost.readthedocs.io/en/stable/get_started.html",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "XGBClassifier"
-    ],
+    "models": ["XGBClassifier"],
     "stage_labels": {
-      "1-3": [
-        "environment_configuration"
-      ],
-      "4-6": [
-        "data_preparation"
-      ],
-      "7-10": [
-        "model_generation"
-      ],
-      "11-12": [
-        "model_evaluation"
-      ]
+      "1-4": ["environment_configuration"],
+      "5-6": ["data_preparation"],
+      "7-10": ["model_generation"],
+      "11-12": ["model_evaluation"]
     }
   },
   {
@@ -59,22 +41,12 @@
     "source_url": "https://github.com/lightgbm-org/LightGBM/blob/master/examples/python-guide/simple_example.py",
     "is_ml_training_workflow": true,
     "ml_problem": "regression",
-    "models": [
-      "LGBMModel"
-    ],
+    "models": ["LGBMModel"],
     "stage_labels": {
-      "1-7": [
-        "environment_configuration"
-      ],
-      "8-22": [
-        "data_preparation"
-      ],
-      "23-45": [
-        "model_generation"
-      ],
-      "46-52": [
-        "model_evaluation"
-      ]
+      "1-8": ["environment_configuration"],
+      "9-23": ["data_preparation"],
+      "24-46": ["model_generation"],
+      "47-52": ["model_evaluation"]
     }
   },
   {
@@ -85,22 +57,14 @@
     "source_url": "https://keras.io/examples/vision/cnn_overview/",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "keras.Sequential"
-    ],
+    "models": ["keras.Sequential"],
     "stage_labels": {
-      "1-3": [
-        "environment_configuration"
-      ],
-      "4-25": [
-        "data_preparation"
-      ],
-      "26-47": [
-        "model_generation"
-      ],
-      "48-51": [
-        "model_evaluation"
-      ]
+      "1-4": ["environment_configuration"],
+      "5-6": ["data_preparation"],
+      "7-8": ["model_generation"],
+      "9-26": ["data_preparation"],
+      "27-48": ["model_generation"],
+      "49-51": ["model_evaluation"]
     }
   },
   {
@@ -111,28 +75,14 @@
     "source_url": "https://www.kaggle.com/code/dansbecker/exercise-machine-learning-competitions",
     "is_ml_training_workflow": true,
     "ml_problem": "regression",
-    "models": [
-      "RandomForestRegressor"
-    ],
+    "models": ["RandomForestRegressor"],
     "stage_labels": {
-      "1-5": [
-        "environment_configuration"
-      ],
-      "6-10": [
-        "data_preparation"
-      ],
-      "11-17": [
-        "feature_engineering"
-      ],
-      "18-20": [
-        "data_preparation"
-      ],
-      "21-24": [
-        "model_generation"
-      ],
-      "25-28": [
-        "model_evaluation"
-      ]
+      "1-6": ["environment_configuration"],
+      "7-11": ["data_preparation"],
+      "12-18": ["feature_engineering"],
+      "19-21": ["data_preparation"],
+      "22-24": ["model_generation"],
+      "25-28": ["model_evaluation"]
     }
   },
   {
@@ -267,6 +217,46 @@
     }
   },
   {
+    "file_name": "script_t2_05.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Keras/PyTorch ResNet18 flower classification with hand-rolled training loop (6 helper functions)",
+    "source_url": "https://github.com/rameeshas2/Flower-Classification-CNN-ResNet18/blob/main/flower29January.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": [
+      "ResNet18"
+    ],
+    "stage_labels": {
+      "1-28": ["environment_configuration"],
+      "29-45": ["feature_engineering"],
+      "46-78": ["data_preparation"],
+      "79-150": ["model_generation"],
+      "151-175": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_06.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "PyTorch animal image classification train script; model and dataset imported from local modules, argparse config",
+    "source_url": "https://github.com/pdlong4002/animal-classification/blob/main/train.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["CNN (custom nn.Module, local import)"],
+    "stage_labels": {
+      "1-12": ["environment_configuration"],
+      "13-14": ["program_structure"],
+      "15-24": ["environment_configuration"],
+      "25-30": ["feature_engineering"],
+      "31-33": ["environment_configuration"],
+      "34-61": ["data_preparation"],
+      "62-108": ["model_generation"],
+      "109-171": ["model_evaluation"],
+      "172-174": ["program_structure"]
+    }
+  },
+  {
     "file_name": "script_t3_01.py",
     "file_type": "script",
     "level": 3,
@@ -345,32 +335,8 @@
       ]
     }
   },
-  {
-    "file_name": "script_t2_05.py",
-    "file_type": "script",
-    "level": 2,
-    "description": "Keras/PyTorch ResNet18 flower classification with hand-rolled training loop (6 helper functions)",
-    "source_url": "https://github.com/rameeshas2/Flower-Classification-CNN-ResNet18/blob/main/flower29January.py",
-    "is_ml_training_workflow": true,
-    "ml_problem": "classification",
-    "models": [
-      "ResNet18"
-    ],
-    "stage_labels": {}
-  },
-  {
-    "file_name": "script_t2_06.py",
-    "file_type": "script",
-    "level": 2,
-    "description": "PyTorch animal image classification train script; model and dataset imported from local modules, argparse config",
-    "source_url": "https://github.com/pdlong4002/animal-classification/blob/main/train.py",
-    "is_ml_training_workflow": true,
-    "ml_problem": "classification",
-    "models": [
-      "CNN (custom nn.Module, local import)"
-    ],
-    "stage_labels": {}
-  },
+  
+  
   {
     "file_name": "script_t2_07.py",
     "file_type": "script",

@@ -140,6 +140,7 @@ Use the "N:" line-number prefixes for all start/end values — do not count line
 
 Rules:
 - Every line must be covered including comments, blank lines, print statements, and variable assignments. These are glue lines — assign them to whichever stage they contextually support: a line belongs to the stage that consumes its output (e.g. a params dict used by a fit call is model_generation), and comments/prints attach to the block they introduce.
+- Blank lines belong to the same block as the nearest preceding non-blank line (i.e. they close the block above; a stage block never starts with a blank line).
 - Import lines always belong to "environment_configuration".
 - Blocks must be contiguous and non-overlapping.
 - The boundary between model_generation and model_evaluation is where training/saving ends and scoring begins. Every `.predict(...)`, `.evaluate(...)`, or metric call (accuracy_score, mean_squared_error, ...) on held-out/test data belongs to model_evaluation, never model_generation. The `.fit(...)` call itself is always model_generation, even when scoring follows immediately.
