@@ -59,9 +59,7 @@
     "ml_problem": "classification",
     "models": ["keras.Sequential"],
     "stage_labels": {
-      "1-4": ["environment_configuration"],
-      "5-6": ["data_preparation"],
-      "7-8": ["model_generation"],
+      "1-8": ["environment_configuration"],
       "9-26": ["data_preparation"],
       "27-48": ["model_generation"],
       "49-51": ["model_evaluation"]
@@ -98,7 +96,6 @@
       "1-13": ["environment_configuration"],
       "14-16": ["data_preparation"],
       "17-47": ["model_generation"],
-      "21-47": ["model_generation"],
       "48-68": ["model_evaluation"]
     }
   },
@@ -176,8 +173,7 @@
     "models": ["ResNet18"],
     "stage_labels": {
       "1-28": ["environment_configuration"],
-      "29-45": ["feature_engineering"],
-      "46-78": ["data_preparation"],
+      "29-78": ["data_preparation"],
       "79-150": ["model_generation"],
       "151-175": ["model_evaluation"]
     }
@@ -195,44 +191,103 @@
       "1-12": ["environment_configuration"],
       "13-14": ["program_structure"],
       "15-24": ["environment_configuration"],
-      "25-30": ["feature_engineering"],
+      "25-30": ["data_preparation"],
       "31-33": ["environment_configuration"],
       "34-61": ["data_preparation"],
-      "62-108": ["model_generation"],
-      "109-171": ["model_evaluation"],
-      "172-174": ["program_structure"]
+      "62-171": ["model_generation"],
+      "172-173": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t2_07.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Keras CNN on imbalanced time-series sensor data with StratifiedKFold cross-validation loops",
+    "source_url": "https://github.com/lensureal/CNN-timeseries-classification/blob/main/src/cross_validation.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["keras CNN"],
+    "stage_labels": {
+      "1-12": ["environment_configuration"],
+      "13-38": ["data_preparation"],
+      "39-46": ["model_generation"],
+      "47-62": ["data_preparation"],
+      "63-131": ["model_generation"],
+      "132-162": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_08.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Single-file PyTorch brain-tumor MRI CNN classification with hand-rolled loop, 345 lines",
+    "source_url": "https://github.com/Surianandhan/brain-tumor-cnn-classification/blob/main/brain_tumor_cnn_classification.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["CNN (custom nn.Module)"],
+    "stage_labels": {
+      "1-68": ["environment_configuration"],
+      "69-160": ["data_preparation"],
+      "161-252": ["model_generation"],
+      "253-345": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_09.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Long tutorial-style TensorFlow BERT emotion classification (model.fit API); borderline L2/L3 by length",
+    "source_url": "https://github.com/GideonMwiti/tensorflow-100-days-60-emotion-classification-bert/blob/main/main.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["BERT (TensorFlow)"],
+    "stage_labels": {
+      "1-21": ["environment_configuration"],
+      "22-168": ["data_preparation"],
+      "169-172": ["program_structure"],
+      "173-180": ["environment_configuration"],
+      "181-186": ["data_preparation"],
+      "187-200": ["feature_engineering"],
+      "201-223": ["data_preparation"],
+      "224-278": ["model_generation"],
+      "279-399": ["model_evaluation"],
+      "400-401": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t2_10.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "INFERENCE-ONLY model comparison script (loads saved models, no training) \u2014 negative example for is_ml_training_workflow",
+    "source_url": "https://github.com/Vansh-codi/SkinCancerClassification_Project/blob/main/compare_models.py",
+    "is_ml_training_workflow": false,
+    "ml_problem": "classification",
+    "models": ["Keras.Model"],
+    "stage_labels": {
+      "1-10": ["environment_configuration"],
+      "11-179": ["model_evaluation"]
     }
   },
   {
     "file_name": "script_t3_01.py",
     "file_type": "script",
     "level": 3,
-    "description": "Kaggle notebook classifying 20 Newsgroups posts using Gemini API embeddings and a Keras dense classifier",
-    "source_url": "https://www.kaggle.com/code/markishere/day-2-classifying-embeddings-with-keras",
+    "description": "Notebook-export Random Forest classification of multi-band remote-sensing imagery (GDAL/OGR, shapefile training data); report.txt logging, chunked whole-image prediction with MemoryError fallback, independent shapefile validation",
+    "source_url": "unknown (script header: based on http://ceholden.github.io/open-geo-tutorial/python/chapter_5_classification.html)",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [
-      "keras.Sequential"
-    ],
+    "models": ["RandomForestClassifier"],
     "stage_labels": {
-      "1-48": [
-        "environment_configuration"
-      ],
-      "49-213": [
-        "data_preparation"
-      ],
-      "214-229": [
-        "model_generation"
-      ],
-      "230-280": [
-        "model_evaluation"
-      ],
-      "281-398": [
-        "data_preparation"
-      ],
-      "399-506": [
-        "model_evaluation"
-      ]
+      "1-84": ["environment_configuration"],
+      "85-104": ["data_preparation"],
+      "105-124": ["environment_configuration"],
+      "125-215": ["data_preparation"],
+      "216-227": ["model_generation"],
+      "228": ["data_preparation"],
+      "229-231": ["model_generation"],
+      "232-401": ["model_evaluation"],
+      "402-433": ["data_preparation"],
+      "434-506": ["model_evaluation"]
     }
   },
   {
@@ -282,58 +337,6 @@
       ]
     }
   },
-  
-  
-  {
-    "file_name": "script_t2_07.py",
-    "file_type": "script",
-    "level": 2,
-    "description": "Keras CNN on imbalanced time-series sensor data with StratifiedKFold cross-validation loops",
-    "source_url": "https://github.com/lensureal/CNN-timeseries-classification/blob/main/src/cross_validation.py",
-    "is_ml_training_workflow": true,
-    "ml_problem": "classification",
-    "models": [
-      "keras CNN"
-    ],
-    "stage_labels": {}
-  },
-  {
-    "file_name": "script_t2_08.py",
-    "file_type": "script",
-    "level": 2,
-    "description": "Single-file PyTorch brain-tumor MRI CNN classification with hand-rolled loop, 345 lines",
-    "source_url": "https://github.com/Surianandhan/brain-tumor-cnn-classification/blob/main/brain_tumor_cnn_classification.py",
-    "is_ml_training_workflow": true,
-    "ml_problem": "classification",
-    "models": [
-      "CNN (custom nn.Module)"
-    ],
-    "stage_labels": {}
-  },
-  {
-    "file_name": "script_t2_09.py",
-    "file_type": "script",
-    "level": 2,
-    "description": "Long tutorial-style TensorFlow BERT emotion classification (model.fit API); borderline L2/L3 by length",
-    "source_url": "https://github.com/GideonMwiti/tensorflow-100-days-60-emotion-classification-bert/blob/main/main.py",
-    "is_ml_training_workflow": true,
-    "ml_problem": "classification",
-    "models": [
-      "BERT (TensorFlow)"
-    ],
-    "stage_labels": {}
-  },
-  {
-    "file_name": "script_t2_10.py",
-    "file_type": "script",
-    "level": 2,
-    "description": "INFERENCE-ONLY model comparison script (loads saved models, no training) \u2014 negative example for is_ml_training_workflow",
-    "source_url": "https://github.com/Vansh-codi/SkinCancerClassification_Project/blob/main/compare_models.py",
-    "is_ml_training_workflow": false,
-    "ml_problem": "classification",
-    "models": [],
-    "stage_labels": {}
-  },
   {
     "file_name": "script_t3_03.py",
     "file_type": "script",
@@ -345,7 +348,25 @@
     "models": [
       "CNN (custom nn.Module)"
     ],
-    "stage_labels": {}
+    "stage_labels": {
+      "1-32": ["environment_configuration"],
+      "33-35": ["data_preparation"],
+      "36": ["environment_configuration"],
+      "37-53": ["data_preparation"],
+      "54-56": ["model_generation"],
+      "57-140": ["data_preparation"],
+      "141-143": ["environment_configuration"],
+      "144-189": ["model_generation"],
+      "190": ["environment_configuration"],
+      "191-224": ["model_generation"],
+      "225-242": ["model_evaluation"],
+      "243-338": ["model_generation"],
+      "339": ["environment_configuration"],
+      "340-371": ["model_generation"],
+      "372-381": ["model_evaluation"],
+      "382-384": ["environment_configuration"],
+      "385-416": ["model_evaluation"]
+    }
   },
   {
     "file_name": "script_t3_04.py",
@@ -358,7 +379,23 @@
     "models": [
       "BERT (HuggingFace)"
     ],
-    "stage_labels": {}
+    "stage_labels": {
+      "1-44": ["environment_configuration"],
+      "45-136": ["model_generation"],
+      "137-200": ["model_evaluation"],
+      "201-205": ["program_structure"],
+      "206-224": ["environment_configuration"],
+      "225-226": ["data_preparation"],
+      "227-228": ["model_generation"],
+      "229-238": ["data_preparation"],
+      "239-241": ["environment_configuration"],
+      "242-253": ["data_preparation"],
+      "254-357": ["model_generation"],
+      "358-376": ["model_evaluation"],
+      "377-381": ["program_structure"],
+      "382-401": ["environment_configuration"],
+      "402": ["program_structure"]
+    }
   },
   {
     "file_name": "script_t3_05.py",
@@ -371,7 +408,26 @@
     "models": [
       "BERT + QLoRA (PEFT)"
     ],
-    "stage_labels": {}
+    "stage_labels": {
+      "1-66": ["environment_configuration"],
+      "67-72": ["model_generation"],
+      "73": ["program_structure"],
+      "74-75": ["environment_configuration"],
+      "76-80": ["model_generation"],
+      "81-103": ["data_preparation"],
+      "104-109": ["environment_configuration"],
+      "110-126": ["feature_engineering"],
+      "127-131": ["data_preparation"],
+      "132-144": ["environment_configuration"],
+      "145-212": ["model_generation"],
+      "213-220": ["model_evaluation"],
+      "221-232": ["model_generation"],
+      "233-240": ["environment_configuration"],
+      "241-244": ["model_generation"],
+      "245-248": ["model_evaluation"],
+      "249-254": ["model_generation"],
+      "255-256": ["program_structure"]
+    }
   },
   {
     "file_name": "script_t3_06.py",
@@ -381,8 +437,24 @@
     "source_url": "https://github.com/MohamadRezaChaghomi/Telco-Churn-MLOps/blob/main/src/train.py",
     "is_ml_training_workflow": true,
     "ml_problem": "classification",
-    "models": [],
-    "stage_labels": {}
+    "models": ["LogisticRegression", "RandomForestClassifier", "XGBClassifier", "CatBoostClassifier"],
+    "stage_labels": {
+      "1-27": ["environment_configuration"],
+      "28-44": ["model_generation"],
+      "45-64": ["model_evaluation"],
+      "65": ["program_structure"],
+      "66-73": ["data_preparation"],
+      "74-78": ["environment_configuration"],
+      "79-96": ["model_generation"],
+      "97-99": ["model_evaluation"],
+      "100-110": ["model_generation"],
+      "111-115": ["model_evaluation"],
+      "116-122": ["model_generation"],
+      "123-129": ["model_evaluation"],
+      "130-137": ["model_generation"],
+      "138-156": ["model_evaluation"],
+      "157-161": ["program_structure"]
+    }
   },
   {
     "file_name": "script_t3_07.py",
@@ -395,6 +467,18 @@
     "models": [
       "LoanPredictor (custom nn.Module, local import)"
     ],
-    "stage_labels": {}
+    "stage_labels": {
+      "1-32": ["environment_configuration"],
+      "33-57": ["model_evaluation"],
+      "58-70": ["model_generation"],
+      "71-72": ["program_structure"],
+      "73-74": ["data_preparation"],
+      "75-87": ["environment_configuration"],
+      "88-93": ["data_preparation"],
+      "94-103": ["model_generation"],
+      "104-106": ["model_evaluation"],
+      "107-109": ["model_generation"],
+      "110-116": ["program_structure"]
+    }
   }
 ]

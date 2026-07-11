@@ -84,7 +84,13 @@ and model?* Yes → env_config.
 - **R13.** Random seeds, even mid-file.
 - **R14.** CLI/config parsing: the whole argparse block including arg unpacking; Config
   class unpacking (`BATCH_SIZE = Config.BATCH_SIZE`). Rationale: args feed many stages;
-  data-flow would shred the block.
+  data-flow would shred the block. **Extended (ruled 2026-07-11):** bare comment-introduced
+  blocks of *literal* constants feeding multiple stages (`BATCH_SIZE = 32`, `EPOCHS = 10`,
+  paths) also stay whole → env_config. This reverses the earlier t1_04 per-line shred
+  (t1_04 5-8 re-merged; matches t2_05/t2_08/t2_09). Distinction: values *computed from
+  data* (`N, D = Xtrain.shape`, `input_dim = X_train.shape[1]`) still follow data flow
+  per Step 2 — the cohesion rule covers literal config constants only. Generation
+  rationale: constants belong in dependency.py, which is what env_config maps to.
 - **R15.** Experiment-tracking *setup* (TensorBoard writer, logdir creation, MLflow init).
   *Using* the tracker (`run.log(x)`) → the stage that produced x.
 - **R16.** Version asserts and compatibility checks.
@@ -99,11 +105,12 @@ and model?* Yes → env_config.
 - **R17.** Scaling/normalization/encoding — including of targets (`to_categorical(y)`,
   `LabelEncoder` on y) and format conversions (reshape, astype, `torch.tensor(x)`)
   → **data_preparation** (paper Table 2). NOT feature engineering.
-- **R18.** **[OPEN — transforms/augmentation]** Image/tensor transform pipelines:
-  format-required transforms (Resize, ToTensor, plain rescale /255) → data_preparation,
-  by R17 analogy. Whether *augmentation* (random flips/crops, mixup) is data_preparation
-  (paper says yes) or feature_engineering (passes the "affects quality" litmus test)
-  is unratified. Current draft position: everything → data_preparation, per paper.
+- **R18.** Image/tensor transform pipelines → **data_preparation**, including
+  *augmentation* (random flips/crops, mixup, ColorJitter). **Ruled 2026-07-11.**
+  Rationale: follows the paper (Table 2, our taxonomy's cited authority), and real code
+  interleaves format and augmentation transforms inside a single `Compose([...])` call,
+  which R8 forbids splitting. (Relabeled to match: t2_05 29-45 → dp; t2_06 25-30 was
+  format-only and already dp.)
 - **R19.** Feature engineering = selection (including manual column picking,
   `X = df[cols]`), construction, extraction (PCA, tokenization/vectorization,
   embedding-matrix construction). Text tokenization → feature_engineering.
@@ -111,7 +118,11 @@ and model?* Yes → env_config.
   **model_generation** (training monitoring). Only held-out scoring after training is
   model_evaluation. Consequence: a script may legitimately have no model_evaluation
   block. Training-accuracy tracking inside the train phase is always model_generation.
-  **[Ratify: this convention was contested during t2_06 labeling.]**
+  **Ruled 2026-07-11: confirmed as written** (the t2_06 counter-position was withdrawn;
+  t2_06 62-171 relabeled to model_generation — the file now has no eval block, like
+  t3_02). Rationale: in-loop checks steer training (early stopping, checkpointing) and
+  live inside loop bodies that R8 forbids splitting; eval code trapped in a loop could
+  never become a separate task file.
 - **R21.** Model/checkpoint saving, `save_pretrained`, checkpoint dicts, `load_model` /
   auto-resume for training → **model_generation** ("saving the trained model").
 - **R22.** Training-history plots (`plt.plot(history['loss'])` after training) →
@@ -156,10 +167,33 @@ main guards attach backward to the last block (t1_01/t2_03 precedent).
 ## 7. Other open questions **[OPEN]**
 
 - **model_application**: inference-heavy code that *applies* a trained model to new data
-  at scale (t3_01's chunked raster prediction, report generation). No honest home in the
-  current taxonomy — candidates: new label, or scope-limit the claim.
+  at scale (t3_01's chunked raster prediction, report generation; t2_05's Streamlit
+  predict-on-upload UI at 151-175; t2_09's custom-phrase predictions at 283-302; t2_10's
+  entire body, 11-179, provisionally model_evaluation as a saved-model *comparison*). No
+  honest home in the current taxonomy — candidates: new label, or scope-limit the claim.
 - **ml_problem taxonomy**: anomaly detection ruled "classification" (user decision,
   t2_03); clustering/other still untested.
+- ~~Constants-block cohesion~~ **RESOLVED 2026-07-11** → folded into R14 (keep whole →
+  env_config; t1_04 re-merged).
+- **Decision-threshold selection on validation** (t2_07, 133-144): "tuning it" is
+  model_generation by definition, but it happens post-fit on validation predictions.
+  Provisionally labeled model_evaluation. Ratify one way.
+- **Multi-stage loop headers** (t2_07, line 38): §6 covers multi-stage *function* defs
+  and main guards only, not loops whose body spans stages. Provisional call: the header
+  contains `skf.split(X, y)`, a splitting anchor → data_preparation. Ratify or extend §6.
+- **Pretrained-artifact loading** (t2_09, line 179): `BertTokenizer.from_pretrained`
+  provisionally env_config; data flow says the tokenizer feeds tokenization →
+  feature_engineering. (Contrast: the TF-Hub BERT *layer* at 239 is a model component →
+  model_generation, uncontested.)
+- **try/except wrappers around multi-stage bodies** (t3_07, lines 72 and 110-112):
+  syntactic scope spans multiple stages, like a wrapper def → provisionally
+  program_structure. §6 lists only three cases; ratify this as a fourth or reassign.
+- **Post-training diagnostics on TRAINING data** (t3_01, 232-281: OOB score, feature
+  importances, training-set crosstab/confusion): metric anchors say model_evaluation,
+  but the data is not held-out. Provisionally me (Step 1 anchors win). Ratify.
+- **`models` metadata for negatives** (t2_10): does `models` list *loaded* models in
+  inference-only files (current: ["Keras.Model"]) or stay empty since nothing is trained?
+  Matters once extraction scoring exists.
 
 ---
 
