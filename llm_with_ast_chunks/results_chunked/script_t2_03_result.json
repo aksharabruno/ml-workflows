@@ -1,0 +1,60 @@
+{
+  "file": "script_t2_03.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "anomaly_detection",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 12
+    },
+    {
+      "stage": "program_structure",
+      "start": 13,
+      "end": 13
+    },
+    {
+      "stage": "data_preparation",
+      "start": 14,
+      "end": 17
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 18,
+      "end": 18
+    },
+    {
+      "stage": "data_preparation",
+      "start": 19,
+      "end": 61
+    },
+    {
+      "stage": "model_generation",
+      "start": 62,
+      "end": 85
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 86,
+      "end": 90
+    },
+    {
+      "stage": "model_generation",
+      "start": 91,
+      "end": 100
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 101,
+      "end": 116
+    },
+    {
+      "stage": "program_structure",
+      "start": 117,
+      "end": 118
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 73,
+  "n_llm_chunks": 60
+}

@@ -1,0 +1,100 @@
+{
+  "file": "script_t3_05.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 66
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 67,
+      "end": 72
+    },
+    {
+      "stage": "program_structure",
+      "start": 73,
+      "end": 73
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 74,
+      "end": 76
+    },
+    {
+      "stage": "model_generation",
+      "start": 77,
+      "end": 80
+    },
+    {
+      "stage": "data_preparation",
+      "start": 81,
+      "end": 93
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 94,
+      "end": 96
+    },
+    {
+      "stage": "data_preparation",
+      "start": 97,
+      "end": 131
+    },
+    {
+      "stage": "program_structure",
+      "start": 132,
+      "end": 139
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 140,
+      "end": 144
+    },
+    {
+      "stage": "model_generation",
+      "start": 145,
+      "end": 212
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 213,
+      "end": 220
+    },
+    {
+      "stage": "model_generation",
+      "start": 221,
+      "end": 232
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 233,
+      "end": 240
+    },
+    {
+      "stage": "model_generation",
+      "start": 241,
+      "end": 244
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 245,
+      "end": 246
+    },
+    {
+      "stage": "model_generation",
+      "start": 247,
+      "end": 252
+    },
+    {
+      "stage": "program_structure",
+      "start": 253,
+      "end": 256
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 87,
+  "n_llm_chunks": 58
+}

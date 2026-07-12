@@ -1,0 +1,70 @@
+{
+  "file": "script_t3_06.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 27
+    },
+    {
+      "stage": "model_generation",
+      "start": 28,
+      "end": 44
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 45,
+      "end": 64
+    },
+    {
+      "stage": "program_structure",
+      "start": 65,
+      "end": 65
+    },
+    {
+      "stage": "data_preparation",
+      "start": 66,
+      "end": 73
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 74,
+      "end": 78
+    },
+    {
+      "stage": "model_generation",
+      "start": 79,
+      "end": 97
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 98,
+      "end": 99
+    },
+    {
+      "stage": "model_generation",
+      "start": 100,
+      "end": 110
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 111,
+      "end": 115
+    },
+    {
+      "stage": "model_generation",
+      "start": 116,
+      "end": 137
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 138,
+      "end": 161
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 89,
+  "n_llm_chunks": 67
+}

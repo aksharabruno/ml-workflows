@@ -1,0 +1,35 @@
+{
+  "file": "script_t1_04.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 4
+    },
+    {
+      "stage": "model_generation",
+      "start": 5,
+      "end": 6
+    },
+    {
+      "stage": "data_preparation",
+      "start": 7,
+      "end": 26
+    },
+    {
+      "stage": "model_generation",
+      "start": 27,
+      "end": 48
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 49,
+      "end": 51
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 24,
+  "n_llm_chunks": 16
+}

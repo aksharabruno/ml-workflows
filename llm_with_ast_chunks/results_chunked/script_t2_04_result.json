@@ -1,0 +1,45 @@
+{
+  "file": "script_t2_04.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "regression",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 8
+    },
+    {
+      "stage": "model_generation",
+      "start": 9,
+      "end": 22
+    },
+    {
+      "stage": "program_structure",
+      "start": 23,
+      "end": 24
+    },
+    {
+      "stage": "model_generation",
+      "start": 25,
+      "end": 37
+    },
+    {
+      "stage": "data_preparation",
+      "start": 38,
+      "end": 47
+    },
+    {
+      "stage": "model_generation",
+      "start": 48,
+      "end": 71
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 72,
+      "end": 75
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 36,
+  "n_llm_chunks": 29
+}
