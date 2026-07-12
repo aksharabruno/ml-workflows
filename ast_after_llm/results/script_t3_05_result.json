@@ -1,0 +1,70 @@
+{
+  "file": "script_t3_05.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "from_pretrained",
+    "library": "transformers",
+    "full_call": "transformers.AutoModelForSequenceClassification.from_pretrained"
+  },
+  "hyperparameters": [],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 52
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 53,
+      "end": 65
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 66,
+      "end": 70
+    },
+    {
+      "stage": "program_structure",
+      "start": 73,
+      "end": 73
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 74,
+      "end": 77
+    },
+    {
+      "stage": "data_preparation",
+      "start": 78,
+      "end": 130
+    },
+    {
+      "stage": "model_generation",
+      "start": 131,
+      "end": 212
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 213,
+      "end": 219
+    },
+    {
+      "stage": "model_generation",
+      "start": 220,
+      "end": 243
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 244,
+      "end": 253
+    },
+    {
+      "stage": "program_structure",
+      "start": 255,
+      "end": 256
+    }
+  ],
+  "reasoning": "This script fine-tunes BERT for binary sentiment classification using QLoRA (4-bit quantization + LoRA). After environment setup and argparse, it loads and tokenizes the IMDB dataset (data_preparation), instantiates the model with LoRA config and Trainer arguments (model_generation), trains via trainer.train(), then evaluates on held-out data. The compute_params and compute_metrics helper defs are labeled as evaluation content."
+}

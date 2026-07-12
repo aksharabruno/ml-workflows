@@ -64,8 +64,18 @@
       "end": 11
     },
     {
+      "stage": "program_structure",
+      "start": 13,
+      "end": 13
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 14,
+      "end": 19
+    },
+    {
       "stage": "data_preparation",
-      "start": 12,
+      "start": 20,
       "end": 60
     },
     {
@@ -76,8 +86,13 @@
     {
       "stage": "model_evaluation",
       "start": 100,
+      "end": 115
+    },
+    {
+      "stage": "program_structure",
+      "start": 117,
       "end": 118
     }
   ],
-  "reasoning": "This workflow trains an autoencoder for credit card fraud detection. Data is loaded, explored via plots, scaled with StandardScaler, and split into train/test sets in the data preparation stage. A Keras autoencoder is defined, compiled, and fit on normal transactions in model generation, then predictions and reconstruction error metrics are computed on the test set for evaluation."
+  "reasoning": "This workflow builds an autoencoder for credit card fraud detection. Data is loaded, explored via EDA plots, scaled and split into train/test sets; a Keras autoencoder is defined, compiled, trained with checkpointing/TensorBoard, and reloaded. Post-training it plots training history, predicts on test data, and computes reconstruction error for anomaly-based fraud classification."
 }

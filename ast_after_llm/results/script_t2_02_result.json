@@ -38,11 +38,46 @@
     {
       "stage": "model_evaluation",
       "start": 71,
+      "end": 76
+    },
+    {
+      "stage": "model_generation",
+      "start": 77,
+      "end": 113
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 114,
+      "end": 143
+    },
+    {
+      "stage": "model_generation",
+      "start": 144,
       "end": 150
     },
     {
-      "stage": "data_preparation",
+      "stage": "program_structure",
       "start": 151,
+      "end": 152
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 153,
+      "end": 162
+    },
+    {
+      "stage": "data_preparation",
+      "start": 163,
+      "end": 230
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 231,
+      "end": 249
+    },
+    {
+      "stage": "data_preparation",
+      "start": 250,
       "end": 305
     },
     {
@@ -58,8 +93,13 @@
     {
       "stage": "model_evaluation",
       "start": 356,
+      "end": 359
+    },
+    {
+      "stage": "program_structure",
+      "start": 360,
       "end": 363
     }
   ],
-  "reasoning": "This script performs 20 Newsgroups text classification using a CNN over pre-trained GloVe embeddings in PyTorch. It imports libraries and configures device, defines the network architecture and train/test helper functions, loads and tokenizes text data with train/val/test splits and DataLoaders, constructs the GloVe embedding matrix as features, instantiates and trains the model over epochs, and finally evaluates accuracy on the held-out test set."
+  "reasoning": "This script trains a CNN text classifier on the 20 Newsgroups dataset using pre-trained GloVe embeddings in PyTorch. It defines the model and training/evaluation helper functions, then main() sets up logging, loads and tokenizes text data, builds the embedding matrix, trains with per-epoch validation, and finally evaluates on the held-out test set."
 }

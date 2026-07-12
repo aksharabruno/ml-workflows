@@ -1,0 +1,50 @@
+{
+  "file": "script_t2_05.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "Linear",
+    "library": "torch",
+    "full_call": "torch.nn.Linear"
+  },
+  "hyperparameters": [],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 27
+    },
+    {
+      "stage": "data_preparation",
+      "start": 28,
+      "end": 77
+    },
+    {
+      "stage": "model_generation",
+      "start": 78,
+      "end": 88
+    },
+    {
+      "stage": "program_structure",
+      "start": 89,
+      "end": 91
+    },
+    {
+      "stage": "model_generation",
+      "start": 92,
+      "end": 136
+    },
+    {
+      "stage": "model_generation",
+      "start": 137,
+      "end": 149
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 150,
+      "end": 175
+    }
+  ],
+  "reasoning": "This is a flower image classification workflow using a fine-tuned ResNet18 in a Streamlit app. It sets up config/transforms and data loaders, defines and trains the model with early stopping and checkpointing (model_generation), loads the trained/checkpointed model, and provides prediction/inference through a Streamlit UI (model_evaluation)."
+}

@@ -17,9 +17,10 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-GROUND_TRUTH_PATH = Path("ground_truth_v2.json")
-RESULTS_DIR = Path("results")
-TEST_DATA_DIR = Path("test_data")
+REPO_ROOT = Path(__file__).resolve().parents[1]
+GROUND_TRUTH_PATH = REPO_ROOT / "ground_truth_v2.json"
+RESULTS_DIR = Path(__file__).resolve().parent / "results"
+TEST_DATA_DIR = REPO_ROOT / "test_data"
 
 
 def is_glue(line: str) -> bool:
@@ -165,4 +166,8 @@ def evaluate():
 
 
 if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 1:  # optional: score a different results dir (ablations)
+        _p = Path(sys.argv[1])
+        RESULTS_DIR = _p if _p.is_absolute() else REPO_ROOT / _p
     evaluate()

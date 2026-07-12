@@ -13,28 +13,38 @@
     {
       "stage": "environment_configuration",
       "start": 1,
-      "end": 7
+      "end": 10
     },
     {
       "stage": "model_generation",
-      "start": 8,
+      "start": 11,
       "end": 21
     },
     {
-      "stage": "model_generation",
+      "stage": "program_structure",
       "start": 22,
-      "end": 32
+      "end": 23
+    },
+    {
+      "stage": "model_generation",
+      "start": 24,
+      "end": 36
     },
     {
       "stage": "data_preparation",
-      "start": 33,
+      "start": 37,
       "end": 46
     },
     {
       "stage": "model_generation",
       "start": 47,
+      "end": 70
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 71,
       "end": 75
     }
   ],
-  "reasoning": "This script defines a PyTorch linear regression model to predict car sales from car prices. After imports and configuration, it defines the model architecture and instantiates the model, loss, and optimizer, then prepares the input/output tensor data before running a hand-rolled training loop with backpropagation and plotting the loss curve."
+  "reasoning": "A simple PyTorch linear regression example predicting car sales from prices. Imports and dimension constants set up the environment, a custom nn.Module defines the model, data tensors are prepared, a training loop performs optimization, and a final loss plot reports training history."
 }

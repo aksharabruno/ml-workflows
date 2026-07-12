@@ -38,5 +38,5 @@
       "end": 52
     }
   ],
-  "reasoning": "This script loads regression train/test data with pandas, creates LightGBM datasets, and splits features/target. It trains a LightGBM gradient boosting regressor with specified hyperparameters and saves the model. Finally it predicts on the test set and computes RMSE for evaluation."
+  "reasoning": "This script loads regression data from CSV files, splits features and targets, and wraps them in LightGBM Datasets (data_preparation). It defines training params, trains a gradient-boosting regressor with early stopping, and saves the model (model_generation). Finally it predicts on the test set and computes RMSE for reporting (model_evaluation)."
 }

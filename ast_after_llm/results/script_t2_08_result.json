@@ -1,0 +1,75 @@
+{
+  "file": "script_t2_08.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "CrossEntropyLoss",
+    "library": "torch",
+    "full_call": "torch.nn.CrossEntropyLoss"
+  },
+  "hyperparameters": [],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 17
+    },
+    {
+      "stage": "program_structure",
+      "start": 18,
+      "end": 24
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 25,
+      "end": 50
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 52,
+      "end": 67
+    },
+    {
+      "stage": "data_preparation",
+      "start": 68,
+      "end": 100
+    },
+    {
+      "stage": "data_preparation",
+      "start": 101,
+      "end": 159
+    },
+    {
+      "stage": "model_generation",
+      "start": 160,
+      "end": 197
+    },
+    {
+      "stage": "model_generation",
+      "start": 198,
+      "end": 251
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 252,
+      "end": 281
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 282,
+      "end": 306
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 307,
+      "end": 319
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 320,
+      "end": 345
+    }
+  ],
+  "reasoning": "This script trains a custom CNN from scratch in PyTorch to classify brain tumor MRI images into multiple classes. It sets up dependencies and config, auto-detects and loads the dataset with augmentation transforms, defines and trains the CNN with per-epoch validation and best-model checkpointing, then evaluates on the held-out test set with accuracy, classification report, confusion matrix, and a summary export."
+}

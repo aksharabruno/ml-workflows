@@ -25,11 +25,11 @@
     {
       "stage": "environment_configuration",
       "start": 1,
-      "end": 15
+      "end": 30
     },
     {
       "stage": "data_preparation",
-      "start": 16,
+      "start": 31,
       "end": 46
     },
     {
@@ -40,18 +40,38 @@
     {
       "stage": "data_preparation",
       "start": 55,
-      "end": 88
+      "end": 81
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 82,
+      "end": 87
     },
     {
       "stage": "model_generation",
-      "start": 89,
-      "end": 194
+      "start": 88,
+      "end": 118
     },
     {
       "stage": "model_evaluation",
-      "start": 195,
+      "start": 119,
+      "end": 124
+    },
+    {
+      "stage": "model_generation",
+      "start": 125,
+      "end": 135
+    },
+    {
+      "stage": "model_generation",
+      "start": 136,
+      "end": 205
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 206,
       "end": 210
     }
   ],
-  "reasoning": "This script fine-tunes a DistilBERT sequence classifier for complaint categorization. After importing libraries and parsing args, it loads and tokenizes text data, tokenizes/encodes into token IDs and attention masks (feature extraction), splits into train/val/test tensors and builds DataLoaders, instantiates the model and trains it with a Horovod-distributed AdamW optimizer over epochs, and finally saves the model, tokenizer, and logs validation loss."
+  "reasoning": "A distributed (Horovod) DistilBERT fine-tuning workflow for text classification of consumer complaints. Data is loaded from Azure ML, tokenized (feature engineering), split and wrapped into DataLoaders, then the model is trained with per-epoch validation inside the loop (model_generation). After training, model and loss artifacts are saved and validation loss is logged (model_evaluation)."
 }

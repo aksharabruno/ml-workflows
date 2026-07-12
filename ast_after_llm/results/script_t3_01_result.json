@@ -22,16 +22,21 @@
     {
       "stage": "environment_configuration",
       "start": 1,
-      "end": 49
+      "end": 48
     },
     {
       "stage": "data_preparation",
-      "start": 50,
-      "end": 214
+      "start": 49,
+      "end": 122
+    },
+    {
+      "stage": "data_preparation",
+      "start": 123,
+      "end": 213
     },
     {
       "stage": "model_generation",
-      "start": 215,
+      "start": 214,
       "end": 229
     },
     {
@@ -40,15 +45,15 @@
       "end": 280
     },
     {
-      "stage": "data_preparation",
+      "stage": "model_generation",
       "start": 281,
-      "end": 399
+      "end": 344
     },
     {
       "stage": "model_evaluation",
-      "start": 400,
+      "start": 345,
       "end": 506
     }
   ],
-  "reasoning": "This script performs Random Forest classification on remote sensing imagery. It loads and rasterizes training shapefiles into feature/label arrays (data preparation), fits a RandomForestClassifier (model generation), computes OOB scores and confusion matrices on training data (evaluation), then predicts across the full image and masks/saves the result before validating against an independent validation shapefile with accuracy metrics and reports."
+  "reasoning": "This script uses a Random Forest to classify a remote sensing image. Imports and GDAL config form the environment; loading the raster and rasterizing training shapefiles to build X/y is data preparation; the RandomForestClassifier.fit is model generation; OOB diagnostics, prediction over the full image, masking, saving, and independent validation with confusion matrices and accuracy metrics form model evaluation."
 }

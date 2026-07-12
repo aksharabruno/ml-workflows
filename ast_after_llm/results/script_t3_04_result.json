@@ -1,0 +1,68 @@
+{
+  "file": "script_t3_04.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "CrossEntropyLoss",
+    "library": "torch",
+    "full_call": "torch.nn.CrossEntropyLoss"
+  },
+  "hyperparameters": [
+    {
+      "name": "argmax",
+      "call": "torch.argmax",
+      "params": {
+        "dim": 1
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 42
+    },
+    {
+      "stage": "model_generation",
+      "start": 43,
+      "end": 134
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 135,
+      "end": 198
+    },
+    {
+      "stage": "program_structure",
+      "start": 199,
+      "end": 215
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 216,
+      "end": 223
+    },
+    {
+      "stage": "data_preparation",
+      "start": 224,
+      "end": 252
+    },
+    {
+      "stage": "model_generation",
+      "start": 253,
+      "end": 356
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 357,
+      "end": 374
+    },
+    {
+      "stage": "program_structure",
+      "start": 375,
+      "end": 402
+    }
+  ],
+  "reasoning": "This script fine-tunes BERT for BBC news text classification. It defines a training-epoch loop (model_generation) and an evaluation helper (model_evaluation), then main() orchestrates seed/device setup (env), data loading/splitting/DataLoaders (data_prep), model/optimizer/scheduler setup plus the training loop with checkpointing (model_generation), and a final metrics report and visualization plots (model_evaluation)."
+}

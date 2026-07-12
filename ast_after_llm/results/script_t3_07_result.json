@@ -1,0 +1,60 @@
+{
+  "file": "script_t3_07.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "Adam",
+    "library": "torch",
+    "full_call": "torch.optim.Adam"
+  },
+  "hyperparameters": [],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 30
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 31,
+      "end": 55
+    },
+    {
+      "stage": "model_generation",
+      "start": 56,
+      "end": 68
+    },
+    {
+      "stage": "program_structure",
+      "start": 69,
+      "end": 71
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 72,
+      "end": 86
+    },
+    {
+      "stage": "data_preparation",
+      "start": 87,
+      "end": 92
+    },
+    {
+      "stage": "model_generation",
+      "start": 93,
+      "end": 107
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 108,
+      "end": 112
+    },
+    {
+      "stage": "program_structure",
+      "start": 113,
+      "end": 116
+    }
+  ],
+  "reasoning": "This experimental PyTorch script trains a binary classifier (BCEWithLogitsLoss) for loan prediction. The main() function spans multiple stages: setting up MLflow/device config, loading and batching data into DataLoaders, instantiating and training the model via train_model, and logging artifacts (loss curves plotted after training) and the registered model. Helper functions _log_artifacts (training-history plotting) is model_evaluation while _log_model is model_generation."
+}

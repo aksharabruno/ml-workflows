@@ -1,0 +1,47 @@
+{
+  "file": "script_t2_10.py",
+  "is_ml_training_workflow": false,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": null,
+  "hyperparameters": [
+    {
+      "name": "load_model",
+      "call": "tensorflow.keras.models.load_model",
+      "params": {
+        "compile": false,
+        "safe_mode": false
+      }
+    },
+    {
+      "name": "load_model",
+      "call": "tensorflow.keras.models.load_model",
+      "params": {
+        "compile": false
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 10
+    },
+    {
+      "stage": "model_generation",
+      "start": 11,
+      "end": 82
+    },
+    {
+      "stage": "data_preparation",
+      "start": 83,
+      "end": 96
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 97,
+      "end": 179
+    }
+  ],
+  "reasoning": "This script loads three pre-trained Keras skin-cancer classification models (with helpers to strip incompatible quantization config), then runs inference on a single test image to compare predictions, confidence, and timing across models. No training occurs; the workflow is model loading and post-hoc evaluation/reporting for a 9-class classification task."
+}

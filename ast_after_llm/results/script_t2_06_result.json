@@ -1,0 +1,65 @@
+{
+  "file": "script_t2_06.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "CrossEntropyLoss",
+    "library": "torch",
+    "full_call": "torch.nn.CrossEntropyLoss"
+  },
+  "hyperparameters": [
+    {
+      "name": "argmax",
+      "call": "torch.argmax",
+      "params": {
+        "dim": 1
+      }
+    },
+    {
+      "name": "argmax",
+      "call": "torch.argmax",
+      "params": {
+        "dim": 1
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 11
+    },
+    {
+      "stage": "program_structure",
+      "start": 13,
+      "end": 13
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 14,
+      "end": 23
+    },
+    {
+      "stage": "data_preparation",
+      "start": 24,
+      "end": 32
+    },
+    {
+      "stage": "data_preparation",
+      "start": 33,
+      "end": 60
+    },
+    {
+      "stage": "model_generation",
+      "start": 61,
+      "end": 170
+    },
+    {
+      "stage": "program_structure",
+      "start": 172,
+      "end": 173
+    }
+  ],
+  "reasoning": "This is an image classification workflow using a custom CNN on an AnimalDataset. Config constants feed multiple stages (env_config), data is loaded via DataLoaders with a transform pipeline (data_preparation), and the model is instantiated, checkpoint-resumed, and trained with per-epoch validation, accuracy tracking, and best-model checkpointing all inside the training loop (model_generation). All evaluation happens inside the training loop, so there is no separate model_evaluation block."
+}

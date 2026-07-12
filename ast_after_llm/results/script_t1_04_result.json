@@ -71,5 +71,5 @@
       "end": 51
     }
   ],
-  "reasoning": "This workflow loads the MNIST dataset, scales and reshapes images, and one-hot encodes labels during data preparation. A convolutional neural network is defined, compiled, and fit during model generation. Finally the model is evaluated on the held-out test set with loss and accuracy reported, making this an image classification task."
+  "reasoning": "This is an MNIST digit classification workflow using Keras. Data is loaded, scaled, reshaped, and one-hot encoded (data_preparation), a CNN is built, compiled, and trained (model_generation), and finally evaluated on held-out test data (model_evaluation). The num_classes and input_shape constants at lines 5-7 feed data prep and model building but sit within the data preparation section flow; imports remain environment_configuration."
 }

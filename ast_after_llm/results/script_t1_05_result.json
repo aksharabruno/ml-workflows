@@ -24,16 +24,16 @@
     {
       "stage": "environment_configuration",
       "start": 1,
-      "end": 6
+      "end": 5
     },
     {
       "stage": "data_preparation",
-      "start": 7,
-      "end": 11
+      "start": 6,
+      "end": 12
     },
     {
       "stage": "feature_engineering",
-      "start": 12,
+      "start": 13,
       "end": 17
     },
     {
@@ -52,5 +52,5 @@
       "end": 28
     }
   ],
-  "reasoning": "The script loads the Iowa housing data and separates the SalePrice target, then manually selects a subset of feature columns (feature engineering) before splitting into train/validation sets. A RandomForestRegressor is instantiated and fit on the training data, then predictions on the validation set are scored with mean absolute error. This is a regression workflow."
+  "reasoning": "This script loads Iowa housing data, selects a subset of features to predict SalePrice, splits into train/validation sets, and trains a RandomForestRegressor. It then predicts on the validation set and computes MAE, making it a regression workflow."
 }

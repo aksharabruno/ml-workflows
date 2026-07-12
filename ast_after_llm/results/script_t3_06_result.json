@@ -1,0 +1,92 @@
+{
+  "file": "script_t3_06.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "RandomForestClassifier",
+    "library": "sklearn",
+    "full_call": "sklearn.ensemble.RandomForestClassifier"
+  },
+  "hyperparameters": [
+    {
+      "name": "RandomForestClassifier",
+      "call": "sklearn.ensemble.RandomForestClassifier",
+      "params": {
+        "random_state": 42,
+        "class_weight": "balanced"
+      }
+    },
+    {
+      "name": "XGBClassifier",
+      "call": "xgboost.XGBClassifier",
+      "params": {
+        "random_state": 42,
+        "eval_metric": "logloss",
+        "n_estimators": 100,
+        "scale_pos_weight": 2.5
+      }
+    },
+    {
+      "name": "RandomForestClassifier",
+      "call": "sklearn.ensemble.RandomForestClassifier",
+      "params": {
+        "random_state": 42,
+        "class_weight": "balanced"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 20
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 21,
+      "end": 26
+    },
+    {
+      "stage": "model_generation",
+      "start": 27,
+      "end": 42
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 43,
+      "end": 62
+    },
+    {
+      "stage": "program_structure",
+      "start": 63,
+      "end": 66
+    },
+    {
+      "stage": "data_preparation",
+      "start": 67,
+      "end": 72
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 73,
+      "end": 77
+    },
+    {
+      "stage": "model_generation",
+      "start": 78,
+      "end": 136
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 137,
+      "end": 155
+    },
+    {
+      "stage": "program_structure",
+      "start": 156,
+      "end": 161
+    }
+  ],
+  "reasoning": "This script trains and compares multiple classifiers (logistic regression, random forest, XGBoost, CatBoost) on a churn dataset with MLflow tracking. It defines model/pipeline builders, splits data, runs training with grid search, and selects the best model by test F1. The train_models function spans multiple stages, so its def/return lines are program_structure, while the confusion-matrix plotting helper and post-training comparison export are model_evaluation."
+}

@@ -22,23 +22,33 @@
     {
       "stage": "environment_configuration",
       "start": 1,
-      "end": 6
+      "end": 5
+    },
+    {
+      "stage": "program_structure",
+      "start": 7,
+      "end": 7
     },
     {
       "stage": "data_preparation",
-      "start": 7,
+      "start": 8,
       "end": 18
     },
     {
       "stage": "model_generation",
-      "start": 19,
+      "start": 20,
       "end": 23
     },
     {
       "stage": "model_evaluation",
       "start": 24,
+      "end": 28
+    },
+    {
+      "stage": "program_structure",
+      "start": 30,
       "end": 31
     }
   ],
-  "reasoning": "The script imports sklearn utilities, generates synthetic data and splits/scales it, trains a RandomForestClassifier, then predicts on the test set and computes accuracy. It is a binary classification workflow."
+  "reasoning": "This script generates synthetic data, splits and scales it, trains a RandomForestClassifier, and evaluates accuracy on the held-out test set. The workflow is wrapped in a single multi-stage function called under the __main__ guard."
 }

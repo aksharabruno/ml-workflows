@@ -1,0 +1,64 @@
+{
+  "file": "script_t3_03.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "CrossEntropyLoss",
+    "library": "torch",
+    "full_call": "torch.nn.CrossEntropyLoss"
+  },
+  "hyperparameters": [
+    {
+      "name": "Adam",
+      "call": "torch.optim.Adam",
+      "params": {
+        "lr": 0.001,
+        "weight_decay": 0.0001
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 32
+    },
+    {
+      "stage": "data_preparation",
+      "start": 33,
+      "end": 139
+    },
+    {
+      "stage": "model_generation",
+      "start": 140,
+      "end": 199
+    },
+    {
+      "stage": "model_generation",
+      "start": 200,
+      "end": 223
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 224,
+      "end": 241
+    },
+    {
+      "stage": "model_generation",
+      "start": 242,
+      "end": 359
+    },
+    {
+      "stage": "model_generation",
+      "start": 360,
+      "end": 372
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 373,
+      "end": 416
+    }
+  ],
+  "reasoning": "This is an image classification workflow using a custom CNN in PyTorch on an ImageFolder dataset (seg_train/seg_test). Data is unzipped, normalized via computed mean/std, augmented, and split into train/val/test loaders; a CNN is defined and trained with checkpointing, early stopping, and per-epoch validation. After training, the best checkpoint is loaded and the model is evaluated on held-out test data with a confusion matrix, precision, recall, and a single-image prediction."
+}

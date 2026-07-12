@@ -1,0 +1,87 @@
+{
+  "file": "script_t2_07.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification",
+  "dataset": null,
+  "model": {
+    "name": "Sequential",
+    "library": "keras",
+    "full_call": "keras.Sequential"
+  },
+  "hyperparameters": [
+    {
+      "name": "compile",
+      "call": "model.compile",
+      "params": {
+        "loss": "binary_crossentropy"
+      }
+    },
+    {
+      "name": "fit",
+      "call": "model.fit",
+      "params": {
+        "epochs": 300,
+        "batch_size": 32,
+        "verbose": 1
+      }
+    },
+    {
+      "name": "Dense",
+      "call": "keras.layers.Dense",
+      "params": {
+        "activation": "relu"
+      }
+    },
+    {
+      "name": "Dense",
+      "call": "keras.layers.Dense",
+      "params": {
+        "activation": "sigmoid",
+        "name": "franzDOTwendelATcampusDOTtuMINUSberlinDOTde"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 12
+    },
+    {
+      "stage": "data_preparation",
+      "start": 13,
+      "end": 22
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 23,
+      "end": 36
+    },
+    {
+      "stage": "program_structure",
+      "start": 37,
+      "end": 39
+    },
+    {
+      "stage": "model_generation",
+      "start": 40,
+      "end": 45
+    },
+    {
+      "stage": "data_preparation",
+      "start": 46,
+      "end": 68
+    },
+    {
+      "stage": "model_generation",
+      "start": 69,
+      "end": 130
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 131,
+      "end": 162
+    }
+  ],
+  "reasoning": "This script loads a prepared 1D CNN dataset, runs stratified K-fold cross-validation building and training a Keras Conv1D binary classifier per fold with early stopping and class weighting, then selects fold-specific thresholds on validation and reports test F1 scores across folds. Data loading and per-fold train/val/test splitting are data_preparation, model construction/compilation/fit are model_generation, and post-training predictions with threshold selection and F1 reporting are model_evaluation."
+}
