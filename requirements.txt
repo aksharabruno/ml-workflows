@@ -1,3 +1,7 @@
+# Pipeline dependencies (main.py, chunk_pipeline.py, to_notebook.py).
+# evaluate.py, ast_chunker.py, task_generator.py are stdlib-only.
+# Corpus-script dependencies (for running generated task files) live in
+# requirements-corpus.txt.
 anthropic
 python-dotenv
 nbformat
