@@ -1,0 +1,49 @@
+# Dependencies of the test_data corpus scripts — install these only to run
+# Tier-2 (failure-equivalence) / Tier-3 (output-equivalence) verification of
+# generated task files. NOT needed for the analysis pipeline itself.
+#
+# DELIBERATELY EXCLUDED (their absence is the expected, documented failure
+# for the corresponding files — see task-generation verification design):
+#   horovod, azureml-*        (t3_02: distributed AzureML training)
+#   gdal / osgeo              (t3_01: geospatial raster stack)
+#   bitsandbytes              (t3_05: GPU-only quantization; script has a
+#                              try/except fallback and still imports torch/peft)
+
+# scientific base
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+joblib
+tqdm
+pillow
+h5py
+packaging
+
+# gradient boosting (t1_02, t1_03, t3_06)
+xgboost
+lightgbm
+catboost
+
+# tensorflow/keras stack (t1_04, t2_01, t2_03, t2_07, t2_09, t2_10)
+tensorflow
+tf-keras
+tensorflow-hub
+
+# pytorch stack (t2_02, t2_04, t2_05, t2_06, t2_08, t3_03, t3_04, t3_07)
+torch
+torchvision
+torchinfo
+
+# NLP (t2_02, t2_09, t3_04, t3_05)
+gensim
+transformers
+datasets
+evaluate
+peft
+
+# apps / tracking (t2_05, t3_06, t3_07)
+streamlit
+mlflow
+dagshub
