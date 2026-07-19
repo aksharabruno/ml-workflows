@@ -63,7 +63,7 @@ class Chunker:
     def __init__(self, source: str):
         self.tree = ast.parse(source)
         self.n_lines = len(source.splitlines())
-        self.chunks = []  # dicts: id,start,end,kind,auto_label,parent,llm
+        self.chunks = []  # dicts: id,start,end,category,auto_label,parent,llm
 
     def run(self):
         self._chunk_body(self.tree.body, parent=None)
@@ -72,11 +72,11 @@ class Chunker:
             c["id"] = i
         return self.chunks
 
-    def _add(self, start, end, kind, parent, auto_label=None):
+    def _add(self, start, end, category, parent, auto_label=None):
         self.chunks.append({
-            "id": None, "start": start, "end": end, "kind": kind,
+            "id": None, "start": start, "end": end, "category": category,
             "auto_label": auto_label, "parent": parent,
-            "llm": auto_label is None and kind not in ("def_header", "docstring"),
+            "llm": auto_label is None and category not in ("def_header", "docstring"),
         })
         return self.chunks[-1]
 
@@ -156,13 +156,34 @@ def chunk_source(source: str):
     # excluded from def-header derivation
     lines = source.splitlines()
     for c in chunks:
-        if c["kind"] in ("stmt",) and all(
+        if c["category"] in ("stmt",) and all(
             _is_glue_line(lines[l - 1])
             for l in range(c["start"], min(c["end"], len(lines)) + 1)
         ):
-            c["kind"] = "glue"
+            c["category"] = "glue"
             c["llm"] = False
     return chunks
+
+
+def dump_tree(chunks, labels: dict | None = None) -> str:
+    """Render chunks as an indented tree (nested by parent) for debugging.
+    labels: optional {chunk_id: stage} from resolve_labels; without it,
+    auto labels are shown and the rest marked <LLM>/<derived/glue>."""
+    def depth(c):
+        d, p = 0, c["parent"]
+        while p is not None:
+            d, p = d + 1, p["parent"]
+        return d
+
+    out = []
+    for c in sorted(chunks, key=lambda c: c["start"]):
+        if labels:
+            label = labels.get(c["id"], "?")
+        else:
+            label = c["auto_label"] or ("<LLM>" if c["llm"] else "<derived/glue>")
+        out.append(f"{'    ' * depth(c)}#{c['id']:>3} "
+                   f"L{c['start']:>4}-{c['end']:<4} {c['category']:<11} {label}")
+    return "\n".join(out)
 
 
 def resolve_labels(chunks, llm_labels: dict):
@@ -179,7 +200,7 @@ def resolve_labels(chunks, llm_labels: dict):
     # docstrings + glue-only chunks: attach forward to the next labeled chunk
     ordered = sorted(chunks, key=lambda c: c["start"])
     for i, c in enumerate(ordered):
-        if c["kind"] in ("docstring", "glue"):
+        if c["category"] in ("docstring", "glue"):
             nxt = next((labels.get(d["id"]) for d in ordered[i + 1:]
                         if d["id"] in labels), None)
             prv = next((labels.get(d["id"]) for d in reversed(ordered[:i])
@@ -187,12 +208,12 @@ def resolve_labels(chunks, llm_labels: dict):
             labels[c["id"]] = nxt or prv or ENV
 
     # derive def headers bottom-up (deepest spans first)
-    headers = [c for c in chunks if c["kind"] == "def_header"]
+    headers = [c for c in chunks if c["category"] == "def_header"]
 
     def derive(h):
         kids = [labels[c["id"]] for c in chunks
                 if c["parent"] is h and c["id"] in labels
-                and c["kind"] not in ("docstring", "glue")]
+                and c["category"] not in ("docstring", "glue")]
         if not kids:
             return PS
         return kids[0] if len(set(kids)) == 1 else PS

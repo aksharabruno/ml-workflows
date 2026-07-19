@@ -22,7 +22,7 @@ _REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_REPO_ROOT))
 sys.path.insert(0, str(_REPO_ROOT / "ast_after_llm"))
 
-from ast_chunker import chunk_source, resolve_labels, expand_to_lines, lines_to_stages
+from ast_chunker import chunk_source, resolve_labels, expand_to_lines, lines_to_stages, dump_tree
 from llm_detector import _parse_json_response
 from prompts import STAGE_DEFINITIONS
 
@@ -77,7 +77,10 @@ into chunks by a parser. Assign exactly one stage to every chunk marked
   flow to that call.
 - Training-loop chunks: per-epoch validation, early stopping, checkpointing,
   and training-accuracy tracking inside the loop are model_generation. Only
-  post-training scoring on held-out data is model_evaluation.
+  post-training scoring on held-out data is model_evaluation. Post-fit
+  decision-threshold selection on VALIDATION data is tuning -> model_generation;
+  diagnostics reported on training data (OOB, train-set confusion) ->
+  model_evaluation.
 - Functions/classes are labeled by their CONTENT, not their call site.
   Metric helper defs -> model_evaluation. Training-history plots after
   training -> model_evaluation.
@@ -101,6 +104,8 @@ Return ONLY a JSON object, no markdown, no explanation:
 def run(input_path: Path):
     source = input_path.read_text(encoding="utf-8")
     chunks = chunk_source(source)
+    print(dump_tree(chunks))                    # pre-labeling view (shown above); debugging
+    
 
     prompt = build_chunk_prompt(source, chunks)
     client = anthropic.Anthropic()
@@ -122,9 +127,13 @@ def run(input_path: Path):
     llm_labels = {int(k): v for k, v in raw.items()
                   if isinstance(v, str) and v in VALID}
 
+    print(llm_labels)  # raw LLM output; debugging
+
     resolved = resolve_labels(chunks, llm_labels)
     line_label = expand_to_lines(source, chunks, resolved)
     stages = lines_to_stages(line_label)
+
+    print(dump_tree(chunks, labels=resolve_labels(chunks, llm_labels)))  # final stages; debugging
 
     result = {
         "file": input_path.name,
