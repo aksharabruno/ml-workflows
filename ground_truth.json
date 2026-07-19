@@ -1,329 +1,492 @@
 [
-    {
-        "file_name": "script_t1_01.py",
-        "file_type": "script",
-        "level": 1,
-        "description": "sklearn example- !!!!could be level 2; unsure!!!!",
-        "source_url": "manual",
-        "is_ml_training_workflow": true,
-        "models": ["RandomForestClassifier"],
-        "stage_labels": {
-            "1-5":  ["library_loading"],
-            "10-11": ["data_preparation"],
-            "14":   ["train_test_splitting"],
-            "17-18": ["feature_transformation"],
-            "22":   ["model_building"],
-            "23":   ["model_training"],
-            "25-26": ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t1_02.py",
-        "file_type": "script",
-        "level": 1,
-        "description": "XGBoost example",
-        "source_url": "https://xgboost.readthedocs.io/en/stable/get_started.html",
-        "is_ml_training_workflow": true,
-        "models": ["XGBClassifier"],
-        "stage_labels": {
-            "1-3":  ["library_loading"],
-            "5": ["data_loading"],
-            "6": ["train_test_splitting"],
-            "8": ["model_building"],
-            "10": ["model_training"],
-            "12": ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t1_03.py",
-        "file_type": "script",
-        "level": 1,
-        "description": "LightGBM example",
-        "source_url": "https://github.com/lightgbm-org/LightGBM/blob/master/examples/python-guide/simple_example.py",
-        "is_ml_training_workflow": true,
-        "models": ["LGBMModel"],
-        "stage_labels": {
-            "2-7":   ["library_loading"],
-            "12-13":  ["data_loading"],
-            "15-18": ["data_preparation"],
-            "21-22": ["data_preparation"],
-            "39-41": ["model_building", "model_training"],
-            "49":    ["model_validation"],
-            "51":   ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t1_04.py",
-        "file_type": "script",
-        "level": 1,
-        "description": "Keras CNN example",
-        "source_url": "https://keras.io/examples/vision/cnn_overview/",
-        "is_ml_training_workflow": true,
-        "models": ["Sequential"],
-        "stage_labels": {
-            "1-3":   ["library_loading"],
-            "10":  ["data_loading"],
-            "13-20": ["data_preparation"],
-            "24-25": ["feature_transformation"],
-            "27-44": ["model_building"],
-            "47":    ["model_training"],
-            "49": ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t1_05.py",
-        "file_type": "script",
-        "level": 1,
-        "description": "Random Forest regression with feature selection",
-        "source_url": "https://www.kaggle.com/code/dansbecker/exercise-machine-learning-competitions",
-        "is_ml_training_workflow": true,
-        "models": ["RandomForestRegressor"],
-        "stage_labels": {
-            "2-5":   ["library_loading"],
-            "9":  ["data_loading"],
-            "16": ["feature_selection"],
-            "20": ["train_test_splitting"],
-            "23": ["model_building"],
-            "24": ["model_training"],
-            "25-26": ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t2_01.py",
-        "file_type": "script",
-        "level": 2,
-        "description": "Artificial Neural Network example",
-        "source_url": "https://github.com/lazyprogrammer/machine_learning_examples/blob/master/keras_examples/ann.py",
-        "is_ml_training_workflow": true,
-        "models": ["Model"],
-        "stage_labels": {
-            "6-11": ["library_loading"],
-            "15": ["data_loading"],
-            "18-19": ["data_preparation"],
-            "22-37": ["model_building"],
-            "45": ["model_training"],
-            "66-68": ["model_validation"]
-        }
-    },
-
-    {
-        "file_name": "script_t2_02.py",
-        "file_type": "script",
-        "level": 2,
-        "description": "20 Newsgroups text classification using a PyTorch CNN with pre-trained GloVe embeddings",
-        "source_url": "https://github.com/CSC-DevDiv/machine-learning-scripts/blob/master/pytorch/pytorch_20ng_cnn.py",
-        "uses_synthetic_data": false,
-        "is_ml_training_workflow": true,
-        "models": ["Net"],
-        "stage_labels": {
-            "10-31":   ["library_loading"],
-            "178-184": ["data_loading"],
-            "211-227": ["data_loading"],
-            "233-235": ["feature_transformation"],
-            "242-257": ["feature_transformation"],
-            "266-273": ["train_test_splitting"],
-            "287-305": ["data_preparation"],
-            "313-325": ["feature_transformation"],
-            "329-335": ["model_building"],
-            "344":     ["model_training"],
-            "347":     ["model_validation"],
-            "358":     ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t2_03.py",
-        "file_type": "script",
-        "level": 2,
-        "description": "Keras autoencoder for fraud detection with EDA and validation interleaved inside a single wrapper function",
-        "source_url": "https://github.com/curiousily/Getting-Things-Done-with-Pytorch/blob/master/06.credit-card-fraud-detection-with-autoencoders-in-keras.ipynb",
-        "uses_synthetic_data": false,
-        "is_ml_training_workflow": true,
-        "models": ["Model"],
-        "stage_labels": {
-            "1-11":  ["library_loading"],
-            "21":    ["data_loading"],
-            "22-47": ["exploratory_data_analysis"],
-            "50-60": ["data_preparation"],
-            "63-81": ["model_building"],
-            "91-97": ["model_training"],
-            "99":    ["data_loading"],
-            "102-107": ["exploratory_data_analysis"],
-            "109-115": ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t2_04.py",
-        "file_type": "script",
-        "level": 2,
-        "description": "PyTorch linear regression with hand-rolled training loop and custom nn.Module subclass",
-        "source_url": "https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/01-basics/linear_regression/main.py",
-        "uses_synthetic_data": true,
-        "is_ml_training_workflow": true,
-        "models": ["LinearRegression"],
-        "stage_labels": {
-            "1-6":   ["library_loading"],
-            "13-21": ["model_building"],
-            "25-32": ["model_building"],
-            "38-46": ["data_preparation"],
-            "48-70": ["model_training"],
-            "72-75": ["exploratory_data_analysis"]
-        }
-    },
-    {
-        "file_name": "script_t3_01.py",
-        "file_type": "script",
-        "level": 3,
-        "description": "Random Forest Classification",
-        "source_url": "https://github.com/florianbeyer/RandomForest-Classification/blob/master/Classification_script.py",
-        "is_ml_training_workflow": true,
-        "models": ["RandomForestClassifier"],
-        "stage_labels": {
-            "35-48":   ["library_loading"],
-            "91-102":  ["data_loading"],
-            "130-135": ["data_loading"],
-            "162-210": ["data_preparation"],
-            "221":     ["model_building"],
-            "228-229": ["model_training"],
-            "241-269": ["model_validation"],
-            "306-331": ["model_validation"],
-            "415-430": ["data_loading"],
-            "488-494": ["model_validation"]
-        }
-    },
-    {
-        "file_name": "script_t3_02.py",
-        "file_type": "script",
-        "level": 3,
-        "description": "DistilBERT fine-tuning for text classification using Horovod distributed training on AzureML",
-        "source_url": "https://github.com/vilcek/fine-tuning-BERT-for-text-classification/blob/master/training_script/train_horovod.py",
-        "uses_synthetic_data": false,
-        "is_ml_training_workflow": true,
-        "models": ["DistilBertForSequenceClassification"],
-        "stage_labels": {
-            "1-15":    ["library_loading"],
-            "17-30":   ["configuration"],
-            "32-36":   ["data_loading"],
-            "39-45":   ["data_preparation"],
-            "47-54":   ["feature_transformation"],
-            "56-59":   ["train_test_splitting"],
-            "61-69":   ["data_preparation"],
-            "73-81":   ["data_preparation"],
-            "83-96":   ["model_building"],
-            "98-115":  ["model_building"],
-            "117-118": ["model_building"],
-            "120-129": ["model_building"],
-            "131-135": ["configuration"],
-            "145-194": ["model_training", "model_validation"],
-            "210":     ["model_validation"]
-        }
-    },
-    {
-        "file_name": "notebook_t3_01.ipynb",
-        "file_type": "notebook",
-        "level": 3,
-        "description": "Kaggle notebook classifying 20 Newsgroups posts using Gemini API embeddings and a Keras dense classifier",
-        "source_url": "https://www.kaggle.com/code/markishere/day-2-classifying-embeddings-with-keras",
-        "uses_synthetic_data": false,
-        "is_ml_training_workflow": true,
-        "models": ["Sequential"],
-        "stage_labels": {
-            "cell-3":         ["library_loading"],
-            "cell-4":         ["library_loading"],
-            "cell-6":         ["configuration"],
-            "cell-9":         ["data_loading"],
-            "cell-13":        ["data_preparation"],
-            "cell-14":        ["data_preparation"],
-            "cell-16":        ["data_preparation"],
-            "cell-17":        ["data_preparation"],
-            "cell-22":        ["feature_transformation"],
-            "cell-24":        ["feature_transformation"],
-            "cell-27":        ["model_building"],
-            "cell-28":        ["model_building"],
-            "cell-30":        ["model_training"],
-            "cell-32":        ["model_validation"],
-            "cell-35":        ["model_validation"],
-            "cell-36":        ["model_validation"]
-        }
-    },
-    {
-        "file_name": "notebook_t3_02.ipynb",
-        "file_type": "notebook",
-        "level": 3,
-        "description": "Kaggle notebook with Random Forest classification on income data, extensive EDA, feature importance analysis, and iterative re-training after feature removal",
-        "source_url": "https://www.kaggle.com/code/prashant111/random-forest-classifier-feature-importance",
-        "uses_synthetic_data": false,
-        "is_ml_training_workflow": true,
-        "models": ["RandomForestClassifier"],
-        "stage_labels": {
-            "cell-5":         ["library_loading"],
-            "cell-6":         ["library_loading"],
-            "cell-7":         ["library_loading"],
-            "cell-9":         ["data_loading"],
-            "cell-12":        ["exploratory_data_analysis"],
-            "cell-15":        ["exploratory_data_analysis"],
-            "cell-17":        ["exploratory_data_analysis"],
-            "cell-19":        ["exploratory_data_analysis"],
-            "cell-22":        ["exploratory_data_analysis"],
-            "cell-24":        ["exploratory_data_analysis"],
-            "cell-26":        ["exploratory_data_analysis"],
-            "cell-29":        ["exploratory_data_analysis"],
-            "cell-31":        ["data_cleaning"],
-            "cell-37":        ["exploratory_data_analysis"],
-            "cell-38":        ["exploratory_data_analysis"],
-            "cell-42":        ["exploratory_data_analysis"],
-            "cell-47":        ["exploratory_data_analysis"],
-            "cell-53":        ["exploratory_data_analysis"],
-            "cell-59":        ["exploratory_data_analysis"],
-            "cell-61":        ["exploratory_data_analysis"],
-            "cell-63":        ["exploratory_data_analysis"],
-            "cell-65":        ["exploratory_data_analysis"],
-            "cell-68":        ["exploratory_data_analysis"],
-            "cell-75":        ["data_cleaning"],
-            "cell-79":        ["exploratory_data_analysis"],
-            "cell-82":        ["exploratory_data_analysis"],
-            "cell-85":        ["exploratory_data_analysis"],
-            "cell-92":        ["data_cleaning"],
-            "cell-94":        ["exploratory_data_analysis"],
-            "cell-100":       ["data_cleaning"],
-            "cell-102":       ["exploratory_data_analysis"],
-            "cell-123":       ["exploratory_data_analysis"],
-            "cell-126":       ["exploratory_data_analysis"],
-            "cell-128":       ["exploratory_data_analysis"],
-            "cell-130":       ["exploratory_data_analysis"],
-            "cell-133":       ["exploratory_data_analysis"],
-            "cell-136":       ["exploratory_data_analysis"],
-            "cell-137":       ["exploratory_data_analysis"],
-            "cell-140":       ["exploratory_data_analysis"],
-            "cell-143":       ["exploratory_data_analysis"],
-            "cell-146":       ["exploratory_data_analysis"],
-            "cell-148":       ["exploratory_data_analysis"],
-            "cell-149":       ["exploratory_data_analysis"],
-            "cell-151":       ["feature_selection"],
-            "cell-153":       ["train_test_splitting"],
-            "cell-163":       ["data_cleaning"],
-            "cell-173":       ["feature_transformation"],
-            "cell-183":       ["feature_transformation"],
-            "cell-188":       ["model_building", "model_training", "model_validation"],
-            "cell-192":       ["model_building", "model_training", "model_validation"],
-            "cell-195":       ["model_building", "model_training"],
-            "cell-197":       ["exploratory_data_analysis"],
-            "cell-200":       ["exploratory_data_analysis"],
-            "cell-203":       ["feature_selection"],
-            "cell-205":       ["model_building", "model_training", "model_validation"],
-            "cell-209":       ["model_validation"],
-            "cell-210":       ["model_validation"],
-            "cell-212":       ["model_validation"]
-        }
-    },
-    {
-        "file_name": "notebook_ml_01.ipynb",
-        "file_type": "notebook",
-        "level": 0,
-        "description": "Machine Learning example notebook",
-        "source_url": "https://www.kaggle.com/code/ybifoundation/sklearn-inbuild-data-sets-for-machine-learning",
-        "is_ml_training_workflow": false,
-        "models": [],
-        "stage_labels": {}
+  {
+    "file_name": "script_t1_01.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "sklearn RandomForest classification on synthetic data",
+    "source_url": "manual",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["RandomForestClassifier"],
+    "stage_labels": {
+      "1-6": ["environment_configuration"],
+      "7": ["program_structure"],
+      "8-19": ["data_preparation"],
+      "20-24": ["model_generation"],
+      "25-29": ["model_evaluation"],
+      "30-31": ["program_structure"]
     }
-
+  },
+  {
+    "file_name": "script_t1_02.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "XGBoost example",
+    "source_url": "https://xgboost.readthedocs.io/en/stable/get_started.html",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["XGBClassifier"],
+    "stage_labels": {
+      "1-4": ["environment_configuration"],
+      "5-6": ["data_preparation"],
+      "7-10": ["model_generation"],
+      "11-12": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t1_03.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "LightGBM example",
+    "source_url": "https://github.com/lightgbm-org/LightGBM/blob/master/examples/python-guide/simple_example.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "regression",
+    "models": ["LGBMModel"],
+    "stage_labels": {
+      "1-8": ["environment_configuration"],
+      "9-23": ["data_preparation"],
+      "24-46": ["model_generation"],
+      "47-52": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t1_04.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "Keras CNN example",
+    "source_url": "https://keras.io/examples/vision/cnn_overview/",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["keras.Sequential"],
+    "stage_labels": {
+      "1-8": ["environment_configuration"],
+      "9-26": ["data_preparation"],
+      "27-48": ["model_generation"],
+      "49-51": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t1_05.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "Random Forest regression with feature selection",
+    "source_url": "https://www.kaggle.com/code/dansbecker/exercise-machine-learning-competitions",
+    "is_ml_training_workflow": true,
+    "ml_problem": "regression",
+    "models": ["RandomForestRegressor"],
+    "stage_labels": {
+      "1-6": ["environment_configuration"],
+      "7-11": ["data_preparation"],
+      "12-18": ["feature_engineering"],
+      "19-21": ["data_preparation"],
+      "22-24": ["model_generation"],
+      "25-28": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_01.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Keras functional-API ANN on Kaggle MNIST with training-history plots",
+    "source_url": "https://github.com/lazyprogrammer/machine_learning_examples/blob/master/keras_examples/ann.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["keras.Model"],
+    "stage_labels": {
+      "1-13": ["environment_configuration"],
+      "14-16": ["data_preparation"],
+      "17-47": ["model_generation"],
+      "48-68": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_02.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "20 Newsgroups text classification using a PyTorch CNN with pre-trained GloVe embeddings",
+    "source_url": "https://github.com/CSC-DevDiv/machine-learning-scripts/blob/master/pytorch/pytorch_20ng_cnn.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["Net (custom nn.Module CNN)"],
+    "stage_labels": {
+      "1-42": ["environment_configuration"],
+      "43-72": ["model_generation"],
+      "73-78": ["model_evaluation"],
+      "79-114": ["model_generation"],
+      "115-151": ["model_evaluation"],
+      "152": ["program_structure"],
+      "153-162": ["environment_configuration"],
+      "163-230": ["data_preparation"],
+      "231-261": ["feature_engineering"],
+      "262-306": ["data_preparation"],
+      "307-328": ["feature_engineering"],
+      "329-356": ["model_generation"],
+      "357-361": ["model_evaluation"],
+      "362-363": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t2_03.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Keras autoencoder for fraud detection with EDA and validation interleaved inside a single wrapper function",
+    "source_url": "https://github.com/curiousily/Getting-Things-Done-with-Pytorch/blob/master/06.credit-card-fraud-detection-with-autoencoders-in-keras.ipynb",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["keras.Model (autoencoder)"],
+    "stage_labels": {
+      "1-12": ["environment_configuration"],
+      "13": ["program_structure"],
+      "14-61": ["data_preparation"],
+      "62-100": ["model_generation"],
+      "101-116": ["model_evaluation"],
+      "117-118": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t2_04.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "PyTorch linear regression with hand-rolled training loop and custom nn.Module subclass",
+    "source_url": "https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/01-basics/linear_regression/main.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "regression",
+    "models": ["LinearRegression (custom nn.Module)"],
+    "stage_labels": {
+      "1-8": ["environment_configuration"],
+      "9-22": ["model_generation"],
+      "23": ["program_structure"],
+      "24-37": ["model_generation"],
+      "38-47": ["data_preparation"],
+      "48-71": ["model_generation"],
+      "72-75": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_05.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Keras/PyTorch ResNet18 flower classification with hand-rolled training loop (6 helper functions)",
+    "source_url": "https://github.com/rameeshas2/Flower-Classification-CNN-ResNet18/blob/main/flower29January.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["ResNet18"],
+    "stage_labels": {
+      "1-24": ["environment_configuration"],
+      "25-26": ["model_generation"],
+      "27-28": ["environment_configuration"],
+      "29-78": ["data_preparation"],
+      "79-89": ["model_generation"],
+      "90-91": ["program_structure"],
+      "92": ["model_generation"],
+      "93-94": ["data_preparation"],
+      "95-150": ["model_generation"],
+      "151-175": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_06.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "PyTorch animal image classification train script; model and dataset imported from local modules, argparse config",
+    "source_url": "https://github.com/pdlong4002/animal-classification/blob/main/train.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["CNN (custom nn.Module, local import)"],
+    "stage_labels": {
+      "1-12": ["environment_configuration"],
+      "13-14": ["program_structure"],
+      "15-24": ["environment_configuration"],
+      "25-30": ["data_preparation"],
+      "31-33": ["environment_configuration"],
+      "34-61": ["data_preparation"],
+      "62-171": ["model_generation"],
+      "172-173": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t2_07.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Keras CNN on imbalanced time-series sensor data with StratifiedKFold cross-validation loops",
+    "source_url": "https://github.com/lensureal/CNN-timeseries-classification/blob/main/src/cross_validation.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["keras CNN"],
+    "stage_labels": {
+      "1-12": ["environment_configuration"],
+      "13-38": ["data_preparation"],
+      "39-46": ["model_generation"],
+      "47-62": ["data_preparation"],
+      "63-145": ["model_generation"],
+      "146-162": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_08.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Single-file PyTorch brain-tumor MRI CNN classification with hand-rolled loop, 345 lines",
+    "source_url": "https://github.com/Surianandhan/brain-tumor-cnn-classification/blob/main/brain_tumor_cnn_classification.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["CNN (custom nn.Module)"],
+    "stage_labels": {
+      "1-68": ["environment_configuration"],
+      "69-160": ["data_preparation"],
+      "161-252": ["model_generation"],
+      "253-345": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t2_09.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "Long tutorial-style TensorFlow BERT emotion classification (model.fit API); borderline L2/L3 by length",
+    "source_url": "https://github.com/GideonMwiti/tensorflow-100-days-60-emotion-classification-bert/blob/main/main.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["BERT (TensorFlow)"],
+    "stage_labels": {
+      "1-21": ["environment_configuration"],
+      "22-168": ["data_preparation"],
+      "169-172": ["program_structure"],
+      "173-180": ["environment_configuration"],
+      "181-186": ["data_preparation"],
+      "187-200": ["feature_engineering"],
+      "201-223": ["data_preparation"],
+      "224-278": ["model_generation"],
+      "279-399": ["model_evaluation"],
+      "400-401": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t2_10.py",
+    "file_type": "script",
+    "level": 2,
+    "description": "INFERENCE-ONLY model comparison script (loads saved models, no training) \u2014 negative example for is_ml_training_workflow",
+    "source_url": "https://github.com/Vansh-codi/SkinCancerClassification_Project/blob/main/compare_models.py",
+    "is_ml_training_workflow": false,
+    "ml_problem": "classification",
+    "models": ["Keras.Model"],
+    "stage_labels": {
+      "1-10": ["environment_configuration"],
+      "11-179": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t3_01.py",
+    "file_type": "script",
+    "level": 3,
+    "description": "Notebook-export Random Forest classification of multi-band remote-sensing imagery (GDAL/OGR, shapefile training data); report.txt logging, chunked whole-image prediction with MemoryError fallback, independent shapefile validation",
+    "source_url": "unknown (script header: based on http://ceholden.github.io/open-geo-tutorial/python/chapter_5_classification.html)",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["RandomForestClassifier"],
+    "stage_labels": {
+      "1-84": ["environment_configuration"],
+      "85-104": ["data_preparation"],
+      "105-124": ["environment_configuration"],
+      "125-215": ["data_preparation"],
+      "216-227": ["model_generation"],
+      "228": ["data_preparation"],
+      "229-231": ["model_generation"],
+      "232-401": ["model_evaluation"],
+      "402-433": ["data_preparation"],
+      "434-506": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t3_02.py",
+    "file_type": "script",
+    "level": 3,
+    "description": "DistilBERT fine-tuning for consumer-complaint classification with Horovod distributed training on AzureML; no held-out evaluation (only in-loop validation)",
+    "source_url": "unknown",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": [
+      "DistilBertForSequenceClassification"
+    ],
+    "stage_labels": {
+      "1-31": [
+        "environment_configuration"
+      ],
+      "32-46": [
+        "data_preparation"
+      ],
+      "47-55": [
+        "feature_engineering"
+      ],
+      "56-72": [
+        "data_preparation"
+      ],
+      "73": [
+        "environment_configuration"
+      ],
+      "74-82": [
+        "data_preparation"
+      ],
+      "83-87": [
+        "environment_configuration"
+      ],
+      "88-125": [
+        "model_generation"
+      ],
+      "126-130": [
+        "model_evaluation"
+      ],
+      "131-136": [
+        "environment_configuration"
+      ],
+      "137-210": [
+        "model_generation"
+      ]
+    }
+  },
+  {
+    "file_name": "script_t3_03.py",
+    "file_type": "script",
+    "level": 3,
+    "description": "Colab notebook export (auto-generated), scene classification with custom PyTorch CNN, 416 lines with notebook artifacts",
+    "source_url": "https://github.com/Jelilololad/Scene-Image-Classification-Using-Custom-CNN-PyTorch-/blob/main/untitled15(1).py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": [
+      "CNN (custom nn.Module)"
+    ],
+    "stage_labels": {
+      "1-32": ["environment_configuration"],
+      "33-35": ["data_preparation"],
+      "36": ["environment_configuration"],
+      "37-53": ["data_preparation"],
+      "54-56": ["model_generation"],
+      "57-140": ["data_preparation"],
+      "141-143": ["environment_configuration"],
+      "144-189": ["model_generation"],
+      "190": ["environment_configuration"],
+      "191-224": ["model_generation"],
+      "225-242": ["model_evaluation"],
+      "243-338": ["model_generation"],
+      "339": ["environment_configuration"],
+      "340-371": ["model_generation"],
+      "372-381": ["model_evaluation"],
+      "382-384": ["environment_configuration"],
+      "385-393": ["model_evaluation"],
+      "394": ["environment_configuration"],
+      "395-416": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t3_04.py",
+    "file_type": "script",
+    "level": 3,
+    "description": "BERT fine-tuning for BBC News classification, French-language comments, train/eval epoch functions, tracking, 402 lines",
+    "source_url": "https://github.com/kgomina/bert-classification-bbc/blob/main/train.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": [
+      "BERT (HuggingFace)"
+    ],
+    "stage_labels": {
+      "1-44": ["environment_configuration"],
+      "45-136": ["model_generation"],
+      "137-200": ["model_evaluation"],
+      "201-205": ["program_structure"],
+      "206-224": ["environment_configuration"],
+      "225-226": ["data_preparation"],
+      "227-228": ["model_generation"],
+      "229-238": ["data_preparation"],
+      "239-241": ["environment_configuration"],
+      "242-253": ["data_preparation"],
+      "254-357": ["model_generation"],
+      "358-376": ["model_evaluation"],
+      "377-381": ["program_structure"],
+      "382-401": ["environment_configuration"],
+      "402": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t3_05.py",
+    "file_type": "script",
+    "level": 3,
+    "description": "Parameter-efficient BERT fine-tuning with QLoRA/PEFT stack, modern HuggingFace Trainer pipeline",
+    "source_url": "https://github.com/antonypradeep54/Parameter-Efficient-Fine-Tuning-of-BERT-for-test-classification-using-QLoRA/blob/main/Parameter%20Efficient%20Fine%20Tuning%20of%20BERT%20for%20test%20classification%20using%20QLoRA%20-%2020-Jan-2026.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": [
+      "BERT + QLoRA (PEFT)"
+    ],
+    "stage_labels": {
+      "1-66": ["environment_configuration"],
+      "67-72": ["model_generation"],
+      "73": ["program_structure"],
+      "74-75": ["environment_configuration"],
+      "76-80": ["model_generation"],
+      "81-103": ["data_preparation"],
+      "104-109": ["environment_configuration"],
+      "110-126": ["feature_engineering"],
+      "127-131": ["data_preparation"],
+      "132-144": ["environment_configuration"],
+      "145-212": ["model_generation"],
+      "213-220": ["model_evaluation"],
+      "221-232": ["model_generation"],
+      "233-240": ["environment_configuration"],
+      "241-244": ["model_generation"],
+      "245-248": ["model_evaluation"],
+      "249-254": ["model_generation"],
+      "255-256": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t3_06.py",
+    "file_type": "script",
+    "level": 3,
+    "description": "Telco churn MLOps training script with MLflow tracking, joblib persistence, plotting",
+    "source_url": "https://github.com/MohamadRezaChaghomi/Telco-Churn-MLOps/blob/main/src/train.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": ["LogisticRegression", "RandomForestClassifier", "XGBClassifier", "CatBoostClassifier"],
+    "stage_labels": {
+      "1-27": ["environment_configuration"],
+      "28-44": ["model_generation"],
+      "45-64": ["model_evaluation"],
+      "65": ["program_structure"],
+      "66-73": ["data_preparation"],
+      "74-78": ["environment_configuration"],
+      "79-96": ["model_generation"],
+      "97-99": ["model_evaluation"],
+      "100-110": ["model_generation"],
+      "111-115": ["model_evaluation"],
+      "116-122": ["model_generation"],
+      "123-129": ["model_evaluation"],
+      "130-137": ["model_generation"],
+      "138-156": ["model_evaluation"],
+      "157-161": ["program_structure"]
+    }
+  },
+  {
+    "file_name": "script_t3_07.py",
+    "file_type": "script",
+    "level": 3,
+    "description": "Extreme-delegation orchestrator: all stages behind local imports (load_and_prepare_data, train_model), MLflow/dagshub logging only",
+    "source_url": "https://github.com/Tydos/Credit-Risk-Scorer/blob/main/services/train/pytorch_train.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "models": [
+      "LoanPredictor (custom nn.Module, local import)"
+    ],
+    "stage_labels": {
+      "1-32": ["environment_configuration"],
+      "33-57": ["model_evaluation"],
+      "58-70": ["model_generation"],
+      "71-72": ["program_structure"],
+      "73-74": ["data_preparation"],
+      "75-87": ["environment_configuration"],
+      "88-93": ["data_preparation"],
+      "94-103": ["model_generation"],
+      "104-106": ["model_evaluation"],
+      "107-109": ["model_generation"],
+      "110-116": ["program_structure"]
+    }
+  }
 ]

@@ -1,6 +1,6 @@
 # Ground-Truth Labeling Rules
 
-Annotator guide for `ground_truth_v2.json`. Every line of a script receives exactly one
+Annotator guide for `ground_truth.json`. Every line of a script receives exactly one
 stage label. These rules exist so that two annotators labeling the same file
 independently produce the same result. Rules marked **[OPEN]** are pending ratification —
 label provisionally and flag the file.
@@ -21,7 +21,7 @@ extensions, required for total line coverage of real code.
 | `feature_engineering` | Selecting, constructing, or extracting features to improve the input representation |
 | `model_generation` | Defining the model, training it, tuning it, saving it |
 | `model_evaluation` | Assessing the trained model on held-out data: predictions for scoring, metrics, reporting |
-| `program_structure` **[OPEN]** | Lines whose syntactic scope spans multiple stages (wrapper defs, main guards) |
+| `program_structure` | Lines whose syntactic scope spans multiple stages (wrapper defs, main guards) |
 
 A file may omit any ML stage. A training script with no held-out evaluation has no
 `model_evaluation` block (see R20). A file may also be a negative:
@@ -97,6 +97,13 @@ and model?* Yes → env_config.
 - Plot *styling* (`sns.set`, `rcParams`) is NOT env_config → it serves the plotting
   stage (usually data_preparation EDA). Global runtime config → env; stage-serving
   config → that stage.
+- **R34 (ruled 2026-07-18).** Loading a pretrained *processing artifact* — tokenizer,
+  vectorizer — via `from_pretrained`/hub fetch → **env_config** (provisioning: an
+  import-with-arguments, analogous to R10 and auto-`pip install`; also routes to
+  dependency.py in task generation). Loading a pretrained *model* → model_generation
+  (the model flows through it — R21). Reading an embeddings *data file* into memory
+  (t2_02's GloVe) stays data_preparation — data flows. (t2_09 L179, t3_04 L240
+  precedent for env.)
 
 ---
 
@@ -123,44 +130,60 @@ and model?* Yes → env_config.
   t3_02). Rationale: in-loop checks steer training (early stopping, checkpointing) and
   live inside loop bodies that R8 forbids splitting; eval code trapped in a loop could
   never become a separate task file.
+  **Extended (ruled 2026-07-18):** after training ends, the criterion is what the result
+  *feeds*: computation whose output becomes part of the model/decision rule → model_generation
+  (post-fit decision-threshold selection on validation, t2_07 132-145 — the chosen threshold
+  joins the predictor, so it is tuning); computation whose output is only *reported* →
+  model_evaluation (training-set diagnostics: OOB score, feature importances, train-set
+  confusion — t3_01 232-281). Short form: validation data serves model development; held-out
+  test data serves evaluation; reports are evaluation regardless of which data they score.
 - **R21.** Model/checkpoint saving, `save_pretrained`, checkpoint dicts, `load_model` /
   auto-resume for training → **model_generation** ("saving the trained model").
 - **R22.** Training-history plots (`plt.plot(history['loss'])` after training) →
-  **model_evaluation** (inspecting the trained model's performance). **[Ratify:
-  the LLM consistently prefers model_generation here.]**
+  **model_evaluation** (inspecting the trained model's performance). **Confirmed
+  2026-07-18** — deliberately against the LLM's prior (the model prefers
+  model_generation here); ground truth is not tuned toward model behavior.
 - **R23.** Metric helper functions (`def correct(...)`, `def metric_average(...)`) →
-  model_evaluation, even when also called during training. **[Ratify: weak precedent.]**
+  model_evaluation, even when also called during training. **Confirmed 2026-07-18**
+  (precedent now strong: t2_02 `correct`, t3_03 `score`, t3_04 `eval_epoch`,
+  t3_05 `compute_metrics`).
 - **R24.** Functions and classes are labeled by their **content**, not their call site,
   and keep their label wherever they're defined (out-of-execution-order is fine):
   a single-stage `def train_epoch()` → model_generation; `class Net(nn.Module)` →
   model_generation; `def test()` → model_evaluation.
 - **R25.** Cloud/platform data APIs (`Dataset.get_by_name`, `.download()`) →
   data_preparation. Session handles (`Run.get_context()`, workspace) follow data flow
-  to their consumer (usually data_preparation). **[Ratify: could argue env_config.]**
+  to their consumer (usually data_preparation). **Confirmed 2026-07-18.**
 - **R26.** Orchestrator calls that invoke a *single-stage* function imported from
   elsewhere (`train_model(...)`, `load_and_prepare_data(...)`) → that stage, by data
   flow. Calls invoking *multi-stage* functions → program_structure (R27).
 
 ---
 
-## 6. program_structure **[OPEN — proposed 6th label]**
+## 6. program_structure **(RATIFIED 2026-07-18)**
 
-Definition: lines whose syntactic scope spans multiple stages. Exactly three cases:
+Definition: lines whose syntactic scope spans multiple stages. Exactly four cases:
 
 - **R27.** The `def`/`return` lines of a multi-stage container function
   (`def train():` wrapping config→data→model→loop; `def main():`).
 - **R28.** `if __name__ == "__main__":` and the bare call under it.
 - **R29.** Top-level calls that invoke a multi-stage function (`main()`, `train()`).
+- **R33 (ruled 2026-07-18).** `try`/`except`/`finally` wrapper lines around a
+  multi-stage body derive like def headers: body uniform → the body's label;
+  body mixed → program_structure (t3_07 lines 72, 110-112 precedent; the LLM
+  converged on the same reading independently). A try around a single-stage body
+  (t2_02's TensorBoard setup) keeps the body's stage.
 
 NOT program_structure: single-stage function defs (R24), argparse (R14 → env_config),
-orchestrator calls to single-stage functions (R26).
+orchestrator calls to single-stage functions (R26), and **loop/`with`/`if` headers**
+(ruled 2026-07-18): these follow the normal anchor/data-flow rules like any code line
+(t2_07 line 38 → data_preparation via its `skf.split` anchor; t3_07 line 98
+`with mlflow.start_run` → model_generation with its body's first block).
 
 Motivation: semantic honesty; and it makes stage labels a complete routing table for
 task-file generation (env_config → dependency.py; stage blocks → task files;
 program_structure → discarded, replaced by generated run.py).
 
-Fallback if not ratified: wrapper def lines attach forward to the first stage inside;
-main guards attach backward to the last block (t1_01/t2_03 precedent).
 
 ---
 
@@ -171,29 +194,19 @@ main guards attach backward to the last block (t1_01/t2_03 precedent).
   predict-on-upload UI at 151-175; t2_09's custom-phrase predictions at 283-302; t2_10's
   entire body, 11-179, provisionally model_evaluation as a saved-model *comparison*). No
   honest home in the current taxonomy — candidates: new label, or scope-limit the claim.
+  **Status 2026-07-18: deliberately kept OPEN (user ruling) pending error-analysis
+  evidence from the benchmark; the provisional application→model_evaluation convention
+  stands, and negatives are line-score-exempt regardless.**
 - **ml_problem taxonomy**: anomaly detection ruled "classification" (user decision,
   t2_03); clustering/other still untested.
 - ~~Constants-block cohesion~~ **RESOLVED 2026-07-11** → folded into R14 (keep whole →
   env_config; t1_04 re-merged).
-- **Decision-threshold selection on validation** (t2_07, 133-144): "tuning it" is
-  model_generation by definition, but it happens post-fit on validation predictions.
-  Provisionally labeled model_evaluation. Ratify one way.
-- **Multi-stage loop headers** (t2_07, line 38): §6 covers multi-stage *function* defs
-  and main guards only, not loops whose body spans stages. Provisional call: the header
-  contains `skf.split(X, y)`, a splitting anchor → data_preparation. Ratify or extend §6.
-- **Pretrained-artifact loading** (t2_09, line 179): `BertTokenizer.from_pretrained`
-  provisionally env_config; data flow says the tokenizer feeds tokenization →
-  feature_engineering. (Contrast: the TF-Hub BERT *layer* at 239 is a model component →
-  model_generation, uncontested.)
-- **try/except wrappers around multi-stage bodies** (t3_07, lines 72 and 110-112):
-  syntactic scope spans multiple stages, like a wrapper def → provisionally
-  program_structure. §6 lists only three cases; ratify this as a fourth or reassign.
-- **Post-training diagnostics on TRAINING data** (t3_01, 232-281: OOB score, feature
-  importances, training-set crosstab/confusion): metric anchors say model_evaluation,
-  but the data is not held-out. Provisionally me (Step 1 anchors win). Ratify.
-- **`models` metadata for negatives** (t2_10): does `models` list *loaded* models in
-  inference-only files (current: ["Keras.Model"]) or stay empty since nothing is trained?
-  Matters once extraction scoring exists.
+- ~~Decision-threshold selection~~ **RESOLVED 2026-07-18** → R20 extension (→ model_generation).
+- ~~Multi-stage loop headers~~ **RESOLVED 2026-07-18** → §6 NOT-list (anchor/data-flow apply).
+- ~~Pretrained-artifact loading~~ **RESOLVED 2026-07-18** → R34 (processing artifacts → env).
+- ~~try/except wrappers~~ **RESOLVED 2026-07-18** → R33 (fourth §6 case, derive like defs).
+- ~~Post-training diagnostics on training data~~ **RESOLVED 2026-07-18** → R20 extension (→ model_evaluation).
+- ~~`models` metadata for negatives~~ **RESOLVED 2026-07-18** → R32 clause (descriptive listing).
 
 ---
 
@@ -208,4 +221,7 @@ main guards attach backward to the last block (t1_01/t2_03 precedent).
 - **R32.** Metadata per file: `level` (1 = linear tutorial; 2 = structural complexity —
   functions/classes/hand-rolled loops/interleaving; 3 = real-world scale and noise —
   cloud APIs, tracking, notebook exports, delegation), `source_url`, `ml_problem`,
-  `models`, `is_ml_training_workflow`.
+  `models`, `is_ml_training_workflow`. **Clause (ruled 2026-07-18):** `models`
+  descriptively lists models *present* in the file, whether trained or loaded
+  (t2_10's loaded Keras models count); extraction scoring, when built, targets
+  positives only.
