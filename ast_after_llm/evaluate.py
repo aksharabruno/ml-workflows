@@ -1,5 +1,5 @@
 """
-Evaluate pipeline results against ground_truth_v2.json.
+Evaluate pipeline results against ground_truth.json.
 
 Reads results/<stem>_result.json for each script entry in the ground truth.
 
@@ -18,7 +18,7 @@ from collections import defaultdict
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-GROUND_TRUTH_PATH = REPO_ROOT / "ground_truth_v2.json"
+GROUND_TRUTH_PATH = REPO_ROOT / "ground_truth.json"
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
 TEST_DATA_DIR = REPO_ROOT / "test_data"
 
