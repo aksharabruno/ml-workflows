@@ -84,6 +84,27 @@
     }
   },
   {
+    "file_name": "script_t1_06.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "Linear regression",
+    "source_url": "https://github.com/yr21102004-hub/House-Price-Prediction/blob/main/student2_model_training.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "regression",
+    "models": ["LinearRegression"],
+    "stage_labels": {
+      "1-4": ["environment_configuration"],
+      "5": ["program_structure"],
+      "6-8": ["data_preparation"],
+      "9-14": ["model_generation"],
+      "15-21": ["model_evaluation"],
+      "22-24": ["program_structure"],
+      "25-26": ["environment_configuration"],
+      "27-33": ["data_preparation"],
+      "34-38": ["model_evaluation"]
+    }
+  },
+  {
     "file_name": "script_t2_01.py",
     "file_type": "script",
     "level": 2,
