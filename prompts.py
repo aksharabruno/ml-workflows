@@ -160,7 +160,75 @@ TASK_DEFINITIONS = """
       Examples: `model.predict(X_test)`, `accuracy_score(y_test, y_pred)`, `model.evaluate(...)`
 """
 
+def build_chunk_prompt(source: str, chunks) -> str:
+    lines = source.splitlines()
+    parts = []
+    for c in chunks:
+        text = "\n".join(lines[c["start"] - 1:c["end"]])
+        if c["llm"]:
+            tag = f'CHUNK {c["id"]} (lines {c["start"]}-{c["end"]}) — LABEL THIS:'
+        elif c["auto_label"]:
+            tag = (f'chunk {c["id"]} (lines {c["start"]}-{c["end"]}) — '
+                   f'already labeled: {c["auto_label"]}')
+        else:
+            tag = (f'chunk {c["id"]} (lines {c["start"]}-{c["end"]}) — '
+                   f'derived automatically, do not label')
+        parts.append(f"### {tag}\n{text}")
+    chunk_listing = "\n\n".join(parts)
+    need = [str(c["id"]) for c in chunks if c["llm"]]
 
+    return f"""
+You are an ML pipeline stage classifier. The script below has been pre-split
+into chunks by a parser. Assign exactly one stage to every chunk marked
+"LABEL THIS". Do not invent line numbers — chunk boundaries are fixed.
+
+## The 6 valid stage labels (use ONLY these exact strings):
+- "environment_configuration"
+- "data_preparation"
+- "feature_engineering"
+- "model_generation"
+- "model_evaluation"
+- "program_structure"
+
+## Stage definitions:
+{STAGE_DEFINITIONS}
+
+## Labeling rules:
+- A chunk that computes something belongs to the stage that CONSUMES its
+  output (a params dict used by a fit call -> model_generation; a path used by
+  read_csv -> data_preparation; `num_labels = len(set(labels))` used by the
+  model constructor -> model_generation). Multiple consumers -> FIRST consumer.
+- Constants/config blocks whose values feed several different stages ->
+  environment_configuration. A dict consumed by a single call follows data
+  flow to that call.
+- Training-loop chunks: per-epoch validation, early stopping, checkpointing,
+  and training-accuracy tracking inside the loop are model_generation. Only
+  post-training scoring on held-out data is model_evaluation. Post-fit
+  decision-threshold selection on VALIDATION data is tuning -> model_generation;
+  diagnostics reported on training data (OOB, train-set confusion) ->
+  model_evaluation.
+- Functions/classes are labeled by their CONTENT, not their call site.
+  Metric helper defs -> model_evaluation. Training-history plots after
+  training -> model_evaluation.
+- Use the whole script for context, not chunks in isolation.
+
+## The script, in chunks:
+{chunk_listing}
+
+## Output
+"ml_problem" must be one of: "classification-binary", "classification-multiclass", "regression", "clustering", "other".
+Return ONLY a JSON object, no markdown, no explanation:
+{{
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification",
+    "chunk_labels": {{ {", ".join(f'"{i}": "<stage>"' for i in need[:3])}, ... }}
+}}
+"chunk_labels" must contain every chunk id marked LABEL THIS: {", ".join(need)}
+"""
+
+
+
+# Prompt for previous pipeline -- deprecated
 def build_stage_labeling_prompt(source_code: str) -> str:
     numbered_source = "\n".join(
         f"{i}: {line}" for i, line in enumerate(source_code.splitlines(), start=1)
