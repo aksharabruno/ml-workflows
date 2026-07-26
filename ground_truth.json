@@ -539,15 +539,23 @@
   {
     "file_name": "script_mi_01.py",
     "file_type": "script",
-    "level": 2,
+    "level": null,
     "description": "INFERENCE-ONLY model comparison script (loads saved models, no training) — negative example for is_ml_training_workflow",
     "source_url": "https://github.com/Vansh-codi/SkinCancerClassification_Project/blob/main/compare_models.py",
     "is_ml_training_workflow": false,
     "ml_problem": "classification-multiclass",
     "models": ["Keras.Model"],
-    "stage_labels": {
-      "1-10": ["environment_configuration"],
-      "11-179": ["model_evaluation"]
-    }
+    "stage_labels": null
+  },
+  {
+    "file_name": "script_t1_07.py",
+    "file_type": "script",
+    "level": null,
+    "description": "Binary loss entropy",
+    "source_url": "https://www.geeksforgeeks.org/deep-learning/binary-cross-entropy-log-loss-for-binary-classification/",
+    "is_ml_training_workflow": false,
+    "ml_problem": "classification-binary",
+    "models": null,
+    "stage_labels": null
   }
 ]
