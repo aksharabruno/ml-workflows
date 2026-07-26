@@ -105,6 +105,60 @@
     }
   },
   {
+    "file_name": "script_t1_07.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "A binary classification pipeline predicting student exam pass/fail outcomes based on study hours and attendance.",
+    "source_url": "https://github.com/sharathm0705/Logistic_Regression/blob/main/logistic_regression.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification-binary",
+    "models": ["LogisticRegression"],
+    "stage_labels": {
+      "1-17": ["environment_configuration"],
+      "18-19": ["data_preparation"],
+      "20-23": ["feature_engineering"],
+      "24-28": ["data_preparation"],
+      "29-32": ["model_generation"],
+      "33-42": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t1_08.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "Loan prediction system",
+    "source_url": "https://github.com/vaagdevigoruganti14/Loan-Prediction/blob/main/Prediction.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification-binary",
+    "models": ["keras.Sequential"],
+    "stage_labels": {
+      "1-10": ["environment_configuration"],
+      "11-28": ["data_preparation"],
+      "29-36": ["feature_engineering"],
+      "37-50": ["data_preparation"],
+      "51-91": ["model_generation"],
+      "92-110": ["model_evaluation"]
+    }
+  },
+  {
+    "file_name": "script_t1_09.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "Wine multiclass classification",
+    "source_url": "https://github.com/Dawnschacko03/Wine-Quality-Prediction-Using-Logistic-Regression/blob/main/winequalityprediction.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification-multiclass",
+    "models": ["LogisticRegression"],
+    "stage_labels": {
+      "1-15": ["environment_configuration"],
+      "16-19": ["data_preparation"],
+      "20-23": ["feature_engineering"],
+      "24-46": ["data_preparation"],
+      "47-54": ["model_generation"],
+      "55-79": ["model_evaluation"]
+    }
+  },
+  {
     "file_name": "script_t2_01.py",
     "file_type": "script",
     "level": 2,
@@ -548,7 +602,7 @@
     "stage_labels": null
   },
   {
-    "file_name": "script_t1_07.py",
+    "file_name": "script_mi_02.py",
     "file_type": "script",
     "level": null,
     "description": "Binary loss entropy",
