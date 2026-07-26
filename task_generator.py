@@ -2,7 +2,8 @@
 
 Routing (LABELING_RULES §6 motivation):
   environment_configuration blocks -> dependency.py
-  stage blocks                     -> task_NN_<stage>.py, one function per block
+  stage blocks                     -> task_NN_<stage>/task_NN_<stage>.py (one folder per
+                                      task, ExtremeXP layout), one function per block
   program_structure lines          -> discarded (wrapper defs/main guards), replaced
                                       by the generated run.py
 
@@ -12,7 +13,7 @@ with derived signatures + run.py threading variables -> Tier-1 verification
 (parse, name closure, round-trip).
 
 Usage: python task_generator.py <script> [--labels gt|results|results_chunked]
-Output: generated/<stem>/
+Output: generated/<stem>/ (one task_NN_<stage>/ folder per task + dependency.py + run.py)
 """
 
 import ast
@@ -218,11 +219,14 @@ def generate(script: Path, mode: str):
         func = f"{fb['stage']}_{i}"
         body = textwrap.indent(fb["code"], "    ")
         ret = f"\n    return {', '.join(sig['returns'])}" if sig["returns"] else ""
-        (out / f"{fname}.py").write_text(
+        # one folder per task (ExtremeXP layout: task_NN_<stage>/task_NN_<stage>.py)
+        task_dir = out / fname
+        task_dir.mkdir(exist_ok=True)
+        (task_dir / f"{fname}.py").write_text(
             "from dependency import *  # noqa: F401,F403\n\n\n"
             f"def {func}({', '.join(sig['params'])}):\n{body}{ret}\n",
             encoding="utf-8")
-        run_lines.append(f"from {fname} import {func}")
+        run_lines.append(f"from {fname}.{fname} import {func}")
         call = f"{func}({', '.join(sig['params'])})"
         run_lines.append(
             f"{', '.join(sig['returns'])} = {call}" if sig["returns"] else call)
@@ -232,7 +236,7 @@ def generate(script: Path, mode: str):
 
     # ---- Tier-1 verification ----
     errors = []
-    for f in out.glob("*.py"):
+    for f in out.rglob("*.py"):  # rglob: task .py files now live in per-task subfolders
         try:
             ast.parse(f.read_text())
         except SyntaxError as e:
