@@ -196,7 +196,11 @@ program_structure → discarded, replaced by generated run.py).
   honest home in the current taxonomy — candidates: new label, or scope-limit the claim.
   **Status 2026-07-18: deliberately kept OPEN (user ruling) pending error-analysis
   evidence from the benchmark; the provisional application→model_evaluation convention
-  stands, and negatives are line-score-exempt regardless.**
+  stands, and negatives are line-score-exempt regardless.** Instances now under this
+  provisional me convention (to revisit together when ruled): t2_05 Streamlit UI,
+  t2_09 demo predictions, t2_10 whole body (negative), t2_11 Tkinter UI (156-274),
+  t3_02 _class_to_mean_vote metadata helper (173-176). Accumulating evidence favors a
+  distinct label or a named error category at analysis time.
 - **ml_problem taxonomy**: anomaly detection ruled "classification" (user decision,
   t2_03); clustering/other still untested.
 - ~~Constants-block cohesion~~ **RESOLVED 2026-07-11** → folded into R14 (keep whole →
@@ -214,7 +218,14 @@ program_structure → discarded, replaced by generated run.py).
 
 - **R30.** Label from the source file and these rules only. **Never run the pipeline on
   a file (or look at its `results/*.json`) before its ground truth is written.** Files
-  violating this must be flagged (currently: t3_01).
+  violating this must be flagged (historic: t3_01 — since removed under R35).
+- **R35 (ruled 2026-07-19).** Corpus files must be **author-published artifacts with a
+  verifiable `source_url`** — the artifact studied must be the artifact its author
+  published. Notebook *exports* qualify only if the author committed the .py themselves
+  (t3_03). Removed under this rule, at GT review and before the citable benchmark:
+  t3_01 (an unpublished nbconvert conversion of unknown origin; also the historic R30
+  violation) and t3_02 (no source URL). The criterion is provenance, not score —
+  t3_01 was a low pilot scorer but t3_02 a mid one; both fall to the same rule.
 - **R31.** When a file forces a decision these rules don't cover: make the minimal
   call, mark it **[OPEN]** here, flag the file, and raise it for ratification. Never
   let two files embody two different answers to the same question.

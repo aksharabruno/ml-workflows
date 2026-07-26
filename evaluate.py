@@ -17,9 +17,9 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parent
 GROUND_TRUTH_PATH = REPO_ROOT / "ground_truth.json"
-RESULTS_DIR = Path(__file__).resolve().parent / "results"
+RESULTS_DIR = REPO_ROOT / "ast_after_llm" / "results"  # range-mode default
 TEST_DATA_DIR = REPO_ROOT / "test_data"
 
 
@@ -125,6 +125,11 @@ def evaluate():
 
         gt_by_line = expand_gt(entry["stage_labels"])
         pred_by_line = expand_pred(result.get("stages", []))
+
+        # Pre-registered rule (evaluation design, 2026-07-23): negatives count
+        # toward workflow detection only — no line-level scoring.
+        if not entry.get("is_ml_training_workflow", True):
+            gt_by_line = {}
 
         file_agree = 0
         file_scored = 0
