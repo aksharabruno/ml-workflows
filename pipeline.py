@@ -6,8 +6,8 @@ glue-only chunks are labeled mechanically; def/try headers are derived from
 their children (uniform -> that label, mixed -> program_structure).
 
 Usage:
-  python chunk_pipeline.py <path_to_file>   # classify a single script
-  python chunk_pipeline.py --all            # classify every file in ground_truth.json
+  python pipeline.py <path_to_file>   # classify a single script
+  python pipeline.py --all            # classify every file in ground_truth.json
 Results land in results_chunked/<stem>_result.json (same schema as main.py,
 scoreable via: python evaluate.py llm_with_ast_chunks/results_chunked).
 The --all sweep only runs files that have a ground_truth.json entry, so it never
@@ -126,8 +126,8 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     if not args:
         print("Usage:")
-        print("  python chunk_pipeline.py <path_to_file>   # one file")
-        print("  python chunk_pipeline.py --all            # every file in ground_truth.json")
+        print("  python pipeline.py <path_to_file>   # one file")
+        print("  python pipeline.py --all            # every file in ground_truth.json")
         sys.exit(1)
 
     if args[0] in ("--all", "-a"):
