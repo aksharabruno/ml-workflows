@@ -1,8 +1,8 @@
-"""LLM classification layer for the chunk pipeline.
+"""LLM labeling layer for the chunk pipeline.
 
 Owns everything about talking to the model: client construction, model + token
 config, the API call, and parsing the response into per-chunk stage labels. The
-pipeline calls classify_chunks() and never touches the anthropic SDK directly.
+pipeline calls label_chunks() and never touches the anthropic SDK directly.
 """
 
 import ast
@@ -96,7 +96,7 @@ def _parse_json_response(raw_response: str, verbose: bool = False) -> Optional[D
     return None
 
 
-def classify_chunks(source: str, chunks, quiet: bool = False) -> Tuple[Dict, Dict[int, str]]:
+def label_chunks(source: str, chunks, quiet: bool = False) -> Tuple[Dict, Dict[int, str]]:
     """Send the chunked script to the LLM and return (parsed, llm_labels).
 
     parsed      : full response dict (is_ml_training_workflow, ml_problem, chunk_labels).

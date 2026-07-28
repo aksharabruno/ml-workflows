@@ -1,8 +1,8 @@
 """Chunk-classification pipeline: script -> stage-labeled results (+ optional task files).
 
-Flow (see also the classifier / ast_chunker / task_generator modules):
+Flow (see also the llm_labeler / ast_chunker / task_generator modules):
   ast_chunker  splits the script into logical units
-  classifier   asks the LLM to label each chunk (never emits line numbers)
+  llm_labeler  asks the LLM to label each chunk (never emits line numbers)
   ast_chunker  resolves / derives / merges the labels into line-level stages
   -> results/<stem>_result.json
   With --decompose, task_generator then decomposes the script into executable
@@ -26,7 +26,7 @@ _REPO_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(_REPO_ROOT))
 
 from ast_chunker import chunk_source, resolve_labels, expand_to_lines, lines_to_stages, dump_tree
-from classifier import classify_chunks
+from llm_labeler import label_chunks
 import task_generator
 
 RESULTS_DIR = _REPO_ROOT / "results"
@@ -38,8 +38,8 @@ def run(input_path: Path, quiet: bool = False, decompose: bool = False):
     if not quiet:
         print(dump_tree(chunks))                # pre-labeling view; debugging
 
-    # --- LLM labeling (classifier owns the model interaction) ---
-    parsed, llm_labels = classify_chunks(source, chunks, quiet=quiet)
+    # --- LLM labeling (llm_labeler owns the model interaction) ---
+    parsed, llm_labels = label_chunks(source, chunks, quiet=quiet)
     if not quiet:
         print(llm_labels)                       # raw LLM output; debugging
 
