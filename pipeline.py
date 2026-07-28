@@ -16,6 +16,7 @@ touches a script whose ground truth has not been written yet (R30).
 
 import json
 import sys
+from typing import Dict, Optional
 from pathlib import Path
 
 import anthropic
@@ -27,7 +28,6 @@ sys.path.insert(0, str(_REPO_ROOT))
 sys.path.insert(0, str(_REPO_ROOT / "ast_after_llm"))
 
 from ast_chunker import chunk_source, resolve_labels, expand_to_lines, lines_to_stages, dump_tree
-from llm_detector import _parse_json_response
 from prompts import build_chunk_prompt
 
 load_dotenv()
@@ -37,6 +37,75 @@ VALID = {
     "model_generation", "model_evaluation", "program_structure",
 }
 
+def _parse_json_response(raw_response: str, verbose: bool = False) -> Optional[Dict]:
+    """
+    Attempt to extract and parse a JSON object from an LLM response.
+
+    Strategies:
+    1. Direct JSON parsing
+    2. Extract JSON from markdown code blocks
+    3. Extract balanced JSON objects from text
+    4. Fallback to Python literal_eval for non-strict JSON
+
+    Returns:
+        dict if successful, otherwise None
+    """
+
+    def log(msg):
+        if verbose:
+            print(f"[JSON PARSER] {msg}")
+
+    # ---------- 1. Direct parse ----------
+    try:
+        return json.loads(raw_response)
+    except Exception as e:
+        log(f"Direct parse failed: {e}")
+
+    # ---------- 2. Extract from code blocks ----------
+    code_blocks = re.findall(r"```(?:json)?\s*(.*?)\s*```", raw_response, re.DOTALL)
+
+    for block in code_blocks:
+        try:
+            return json.loads(block)
+        except Exception as e:
+            log(f"Code block JSON parse failed: {e}")
+
+    # ---------- 3. Extract balanced JSON objects ----------
+    def extract_balanced_json(text: str):
+        stack = []
+        start = None
+
+        for i, ch in enumerate(text):
+            if ch == '{':
+                if not stack:
+                    start = i
+                stack.append(ch)
+            elif ch == '}':
+                if stack:
+                    stack.pop()
+                    if not stack and start is not None:
+                        yield text[start:i + 1]
+                        start = None
+
+    for candidate in extract_balanced_json(raw_response):
+        try:
+            return json.loads(candidate)
+        except Exception as e:
+            log(f"Balanced JSON parse failed: {e}")
+
+    # ---------- 4. Fallback: Python-style dict ----------
+    for candidate in extract_balanced_json(raw_response):
+        try:
+            parsed = ast.literal_eval(candidate)
+            if isinstance(parsed, dict):
+                return parsed
+        except Exception as e:
+            log(f"literal_eval failed: {e}")
+
+    # ---------- 5. Give up ----------
+    log("All parsing strategies failed")
+    return None
+    
 
 
 
@@ -83,7 +152,7 @@ def run(input_path: Path, quiet: bool = False):
         "n_chunks": len(chunks),
         "n_llm_chunks": sum(1 for c in chunks if c["llm"]),
     }
-    out_dir = Path(__file__).resolve().parent / "results_chunked"
+    out_dir = Path(__file__).resolve().parent / "results"
     out_dir.mkdir(exist_ok=True)
     out_path = out_dir / f"{input_path.stem}_result.json"
     out_path.write_text(json.dumps(result, indent=2))
