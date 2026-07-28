@@ -159,6 +159,22 @@
     }
   },
   {
+    "file_name": "script_t1_10.py",
+    "file_type": "script",
+    "level": 1,
+    "description": "Classification with Logistic Regression",
+    "source_url": "https://github.com/pavanshantilal/Classification-with-Logistic-Regression/blob/main/logistic_regression.py",
+    "is_ml_training_workflow": true,
+    "ml_problem": "classification-binary",
+    "models": ["LogisticRegression"],
+    "stage_labels": {
+      "1-23": ["environment_configuration"],
+      "24-83": ["data_preparation"],
+      "84-91": ["model_generation"],
+      "92-219": ["model_evaluation"]
+    }
+  },
+  {
     "file_name": "script_t2_01.py",
     "file_type": "script",
     "level": 2,
