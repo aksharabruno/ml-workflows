@@ -627,5 +627,38 @@
     "ml_problem": "classification-binary",
     "models": null,
     "stage_labels": null
+  },
+  {
+    "file_name": "script_non_ml_01.py",
+    "file_type": "script",
+    "level": null,
+    "description": "Web scraper",
+    "source_url": "https://github.com/geekcomputers/Python/blob/master/Web_Scraper.py",
+    "is_ml_training_workflow": false,
+    "ml_problem": null,
+    "models": null,
+    "stage_labels": null
+  },
+  {
+    "file_name": "script_non_ml_02.py",
+    "file_type": "script",
+    "level": null,
+    "description": "Task Planner",
+    "source_url": "https://github.com/geekcomputers/Python/blob/master/TaskPlanner.py",
+    "is_ml_training_workflow": false,
+    "ml_problem": null,
+    "models": null,
+    "stage_labels": null
+  },
+  {
+    "file_name": "script_non_ml_03.py",
+    "file_type": "script",
+    "level": null,
+    "description": "Heap Algorithm",
+    "source_url": "https://github.com/TheAlgorithms/Python/blob/master/divide_and_conquer/heaps_algorithm.py",
+    "is_ml_training_workflow": false,
+    "ml_problem": null,
+    "models": null,
+    "stage_labels": null
   }
 ]
