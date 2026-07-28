@@ -85,6 +85,17 @@ def print_table(tp, fp, fn, title: str):
     print(f"{'MICRO OVERALL':<{col}} {micro_p:>6.2f} {micro_r:>6.2f} {micro_f1:>6.2f}   {total_tp:>4} {total_fp:>4} {total_fn:>4}")
 
 
+def coarse_problem(label: str) -> str:
+    """Collapse subtype labels (e.g. classification-binary) to the base problem
+    type, so coarse scoring ignores the binary/multiclass distinction."""
+    label = (label or "unknown").strip().lower()
+    if label.startswith("classification"):
+        return "classification"
+    if label.startswith("regression"):
+        return "regression"
+    return label
+
+
 def evaluate():
     with open(GROUND_TRUTH_PATH) as f:
         ground_truth = json.load(f)
@@ -99,6 +110,8 @@ def evaluate():
     fn: dict[str, int] = defaultdict(int)
 
     problem_correct = 0
+    problem_coarse_correct = 0
+    problem_mismatches: list[tuple[str, str, str, bool]] = []
     workflow_correct = 0
     evaluated = 0
 
@@ -155,6 +168,11 @@ def evaluate():
         problem_ok = gt_problem == pred_problem
         problem_correct += problem_ok
 
+        coarse_ok = coarse_problem(gt_problem) == coarse_problem(pred_problem)
+        problem_coarse_correct += coarse_ok
+        if not problem_ok:
+            problem_mismatches.append((entry["file_name"], gt_problem, pred_problem, coarse_ok))
+
         wf_ok = entry.get("is_ml_training_workflow") == result.get("is_ml_training_workflow")
         workflow_correct += wf_ok
 
@@ -165,8 +183,14 @@ def evaluate():
     print_table(tp, fp, fn, "Stage labeling (per line, glue masked)")
 
     if evaluated:
-        print(f"\nml_problem accuracy:          {problem_correct}/{evaluated}")
+        print(f"\nml_problem (subtype exact):   {problem_correct}/{evaluated}")
+        print(f"ml_problem (coarse type):     {problem_coarse_correct}/{evaluated}")
         print(f"is_ml_training_workflow:      {workflow_correct}/{evaluated}")
+        if problem_mismatches:
+            print("\nml_problem mismatches:")
+            for name, gt_p, pred_p, coarse_ok in problem_mismatches:
+                kind = "subtype only" if coarse_ok else "COARSE WRONG"
+                print(f"  {name:<22} pred={pred_p:<26} gt={gt_p:<26} [{kind}]")
     print(f"\nFiles evaluated: {evaluated} / {len(entries)}")
 
 
