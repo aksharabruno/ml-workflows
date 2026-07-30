@@ -691,11 +691,11 @@
     "file_name": "script_mi_02.py",
     "file_type": "script",
     "level": null,
-    "description": "Binary loss entropy",
-    "source_url": "https://www.geeksforgeeks.org/deep-learning/binary-cross-entropy-log-loss-for-binary-classification/",
+    "description": "Solar power gen",
+    "source_url": "https://github.com/gayatrikadam2406-eng/Solar_power_gen/blob/main/App.py",
     "is_ml_training_workflow": false,
-    "ml_problem": "classification-binary",
-    "models": null,
+    "ml_problem": "regression",
+    "models": ["local model"],
     "stage_labels": null
   },
   {
@@ -706,7 +706,7 @@
     "source_url": "https://github.com/mohit1683/super_kart_predictor_api/blob/main/backend/app.py",
     "is_ml_training_workflow": false,
     "ml_problem": "regression",
-    "models":["unsure"],
+    "models": ["unsure"],
     "stage_labels": null
   },
   {
@@ -718,6 +718,17 @@
     "is_ml_training_workflow": false,
     "ml_problem": "classification-multiclass",
     "models": ["NeuralNet"],
+    "stage_labels": null
+  },
+  {
+    "file_name": "script_mi_05.py",
+    "file_type": "script",
+    "level": null,
+    "description": "Rental Price Predictor",
+    "source_url": "https://github.com/PalaniIndirasan/rental-price-prediction-rest-api/blob/main/backend/app.py",
+    "is_ml_training_workflow": false,
+    "ml_problem": "regression",
+    "models": ["local model"],
     "stage_labels": null
   },
   {
@@ -748,6 +759,28 @@
     "level": null,
     "description": "Heap Algorithm",
     "source_url": "https://github.com/TheAlgorithms/Python/blob/master/divide_and_conquer/heaps_algorithm.py",
+    "is_ml_training_workflow": false,
+    "ml_problem": null,
+    "models": null,
+    "stage_labels": null
+  },
+  {
+    "file_name": "script_non_ml_04.py",
+    "file_type": "script",
+    "level": null,
+    "description": "Binary loss entropy",
+    "source_url": "https://www.geeksforgeeks.org/deep-learning/binary-cross-entropy-log-loss-for-binary-classification/",
+    "is_ml_training_workflow": false,
+    "ml_problem": null,
+    "models": null,
+    "stage_labels": null
+  },
+  {
+    "file_name": "script_non_ml_05.py",
+    "file_type": "script",
+    "level": null,
+    "description": "Model Redis data in python applications",
+    "source_url": "https://github.com/redis/redis-om-python/blob/main/make_sync.py",
     "is_ml_training_workflow": false,
     "ml_problem": null,
     "models": null,

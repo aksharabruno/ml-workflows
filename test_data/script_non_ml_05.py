@@ -1,0 +1,161 @@
+import os
+import re
+import shutil
+import subprocess
+from pathlib import Path
+
+import unasync
+
+# Files to preserve in redis_om/ directory (not overwritten by sync)
+PRESERVED_FILES = {"README.md"}
+
+ADDITIONAL_REPLACEMENTS = {
+    "aredis_om": "redis_om",
+    "async_redis": "sync_redis",
+    ":tests.": ":tests_sync.",
+    "pytest_asyncio": "pytest",
+    "py_test_mark_asyncio": "py_test_mark_sync",
+    "AsyncMock": "Mock",
+    # RedisVL uses SearchIndex for sync, not SyncSearchIndex
+    "AsyncSearchIndex": "SearchIndex",
+    # Fix supports_hash_field_expiration to check sync Redis class
+    "redis_lib.asyncio.Redis": "redis_lib.Redis",
+}
+
+
+def clean_generated_dir(dirpath: Path, preserved: set):
+    """Remove generated files from a directory while preserving specified files."""
+    if not dirpath.exists():
+        return
+    for item in dirpath.iterdir():
+        if item.name in preserved:
+            continue
+        if item.is_dir():
+            shutil.rmtree(item)
+        else:
+            item.unlink()
+
+
+def main():
+    base_dir = Path(__file__).absolute().parent
+
+    # Clean generated directories before regenerating (preserve README.md)
+    redis_om_dir = base_dir / "redis_om"
+    tests_sync_dir = base_dir / "tests_sync"
+    clean_generated_dir(redis_om_dir, PRESERVED_FILES)
+    clean_generated_dir(tests_sync_dir, set())
+
+    rules = [
+        unasync.Rule(
+            fromdir="/aredis_om/",
+            todir="/redis_om/",
+            additional_replacements=ADDITIONAL_REPLACEMENTS,
+        ),
+        unasync.Rule(
+            fromdir="/tests/",
+            todir="/tests_sync/",
+            additional_replacements=ADDITIONAL_REPLACEMENTS,
+        ),
+    ]
+    # Files to exclude from sync generation (benchmarks require special async handling)
+    excluded_files = {"test_benchmarks.py"}
+
+    filepaths = []
+    for root, _, filenames in os.walk(base_dir):
+        for filename in filenames:
+            if filename in excluded_files:
+                continue
+            if filename.rpartition(".")[-1] in (
+                "py",
+                "pyi",
+            ):
+                filepaths.append(os.path.join(root, filename))
+
+    unasync.unasync_files(filepaths, rules)
+    
+    # Post-process CLI files to remove run_async() wrappers
+    cli_files = [
+        "redis_om/model/cli/migrate_data.py",
+        "redis_om/model/cli/migrate.py"
+    ]
+
+    for cli_file in cli_files:
+        file_path = Path(__file__).absolute().parent / cli_file
+        if file_path.exists():
+            with open(file_path, 'r') as f:
+                content = f.read()
+
+            # Remove run_async() call wrappers (not the function definition)
+            # Only match run_async() calls that are not function definitions
+            def remove_run_async_call(match):
+                inner_content = match.group(1)
+                return inner_content
+
+            # Pattern to match run_async() function calls (not definitions)
+            # Look for = or return statements followed by run_async(...)
+            lines = content.split('\n')
+            new_lines = []
+
+            for line in lines:
+                # Skip function definitions
+                if 'def run_async(' in line:
+                    new_lines.append(line)
+                    continue
+
+                # Replace run_async() calls
+                if 'run_async(' in line and ('=' in line or 'return ' in line or line.strip().startswith('run_async(')):
+                    # Simple pattern for function calls
+                    line = re.sub(r'run_async\(([^)]+(?:\([^)]*\)[^)]*)*)\)', r'\1', line)
+
+                new_lines.append(line)
+
+            content = '\n'.join(new_lines)
+
+            with open(file_path, 'w') as f:
+                f.write(content)
+
+    # Post-process model.py to fix async imports for sync version
+    model_file = Path(__file__).absolute().parent / "redis_om/model/model.py"
+    if model_file.exists():
+        with open(model_file, "r") as f:
+            content = f.read()
+
+        # Fix supports_hash_field_expiration to check sync Redis class
+        # The unasync replacement doesn't work for dotted attribute access
+        content = content.replace(
+            "redis_lib.asyncio.Redis",
+            "redis_lib.Redis",
+        )
+
+        # Fix Pipeline import: redis.asyncio.client -> redis.client
+        content = content.replace(
+            "from redis.asyncio.client import Pipeline",
+            "from redis.client import Pipeline",
+        )
+
+        with open(model_file, "w") as f:
+            f.write(content)
+
+    # Fix duplicated import introduced by Async->sync class replacement.
+    redisvl_file = Path(__file__).absolute().parent / "redis_om/redisvl.py"
+    if redisvl_file.exists():
+        with open(redisvl_file, "r") as f:
+            content = f.read()
+
+        content = content.replace(
+            "from redisvl.index import SearchIndex, SearchIndex",
+            "from redisvl.index import SearchIndex",
+        )
+
+        with open(redisvl_file, "w") as f:
+            f.write(content)
+
+    # Ensure generated sync code is formatter-clean for CI lint checks.
+    subprocess.run(
+        ["ruff", "format", str(redis_om_dir), str(tests_sync_dir)],
+        check=True,
+    )
+
+
+if __name__ == "__main__":
+    main()
