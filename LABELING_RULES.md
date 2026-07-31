@@ -64,7 +64,7 @@ Glue placement never affects evaluation scores (blanks/comments/bare prints are 
 - **R6.** Blocks are per-BLOCK, not per-stage: a stage may appear multiple times
   (interleaving is normal at Levels 2–3). Never merge same-stage blocks across an
   intervening different-stage block — that would misrepresent execution order.
-- **R7.** Single-line blocks are legal (`"73": ["environment_configuration"]` for a lone `hvd.init()`).
+- **R7.** Single-line blocks are legal (`"73": "environment_configuration"` for a lone `hvd.init()`).
 - **R8.** Do not split a logical unit (a loop body, a function body, a multi-line call)
   across two blocks unless it genuinely spans stages.
 - **R9.** Ranges must not overshoot the file's line count.
@@ -187,22 +187,20 @@ program_structure → discarded, replaced by generated run.py).
 
 ---
 
-## 7. Other open questions **[OPEN]**
+## 7. Taxonomy questions & rulings
 
-- **model_application**: inference-heavy code that *applies* a trained model to new data
-  at scale (t3_01's chunked raster prediction, report generation; t2_05's Streamlit
-  predict-on-upload UI at 151-175; t2_09's custom-phrase predictions at 283-302; t2_10's
-  entire body, 11-179, provisionally model_evaluation as a saved-model *comparison*). No
-  honest home in the current taxonomy — candidates: new label, or scope-limit the claim.
-  **Status 2026-07-18: deliberately kept OPEN (user ruling) pending error-analysis
-  evidence from the benchmark; the provisional application→model_evaluation convention
-  stands, and negatives are line-score-exempt regardless.** Instances now under this
-  provisional me convention (to revisit together when ruled): t2_05 Streamlit UI,
-  t2_09 demo predictions, t2_10 whole body (negative), t2_11 Tkinter UI (156-274),
-  t3_02 _class_to_mean_vote metadata helper (173-176). Accumulating evidence favors a
-  distinct label or a named error category at analysis time.
-- **ml_problem taxonomy**: anomaly detection ruled "classification" (user decision,
-  t2_03); clustering/other still untested.
+- **model_application** — **RESOLVED (user ruling): NO separate label.** Inference-heavy
+  code that *applies* a trained model to new data (prediction UIs, demo predictions,
+  batch scoring; e.g. t2_05 Streamlit, t2_09 demo predictions, Tkinter UIs) is labeled
+  **model_evaluation**. The 6-label taxonomy is final; folding application into
+  model_evaluation is a stated scope limitation of the taxonomy — disclosed in the thesis
+  rather than resolved with a 7th label. Negatives remain line-score-exempt regardless.
+- **ml_problem taxonomy** — allowed values: `classification-binary`,
+  `classification-multiclass`, `regression`. Scope is **supervised only**;
+  clustering/other are out of scope (anomaly detection is ruled `classification` —
+  user decision, t2_03). **Dual-task convention:** a script that trains both a classifier
+  and a regressor (t3_01, t3_02) is labeled `regression` provisionally — the single-label
+  `ml_problem` schema cannot express multi-task workflows; a known limitation.
 - ~~Constants-block cohesion~~ **RESOLVED 2026-07-11** → folded into R14 (keep whole →
   env_config; t1_04 re-merged).
 - ~~Decision-threshold selection~~ **RESOLVED 2026-07-18** → R20 extension (→ model_generation).

@@ -1,10 +1,6 @@
 # Detection and Extraction of ML Training Workflows
 
-Real-world ML scripts are written flat: data loading, training, and evaluation
-interleaved in one file, with the workflow structure existing only in the author's
-head. This tool recovers that structure — labeling every line with its pipeline
-stage — and uses it to decompose the script into an executable, per-stage task
-workflow.
+Real-world ML scripts are written flat: data loading, training, and evaluation interleaved in one file, with the workflow structure existing only in the author's head. This tool recovers that structure — labeling every line with its pipeline stage — and uses it to decompose the script into an executable, per-stage task workflow.
 
 ## The pipeline
 
