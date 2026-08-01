@@ -140,7 +140,7 @@ def evaluate():
         source_lines = source_path.read_text(encoding="utf-8").splitlines()
         n_lines = len(source_lines)
 
-        gt_by_line = expand_gt(entry["stage_labels"])
+        gt_by_line = expand_gt(entry["stage_labels"]) if entry.get("stage_labels") else {}
         pred_by_line = expand_pred(result.get("stages", []))
 
         # Pre-registered rule (evaluation design, 2026-07-23): negatives count

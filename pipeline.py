@@ -66,13 +66,18 @@ def run(input_path: Path, quiet: bool = False, decompose: bool = False):
           f"-> {out_path.name}")
 
     # --- optional downstream: decompose into task files ---
-    if decompose:
+    # Only training workflows decompose into per-stage tasks; inference-only or
+    # non-ML scripts have no training stages to route, so skip them (gated on the
+    # pipeline's own prediction — GT is unavailable for arbitrary inputs).
+    if decompose and result["is_ml_training_workflow"]:
         try:
             task_generator.generate(input_path, mode=str(RESULTS_DIR))
         except (Exception, SystemExit) as exc:
             # a decomposition failure (UNSUPPORTED / etc.) must not void the
             # results we already wrote, nor stop a batch run.
             print(f"{input_path.name}: decomposition skipped — {exc}")
+    elif decompose:
+        print(f"{input_path.name}: decomposition skipped — not a training workflow.")
 
     return result
 
