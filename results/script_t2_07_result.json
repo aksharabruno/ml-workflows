@@ -1,7 +1,7 @@
 {
   "file": "script_t2_07.py",
   "is_ml_training_workflow": true,
-  "ml_problem": "classification",
+  "ml_problem": "classification-binary",
   "stages": [
     {
       "stage": "environment_configuration",
@@ -56,6 +56,16 @@
     {
       "stage": "model_evaluation",
       "start": 146,
+      "end": 154
+    },
+    {
+      "stage": "model_generation",
+      "start": 155,
+      "end": 157
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 158,
       "end": 162
     }
   ],

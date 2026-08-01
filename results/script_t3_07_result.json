@@ -1,7 +1,7 @@
 {
   "file": "script_t3_07.py",
   "is_ml_training_workflow": true,
-  "ml_problem": "classification",
+  "ml_problem": "classification-binary",
   "stages": [
     {
       "stage": "environment_configuration",

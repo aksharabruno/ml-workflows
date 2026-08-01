@@ -1,7 +1,7 @@
 {
   "file": "script_t3_04.py",
   "is_ml_training_workflow": true,
-  "ml_problem": "classification",
+  "ml_problem": "classification-multiclass",
   "stages": [
     {
       "stage": "environment_configuration",
@@ -41,6 +41,16 @@
     {
       "stage": "data_preparation",
       "start": 229,
+      "end": 236
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 237,
+      "end": 241
+    },
+    {
+      "stage": "data_preparation",
+      "start": 242,
       "end": 253
     },
     {

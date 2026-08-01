@@ -1,7 +1,7 @@
 {
   "file": "script_t3_06.py",
   "is_ml_training_workflow": true,
-  "ml_problem": "classification",
+  "ml_problem": "classification-binary",
   "stages": [
     {
       "stage": "environment_configuration",
@@ -56,6 +56,16 @@
     {
       "stage": "model_generation",
       "start": 116,
+      "end": 122
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 123,
+      "end": 123
+    },
+    {
+      "stage": "model_generation",
+      "start": 124,
       "end": 137
     },
     {

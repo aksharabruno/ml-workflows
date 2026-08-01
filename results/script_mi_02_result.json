@@ -1,0 +1,45 @@
+{
+  "file": "script_mi_02.py",
+  "is_ml_training_workflow": false,
+  "ml_problem": "regression",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 13
+    },
+    {
+      "stage": "model_generation",
+      "start": 14,
+      "end": 18
+    },
+    {
+      "stage": "program_structure",
+      "start": 19,
+      "end": 19
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 20,
+      "end": 21
+    },
+    {
+      "stage": "program_structure",
+      "start": 22,
+      "end": 23
+    },
+    {
+      "stage": "data_preparation",
+      "start": 24,
+      "end": 49
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 50,
+      "end": 57
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 18,
+  "n_llm_chunks": 14
+}

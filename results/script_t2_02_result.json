@@ -1,7 +1,7 @@
 {
   "file": "script_t2_02.py",
   "is_ml_training_workflow": true,
-  "ml_problem": "classification",
+  "ml_problem": "classification-multiclass",
   "stages": [
     {
       "stage": "environment_configuration",
@@ -26,11 +26,6 @@
     {
       "stage": "model_evaluation",
       "start": 115,
-      "end": 145
-    },
-    {
-      "stage": "model_generation",
-      "start": 146,
       "end": 151
     },
     {
@@ -51,11 +46,11 @@
     {
       "stage": "feature_engineering",
       "start": 229,
-      "end": 236
+      "end": 239
     },
     {
-      "stage": "environment_configuration",
-      "start": 237,
+      "stage": "data_preparation",
+      "start": 240,
       "end": 241
     },
     {

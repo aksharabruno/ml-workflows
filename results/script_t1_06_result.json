@@ -1,0 +1,60 @@
+{
+  "file": "script_t1_06.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "regression",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 4
+    },
+    {
+      "stage": "program_structure",
+      "start": 5,
+      "end": 6
+    },
+    {
+      "stage": "data_preparation",
+      "start": 7,
+      "end": 8
+    },
+    {
+      "stage": "model_generation",
+      "start": 9,
+      "end": 14
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 15,
+      "end": 21
+    },
+    {
+      "stage": "program_structure",
+      "start": 22,
+      "end": 24
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 25,
+      "end": 26
+    },
+    {
+      "stage": "data_preparation",
+      "start": 27,
+      "end": 30
+    },
+    {
+      "stage": "program_structure",
+      "start": 31,
+      "end": 33
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 34,
+      "end": 38
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 20,
+  "n_llm_chunks": 11
+}

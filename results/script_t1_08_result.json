@@ -1,0 +1,45 @@
+{
+  "file": "script_t1_08.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification-binary",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 10
+    },
+    {
+      "stage": "data_preparation",
+      "start": 11,
+      "end": 25
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 26,
+      "end": 36
+    },
+    {
+      "stage": "data_preparation",
+      "start": 37,
+      "end": 50
+    },
+    {
+      "stage": "model_generation",
+      "start": 51,
+      "end": 91
+    },
+    {
+      "stage": "data_preparation",
+      "start": 92,
+      "end": 99
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 100,
+      "end": 110
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 29,
+  "n_llm_chunks": 20
+}

@@ -1,7 +1,7 @@
 {
   "file": "script_t3_05.py",
   "is_ml_training_workflow": true,
-  "ml_problem": "classification",
+  "ml_problem": "classification-binary",
   "stages": [
     {
       "stage": "environment_configuration",
@@ -41,6 +41,21 @@
     {
       "stage": "data_preparation",
       "start": 97,
+      "end": 101
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 102,
+      "end": 109
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 110,
+      "end": 123
+    },
+    {
+      "stage": "data_preparation",
+      "start": 124,
       "end": 131
     },
     {
@@ -66,16 +81,6 @@
     {
       "stage": "model_generation",
       "start": 221,
-      "end": 232
-    },
-    {
-      "stage": "environment_configuration",
-      "start": 233,
-      "end": 240
-    },
-    {
-      "stage": "model_generation",
-      "start": 241,
       "end": 244
     },
     {
