@@ -255,7 +255,7 @@ def generate(script: Path, mode: str):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python task_generator.py <script> [--labels gt|results|results_chunked]")
+        print("Usage: python task_generator.py <script> [--labels gt|results")
         sys.exit(1)
     mode = "gt"
     if "--labels" in sys.argv:
