@@ -665,7 +665,8 @@
     "stage_labels": {
       "1-17": "environment_configuration",
       "18-49": "data_preparation",
-      "50-54": "model_generation",
+      "50-52": "environment_configuration",
+      "53-54": "model_generation",
       "55-68": "feature_engineering",
       "69-74": "data_preparation",
       "75-89": "model_generation",
