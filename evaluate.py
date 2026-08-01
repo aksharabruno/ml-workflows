@@ -34,14 +34,14 @@ def is_glue(line: str) -> bool:
 
 
 def expand_gt(stage_labels: dict) -> dict[int, set[str]]:
-    """Expand {"1-5": [...], "7": [...]} to per-line label sets."""
+    """Expand {"1-5": "stage", "7": "stage"} to per-line label sets."""
     by_line: dict[int, set[str]] = defaultdict(set)
-    for key, labels in stage_labels.items():
+    for key, label in stage_labels.items():
         parts = key.split("-")
         start = int(parts[0])
         end = int(parts[1]) if len(parts) > 1 else start
         for lineno in range(start, end + 1):
-            by_line[lineno].update(labels)
+            by_line[lineno].add(label)
     return by_line
 
 
@@ -100,9 +100,12 @@ def evaluate():
     with open(GROUND_TRUTH_PATH) as f:
         ground_truth = json.load(f)
 
+    # Positives need stage_labels to be line-scorable; negatives (no stage_labels)
+    # are still evaluated — they count toward workflow detection only.
     entries = [
         e for e in ground_truth
-        if e["file_type"] == "script" and e.get("stage_labels")
+        if e["file_type"] == "script"
+        and (e.get("stage_labels") or not e.get("is_ml_training_workflow", True))
     ]
 
     tp: dict[str, int] = defaultdict(int)
@@ -114,6 +117,7 @@ def evaluate():
     problem_mismatches: list[tuple[str, str, str, bool]] = []
     workflow_correct = 0
     evaluated = 0
+    positives_evaluated = 0  # denominator for ml_problem (negatives excluded)
 
     print(f"Evaluating {len(entries)} script entries...\n")
     print(f"{'File':<22} {'lines':>5} {'match':>5} {'acc':>6}   {'ml_problem':<28} {'wf':>3}")
@@ -125,7 +129,7 @@ def evaluate():
         source_path = TEST_DATA_DIR / entry["file_name"]
 
         if not result_path.exists():
-            print(f"{entry['file_name']:<22} [skip] no result — run main.py first.")
+            print(f"{entry['file_name']:<22} [skip] no result — run pipeline.py first.")
             continue
         if not source_path.exists():
             print(f"{entry['file_name']:<22} [skip] source not found in test_data/.")
@@ -163,29 +167,37 @@ def evaluate():
 
         acc = file_agree / file_scored if file_scored else 0.0
 
+        is_positive = entry.get("is_ml_training_workflow", True)
         gt_problem = entry.get("ml_problem", "unknown")
         pred_problem = result.get("ml_problem", "unknown")
-        problem_ok = gt_problem == pred_problem
-        problem_correct += problem_ok
 
-        coarse_ok = coarse_problem(gt_problem) == coarse_problem(pred_problem)
-        problem_coarse_correct += coarse_ok
-        if not problem_ok:
-            problem_mismatches.append((entry["file_name"], gt_problem, pred_problem, coarse_ok))
+        # ml_problem is scored on positives only; negatives count toward workflow
+        # detection only (pre-registered rule, evaluation design 2026-07-23).
+        if is_positive:
+            problem_ok = gt_problem == pred_problem
+            problem_correct += problem_ok
+            coarse_ok = coarse_problem(gt_problem) == coarse_problem(pred_problem)
+            problem_coarse_correct += coarse_ok
+            if not problem_ok:
+                problem_mismatches.append((entry["file_name"], gt_problem, pred_problem, coarse_ok))
+            problem_str = pred_problem + ("" if problem_ok else f" (gt: {gt_problem})")
+            positives_evaluated += 1
+        else:
+            problem_str = pred_problem + " (neg)"
 
         wf_ok = entry.get("is_ml_training_workflow") == result.get("is_ml_training_workflow")
         workflow_correct += wf_ok
 
-        problem_str = pred_problem + ("" if problem_ok else f" (gt: {gt_problem})")
         print(f"{entry['file_name']:<22} {file_scored:>5} {file_agree:>5} {acc:>6.2f}   {problem_str:<28} {'ok' if wf_ok else 'X':>3}")
         evaluated += 1
 
     print_table(tp, fp, fn, "Stage labeling (per line, glue masked)")
 
     if evaluated:
-        print(f"\nml_problem (subtype exact):   {problem_correct}/{evaluated}")
-        print(f"ml_problem (coarse type):     {problem_coarse_correct}/{evaluated}")
-        print(f"is_ml_training_workflow:      {workflow_correct}/{evaluated}")
+        if positives_evaluated:
+            print(f"\nml_problem (subtype exact):   {problem_correct}/{positives_evaluated}  (positives only)")
+            print(f"ml_problem (coarse type):     {problem_coarse_correct}/{positives_evaluated}  (positives only)")
+        print(f"is_ml_training_workflow:      {workflow_correct}/{evaluated}  (incl. {evaluated - positives_evaluated} negatives)")
         if problem_mismatches:
             print("\nml_problem mismatches:")
             for name, gt_p, pred_p, coarse_ok in problem_mismatches:

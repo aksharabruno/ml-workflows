@@ -36,9 +36,9 @@ def load_blocks(script: Path, mode: str):
         gt = json.loads((REPO / "ground_truth.json").read_text())
         entry = next(e for e in gt if e["file_name"] == script.name)
         blocks = []
-        for k, stages in entry["stage_labels"].items():
+        for k, stage in entry["stage_labels"].items():
             p = k.split("-")
-            blocks.append({"stage": stages[0], "start": int(p[0]), "end": int(p[-1])})
+            blocks.append({"stage": stage, "start": int(p[0]), "end": int(p[-1])})
     else:
         mode_dirs = {
             "results": "ast_after_llm/results",
