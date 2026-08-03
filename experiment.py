@@ -106,7 +106,7 @@ def main(n_runs: int):
 
     for i in range(1, n_runs + 1):
         out = REPO / f"experiment_results/run{i}"
-        out.mkdir(exist_ok=True)
+        out.mkdir(parents=True, exist_ok=True)
         pipeline.RESULTS_DIR = out                # redirect this run's output
         print(f"=== RUN {i}/{n_runs}  ->  {out.name}/ ===")
         ok = failed = 0
