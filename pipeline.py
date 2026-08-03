@@ -26,7 +26,7 @@ _REPO_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(_REPO_ROOT))
 
 from ast_chunker import chunk_source, resolve_labels, expand_to_lines, lines_to_stages, dump_tree
-from llm_labeler import label_chunks
+from llm_labeller import label_chunks
 import task_generator
 
 RESULTS_DIR = _REPO_ROOT / "results"
