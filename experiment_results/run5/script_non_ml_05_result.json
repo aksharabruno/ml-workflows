@@ -1,0 +1,30 @@
+{
+  "file": "script_non_ml_05.py",
+  "is_ml_training_workflow": false,
+  "ml_problem": "other",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 25
+    },
+    {
+      "stage": "program_structure",
+      "start": 26,
+      "end": 29
+    },
+    {
+      "stage": "data_preparation",
+      "start": 30,
+      "end": 159
+    },
+    {
+      "stage": "program_structure",
+      "start": 160,
+      "end": 161
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 49,
+  "n_llm_chunks": 38
+}

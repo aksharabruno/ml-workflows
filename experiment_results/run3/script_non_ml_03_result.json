@@ -1,0 +1,40 @@
+{
+  "file": "script_non_ml_03.py",
+  "is_ml_training_workflow": false,
+  "ml_problem": "other",
+  "stages": [
+    {
+      "stage": "program_structure",
+      "start": 1,
+      "end": 32
+    },
+    {
+      "stage": "data_preparation",
+      "start": 33,
+      "end": 34
+    },
+    {
+      "stage": "program_structure",
+      "start": 35,
+      "end": 39
+    },
+    {
+      "stage": "data_preparation",
+      "start": 40,
+      "end": 49
+    },
+    {
+      "stage": "program_structure",
+      "start": 50,
+      "end": 53
+    },
+    {
+      "stage": "data_preparation",
+      "start": 54,
+      "end": 56
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 15,
+  "n_llm_chunks": 9
+}

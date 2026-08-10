@@ -1,0 +1,40 @@
+{
+  "file": "script_mi_04.py",
+  "is_ml_training_workflow": false,
+  "ml_problem": "classification-multiclass",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 6
+    },
+    {
+      "stage": "model_generation",
+      "start": 7,
+      "end": 32
+    },
+    {
+      "stage": "data_preparation",
+      "start": 33,
+      "end": 42
+    },
+    {
+      "stage": "program_structure",
+      "start": 43,
+      "end": 44
+    },
+    {
+      "stage": "data_preparation",
+      "start": 45,
+      "end": 45
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 46,
+      "end": 49
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 22,
+  "n_llm_chunks": 15
+}

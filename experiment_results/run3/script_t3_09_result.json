@@ -1,0 +1,50 @@
+{
+  "file": "script_t3_09.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification-multiclass",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 26
+    },
+    {
+      "stage": "model_generation",
+      "start": 27,
+      "end": 91
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 92,
+      "end": 107
+    },
+    {
+      "stage": "program_structure",
+      "start": 108,
+      "end": 111
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 112,
+      "end": 116
+    },
+    {
+      "stage": "data_preparation",
+      "start": 117,
+      "end": 143
+    },
+    {
+      "stage": "model_generation",
+      "start": 144,
+      "end": 185
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 186,
+      "end": 267
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 127,
+  "n_llm_chunks": 97
+}

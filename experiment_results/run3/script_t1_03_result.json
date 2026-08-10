@@ -1,0 +1,30 @@
+{
+  "file": "script_t1_03.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "regression",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 8
+    },
+    {
+      "stage": "data_preparation",
+      "start": 9,
+      "end": 23
+    },
+    {
+      "stage": "model_generation",
+      "start": 24,
+      "end": 46
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 47,
+      "end": 52
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 23,
+  "n_llm_chunks": 14
+}

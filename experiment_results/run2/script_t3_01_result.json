@@ -1,0 +1,175 @@
+{
+  "file": "script_t3_01.py",
+  "is_ml_training_workflow": true,
+  "ml_problem": "classification-binary",
+  "stages": [
+    {
+      "stage": "environment_configuration",
+      "start": 1,
+      "end": 64
+    },
+    {
+      "stage": "data_preparation",
+      "start": 65,
+      "end": 137
+    },
+    {
+      "stage": "program_structure",
+      "start": 138,
+      "end": 139
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 140,
+      "end": 145
+    },
+    {
+      "stage": "data_preparation",
+      "start": 146,
+      "end": 149
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 150,
+      "end": 151
+    },
+    {
+      "stage": "data_preparation",
+      "start": 152,
+      "end": 152
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 153,
+      "end": 153
+    },
+    {
+      "stage": "data_preparation",
+      "start": 154,
+      "end": 154
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 155,
+      "end": 155
+    },
+    {
+      "stage": "data_preparation",
+      "start": 156,
+      "end": 159
+    },
+    {
+      "stage": "model_generation",
+      "start": 160,
+      "end": 162
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 163,
+      "end": 164
+    },
+    {
+      "stage": "model_generation",
+      "start": 165,
+      "end": 168
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 169,
+      "end": 182
+    },
+    {
+      "stage": "model_generation",
+      "start": 183,
+      "end": 186
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 187,
+      "end": 191
+    },
+    {
+      "stage": "program_structure",
+      "start": 192,
+      "end": 193
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 194,
+      "end": 199
+    },
+    {
+      "stage": "data_preparation",
+      "start": 200,
+      "end": 203
+    },
+    {
+      "stage": "environment_configuration",
+      "start": 204,
+      "end": 206
+    },
+    {
+      "stage": "data_preparation",
+      "start": 207,
+      "end": 207
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 208,
+      "end": 208
+    },
+    {
+      "stage": "data_preparation",
+      "start": 209,
+      "end": 209
+    },
+    {
+      "stage": "feature_engineering",
+      "start": 210,
+      "end": 210
+    },
+    {
+      "stage": "data_preparation",
+      "start": 211,
+      "end": 214
+    },
+    {
+      "stage": "model_generation",
+      "start": 215,
+      "end": 221
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 222,
+      "end": 231
+    },
+    {
+      "stage": "model_generation",
+      "start": 232,
+      "end": 235
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 236,
+      "end": 266
+    },
+    {
+      "stage": "data_preparation",
+      "start": 267,
+      "end": 268
+    },
+    {
+      "stage": "model_generation",
+      "start": 269,
+      "end": 270
+    },
+    {
+      "stage": "model_evaluation",
+      "start": 271,
+      "end": 271
+    }
+  ],
+  "mode": "chunk_classification",
+  "n_chunks": 126,
+  "n_llm_chunks": 91
+}

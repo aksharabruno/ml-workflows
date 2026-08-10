@@ -1,0 +1,155 @@
+{
+  "n_runs": 5,
+  "model": "see llm_labeller.MODEL",
+  "per_stage": {
+    "environment_configuration": {
+      "precision": [
+        0.9515045345430411,
+        0.000653530371828174
+      ],
+      "recall": [
+        0.9754285714285714,
+        0.003097069055525534
+      ],
+      "f1": [
+        0.9633164267651878,
+        0.0017070541502846594
+      ]
+    },
+    "data_preparation": {
+      "precision": [
+        0.8969603528524167,
+        0.006215155104435269
+      ],
+      "recall": [
+        0.9392523364485982,
+        0.0018471248015002086
+      ],
+      "f1": [
+        0.9176073989575002,
+        0.0029542810689868327
+      ]
+    },
+    "feature_engineering": {
+      "precision": [
+        0.8305803416901548,
+        0.03510920897528358
+      ],
+      "recall": [
+        0.6027586206896551,
+        0.04240117558328114
+      ],
+      "f1": [
+        0.6982022263761478,
+        0.03881012534678031
+      ]
+    },
+    "model_generation": {
+      "precision": [
+        0.9627187581668071,
+        0.010105572441046897
+      ],
+      "recall": [
+        0.9579584775086505,
+        0.00277626410655383
+      ],
+      "f1": [
+        0.9603037553893059,
+        0.004435867976128001
+      ]
+    },
+    "model_evaluation": {
+      "precision": [
+        0.9262103549622536,
+        0.0026611495759565145
+      ],
+      "recall": [
+        0.8167709637046308,
+        0.015571795759695403
+      ],
+      "f1": [
+        0.8679884320701438,
+        0.008700983500318914
+      ]
+    },
+    "program_structure": {
+      "precision": [
+        0.4352853165087312,
+        0.007384239158370039
+      ],
+      "recall": [
+        0.8860759493670886,
+        0.023681375865657866
+      ],
+      "f1": [
+        0.5837646335937035,
+        0.011436190038941762
+      ]
+    }
+  },
+  "micro": {
+    "precision": [
+      0.9114323962516734,
+      0.0027526239705435132
+    ],
+    "recall": [
+      0.9114323962516734,
+      0.0027526239705435132
+    ],
+    "f1": [
+      0.9114323962516734,
+      0.0027526239705435132
+    ]
+  },
+  "ml_problem_exact": [
+    0.9333333333333333,
+    0.0
+  ],
+  "ml_problem_coarse": [
+    0.9333333333333333,
+    0.0
+  ],
+  "workflow_detection": [
+    1.0,
+    0.0
+  ],
+  "confusion": {
+    "environment_configuration": {
+      "environment_configuration": 3414,
+      "model_generation": 10,
+      "data_preparation": 61,
+      "program_structure": 15
+    },
+    "program_structure": {
+      "program_structure": 350,
+      "model_evaluation": 36,
+      "model_generation": 4,
+      "data_preparation": 5
+    },
+    "data_preparation": {
+      "data_preparation": 4020,
+      "program_structure": 18,
+      "feature_engineering": 68,
+      "environment_configuration": 159,
+      "model_evaluation": 5,
+      "model_generation": 10
+    },
+    "model_generation": {
+      "model_generation": 5537,
+      "data_preparation": 9,
+      "environment_configuration": 15,
+      "model_evaluation": 219
+    },
+    "model_evaluation": {
+      "model_evaluation": 3263,
+      "data_preparation": 99,
+      "model_generation": 191,
+      "program_structure": 421,
+      "feature_engineering": 21
+    },
+    "feature_engineering": {
+      "feature_engineering": 437,
+      "data_preparation": 288
+    }
+  }
+}
