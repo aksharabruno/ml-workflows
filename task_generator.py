@@ -12,7 +12,7 @@ across blocks into dependency.py -> per-block def/use analysis -> emit task file
 with derived signatures + run.py threading variables -> Tier-1 verification
 (parse, name closure, round-trip).
 
-Usage: python task_generator.py <script> [--labels gt|results|results_chunked]
+Usage: python task_generator.py <script> [--labels gt|results]
 Output: generated/<stem>/ (one task_NN_<stage>/ folder per task + dependency.py + run.py)
 """
 
@@ -40,10 +40,9 @@ def load_blocks(script: Path, mode: str):
             p = k.split("-")
             blocks.append({"stage": stage, "start": int(p[0]), "end": int(p[-1])})
     else:
-        mode_dirs = {
-            "results": "ast_after_llm/results",
-            "results_chunked": "llm_with_ast_chunks/results_chunked",
-        }
+        # "results" is the current pipeline's output dir; any other value is
+        # treated as a path (e.g. "experiment_results/run1").
+        mode_dirs = {"results": "results"}
         result_dir = REPO / mode_dirs.get(mode, mode)
         result = json.loads((result_dir / f"{script.stem}_result.json").read_text())
         blocks = [dict(s) for s in result["stages"]]
