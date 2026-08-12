@@ -1,9 +1,7 @@
 from dependency import *  # noqa: F401,F403
 
 
-def data_preparation_2(num_classes):
-    input_shape = (28, 28, 1)
-
+def data_preparation_1():
     # Load the data and split it between train and test sets
     (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
@@ -22,4 +20,4 @@ def data_preparation_2(num_classes):
     y_train = keras.utils.to_categorical(y_train, num_classes)
     y_test = keras.utils.to_categorical(y_test, num_classes)
 
-    return input_shape, x_test, x_train, y_test, y_train
+    return x_test, x_train, y_test, y_train

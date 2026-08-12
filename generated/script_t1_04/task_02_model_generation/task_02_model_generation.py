@@ -1,7 +1,7 @@
 from dependency import *  # noqa: F401,F403
 
 
-def model_generation_3(input_shape, num_classes, x_train, y_train):
+def model_generation_2(x_train, y_train):
     model = keras.Sequential(
         [
             keras.Input(shape=input_shape),
