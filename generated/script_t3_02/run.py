@@ -1,0 +1,32 @@
+from dependency import *  # noqa: F401,F403
+
+from task_01_data_preparation.task_01_data_preparation import data_preparation_1
+NUMERIC_COLS = data_preparation_1()
+from task_02_data_preparation.task_02_data_preparation import data_preparation_2
+parts = data_preparation_2(NUMERIC_COLS)
+from task_03_feature_engineering.task_03_feature_engineering import feature_engineering_3
+feature_engineering_3(parts)
+from task_04_data_preparation.task_04_data_preparation import data_preparation_4
+df, y = data_preparation_4()
+from task_05_feature_engineering.task_05_feature_engineering import feature_engineering_5
+X = feature_engineering_5(df)
+from task_06_data_preparation.task_06_data_preparation import data_preparation_6
+X_test, X_train, y_test, y_train, y_train_c = data_preparation_6(X, y)
+from task_07_model_generation.task_07_model_generation import model_generation_7
+pipe = model_generation_7(X_train, y_train)
+from task_08_model_evaluation.task_08_model_evaluation import model_evaluation_8
+metrics = model_evaluation_8(X_test, X_train, pipe, y_test)
+from task_09_model_generation.task_09_model_generation import model_generation_9
+model_path = model_generation_9(pipe, y_train, y_train_c)
+from task_10_model_evaluation.task_10_model_evaluation import model_evaluation_10
+model_evaluation_10(metrics)
+from task_11_model_generation.task_11_model_generation import model_generation_11
+model_generation_11(df)
+from task_12_model_evaluation.task_12_model_evaluation import model_evaluation_12
+model_evaluation_12(metrics)
+from task_13_model_generation.task_13_model_generation import model_generation_13
+model_generation_13(model_path, pipe)
+from task_14_model_evaluation.task_14_model_evaluation import model_evaluation_14
+model_evaluation_14()
+from task_15_model_generation.task_15_model_generation import model_generation_15
+model_generation_15()
